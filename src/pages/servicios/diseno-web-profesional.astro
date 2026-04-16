@@ -1,0 +1,338 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PuentesSection from '../../components/PuentesSection.astro';
+import LanguageSelector from '../../components/LanguageSelector.astro';
+import { getTranslations } from '../../i18n';
+import { loadSettings, lightenColor } from '../../lib/settings';
+import '../../styles/global.css';
+
+const t = getTranslations('es');
+const settings = loadSettings();
+const primaryColor = settings.visual.primaryColor;
+const secondaryColor = settings.visual.secondaryColor;
+
+const homeUrl = '/';
+const contactoUrl = '/contacto';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Diseño Web Profesional orientado a conversión",
+  "description": "Diseño web profesional orientado a convertir visitantes en clientes. Webs corporativas, ecommerce y e-learning. Cada decisión de diseño responde a tu negocio.",
+  "provider": {
+    "@type": "Organization",
+    "name": "CIBAI Studio",
+    "url": "https://cibai.studio"
+  },
+  "serviceType": "Diseño Web Profesional para Empresas",
+  "areaServed": { "@type": "Country", "name": "España" },
+  "url": "https://cibai.studio/servicios/diseno-web-profesional/"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://cibai.studio/" },
+    { "@type": "ListItem", "position": 2, "name": "Servicios", "item": "https://cibai.studio/servicios/" },
+    { "@type": "ListItem", "position": 3, "name": "Diseño Web Profesional", "item": "https://cibai.studio/servicios/diseno-web-profesional/" }
+  ]
+};
+---
+
+<Layout
+  title="Diseño Web Profesional orientado a conversión | CIBAI Studio"
+  description="Diseño web profesional orientado a convertir visitantes en clientes. Webs corporativas, ecommerce y e-learning. Cada decisión de diseño responde a tu negocio."
+  locale="es"
+  canonicalPath="/servicios/diseno-web-profesional/"
+  hreflangEs="https://cibai.studio/servicios/diseno-web-profesional/"
+  schemaMarkup={[serviceSchema, breadcrumbSchema]}
+>
+
+<!-- ═══════════════ TOP BAR (HUD) ═══════════════ -->
+<div class="fixed top-0 left-0 right-0 z-50 bg-cyber-black border-b border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-8">
+    <div class="flex items-center gap-4">
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-teal"></span>
+      <span class="font-mono text-[9px] text-cyber-text/60 uppercase tracking-widest">{t.hud.sys_online}</span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-teal/70">{t.hud.node_active}</span>
+    </div>
+    <div class="hidden sm:flex items-center gap-4">
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.ping} <span class="text-cyber-teal/70">8ms</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.uptime} <span class="text-cyber-orange/70">99.9%</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="fixed top-8 left-0 right-0 z-50 border-b border-cyber-border bg-cyber-black/90 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-16">
+    <a href={homeUrl} class="flex items-center gap-1">
+      <span class="text-lg font-bold tracking-tight text-cyber-white">CIBAI</span>
+      <span class="text-lg font-bold tracking-tight text-cyber-orange">.</span>
+      <span class="text-lg font-light tracking-tight text-cyber-orange">STUDIO</span>
+    </a>
+    <div class="flex items-center gap-6">
+      <div class="hidden md:flex items-center gap-8">
+        <a href={homeUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.inicio}</a>
+        <a href="/soluciones-ia-empresas" class="font-mono text-xs uppercase tracking-widest text-cyber-orange transition-colors">{t.nav.servicios}</a>
+        <a href="/studio" class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.studio}</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <LanguageSelector currentLocale="es" />
+        <a href={contactoUrl} class="btn-primary text-xs py-2 px-5 hidden sm:inline-flex">{t.nav.proyecto}</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="main-content" class="relative min-h-[65vh] flex flex-col justify-end pt-32 pb-20 overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.03]" style={`background-image: linear-gradient(color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px); background-size: 60px 60px;`}></div>
+
+  <div class="mx-auto max-w-7xl px-6 w-full">
+    <nav aria-label="breadcrumb" class="mb-8">
+      <ol class="flex items-center gap-2 font-mono text-[10px] text-cyber-text/60 uppercase tracking-widest flex-wrap">
+        <li><a href={homeUrl} class="hover:text-cyber-orange transition-colors">Inicio</a></li>
+        <li class="text-cyber-border">/</li>
+        <li><a href="/soluciones-ia-empresas" class="hover:text-cyber-orange transition-colors">Servicios</a></li>
+        <li class="text-cyber-border">/</li>
+        <li class="text-cyber-orange">Diseño Web Profesional</li>
+      </ol>
+    </nav>
+
+    <div class="section-number mb-4">// DISEÑO_WEB</div>
+
+    <h1 class="text-[clamp(2.5rem,6vw,5rem)] font-black leading-[0.95] tracking-tight mb-6 max-w-4xl">
+      Webs que venden<br/>
+      <span class="text-cyber-orange glow-orange">mientras duermes</span>
+    </h1>
+
+    <h2 class="text-xl md:text-2xl font-light text-cyber-text/80 max-w-2xl mb-8 leading-relaxed">
+      Diseño Web Profesional orientado a conversión
+    </h2>
+
+    <p class="text-cyber-text text-base font-light max-w-2xl leading-relaxed mb-10">
+      Hacemos diseño web para empresas con un único objetivo: convertir visitantes en clientes.
+      Cada elemento, cada estructura, cada decisión de diseño web profesional responde a un objetivo de negocio concreto.
+    </p>
+
+    <div class="flex flex-wrap gap-4">
+      <a href="/portfolio" class="btn-primary btn-glitch">
+        Ver portfolio
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <a href={contactoUrl} class="btn-secondary">
+        Solicitar presupuesto
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ COPY PRINCIPAL (Variante A — PAS) ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      <div>
+        <div class="section-number mb-6">// PROBLEMA</div>
+        <div class="space-y-6">
+          <div class="card-brutal p-8">
+            <div class="font-mono text-[10px] text-cyber-orange uppercase tracking-widest mb-3">PROBLEMA</div>
+            <p class="text-cyber-white font-bold text-lg leading-relaxed">
+              Tienes una web. Pero no está trabajando para ti.
+            </p>
+          </div>
+          <div class="card-brutal p-8">
+            <div class="font-mono text-[10px] text-cyber-teal uppercase tracking-widest mb-3">AGITACIÓN</div>
+            <p class="text-cyber-text leading-relaxed">
+              Cada visitante que rebota es un cliente que eligió a tu competencia.
+              La mayoría rebotan. Una web lenta, desactualizada o confusa no es neutral:
+              activamente aleja clientes.
+            </p>
+          </div>
+          <div class="card-brutal p-8 border-cyber-orange/40">
+            <div class="font-mono text-[10px] text-cyber-orange uppercase tracking-widest mb-3">SOLUCIÓN</div>
+            <p class="text-cyber-text leading-relaxed">
+              Hacemos <strong class="text-cyber-white">diseño web para empresas</strong> con un único objetivo:
+              convertir visitantes en clientes. Cada elemento, cada estructura, cada decisión de
+              diseño web profesional responde a un objetivo de negocio concreto.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-number mb-6">// SERVICIOS</div>
+        <div class="space-y-4">
+          {[
+            {
+              label: 'CORPORATIVA',
+              title: 'Webs corporativas',
+              desc: 'Diseño web profesional para tu imagen, sin concesiones. Rendimiento, velocidad y conversión desde el primer clic.',
+              icon: '🏢',
+              href: '/web-corporativa'
+            },
+            {
+              label: 'ECOMMERCE',
+              title: 'Ecommerce',
+              desc: 'Tienda online profesional. Vende sin fricciones. Optimizado para convertir: UX, checkout, recuperación de carritos.',
+              icon: '🛒',
+              href: '/ecommerce-a-medida'
+            },
+            {
+              label: 'E-LEARNING',
+              title: 'E-learning',
+              desc: 'Tu conocimiento, convertido en negocio escalable. Cursos, membresías y formación online que generan ingresos pasivos.',
+              icon: '📚',
+              href: null
+            }
+          ].map((service) => (
+            <div class="card-brutal p-6 group hover:border-cyber-orange/50 transition-all">
+              <div class="flex items-start gap-4">
+                <span class="text-2xl">{service.icon}</span>
+                <div>
+                  <div class="font-mono text-[9px] text-cyber-orange uppercase tracking-widest mb-1">{service.label}</div>
+                  <h3 class="font-bold text-cyber-white mb-2">{service.title}</h3>
+                  <p class="text-xs text-cyber-text leading-relaxed">{service.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ VARIANTE B (BAB) ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative bg-cyber-black/50">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="section-number mb-8">// TRANSFORMACIÓN</div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {[
+        {
+          step: 'ANTES',
+          color: 'text-cyber-orange',
+          content: 'Una web que existe. Que tiene tus datos de contacto y tu logo. Que nadie visita dos veces.'
+        },
+        {
+          step: 'DESPUÉS',
+          color: 'text-cyber-teal',
+          content: 'Una web que trabaja mientras duermes. Que atrae, convence y cierra clientes a las 3 de la mañana. Que tu competencia mira y no entiende cómo lo has conseguido.'
+        },
+        {
+          step: 'PUENTE',
+          color: 'text-cyber-orange',
+          content: 'Diseño web orientado a conversión: UX estratégico + copy persuasivo + arquitectura de conversión. Construido específicamente para tu negocio y tu público.'
+        }
+      ].map((item) => (
+        <div class="card-brutal p-8">
+          <div class={`font-mono text-[10px] uppercase tracking-widest mb-4 ${item.color}`}>{item.step}</div>
+          <p class="text-cyber-text text-sm leading-relaxed">{item.content}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 text-center">
+      <a href={contactoUrl} class="btn-primary btn-glitch">
+        Quiero una web que convierta
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ENLAZADO INTERNO ═══════════════ -->
+<section class="py-16 border-t border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="section-number mb-8">// SERVICIOS RELACIONADOS</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <a href="/servicios/copywriting-persuasivo/" class="card-brutal p-8 group hover:border-cyber-orange/50 transition-all block">
+        <div class="font-mono text-[9px] text-cyber-orange uppercase tracking-widest mb-2">RELACIONADO → COPY</div>
+        <h3 class="font-bold text-cyber-white group-hover:text-cyber-orange transition-colors mb-2">Copywriting Persuasivo con Neuromarketing</h3>
+        <p class="text-xs text-cyber-text leading-relaxed">Una web que convierte necesita copy que convierte. El diseño y el mensaje trabajan juntos.</p>
+        <div class="mt-4 flex items-center gap-2 text-cyber-border group-hover:text-cyber-orange transition-colors">
+          <span class="font-mono text-[10px]">Ver copywriting</span>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+      </a>
+      <a href={contactoUrl} class="card-brutal p-8 group hover:border-cyber-teal/50 transition-all block">
+        <div class="font-mono text-[9px] text-cyber-teal uppercase tracking-widest mb-2">DIAGNÓSTICO GRATUITO</div>
+        <h3 class="font-bold text-cyber-white group-hover:text-cyber-teal transition-colors mb-2">Solo trabajamos con un número limitado de clientes nuevos al mes</h3>
+        <p class="text-xs text-cyber-text leading-relaxed">Cuéntanos tu proyecto de web y te decimos exactamente qué haríamos diferente.</p>
+        <div class="mt-4 flex items-center gap-2 text-cyber-border group-hover:text-cyber-teal transition-colors">
+          <span class="font-mono text-[10px]">Solicitar presupuesto</span>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<PuentesSection locale="es" />
+
+<!-- ═══════════════ CTA FINAL ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="absolute inset-0 opacity-[0.02]" style={`background-image: linear-gradient(color-mix(in srgb, ${secondaryColor} 20%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, ${secondaryColor} 20%, transparent) 1px, transparent 1px); background-size: 40px 40px;`}></div>
+  <div class="mx-auto max-w-7xl px-6 text-center relative">
+    <div class="section-number mb-4 mx-auto w-fit">// TU NUEVA WEB</div>
+    <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-tight mb-4">
+      ¿Listo para una web que<br/>
+      <span class="text-cyber-orange glow-orange">trabaje para ti?</span>
+    </h2>
+    <p class="text-cyber-text max-w-xl mx-auto mb-10 font-light leading-relaxed">
+      Solo trabajamos con un número limitado de clientes nuevos al mes.
+      Cuéntanos tu proyecto de diseño web y empezamos.
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href="/portfolio" class="btn-primary btn-glitch">
+        Ver portfolio
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <a href={contactoUrl} class="btn-secondary">
+        Solicitar presupuesto
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="border-t border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div>
+        <div class="flex items-center gap-1 mb-4">
+          <span class="text-lg font-bold text-cyber-white">CIBAI</span>
+          <span class="text-lg font-bold text-cyber-orange">.</span>
+          <span class="text-lg font-light text-cyber-orange">STUDIO</span>
+        </div>
+        <p class="text-sm text-cyber-text max-w-sm leading-relaxed">{t.footer.descripcion}</p>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-4">{t.footer.nav_label}</div>
+        <div class="space-y-3">
+          <a href={homeUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_inicio}</a>
+          <a href="/soluciones-ia-empresas" class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_servicios}</a>
+          <a href="/studio" class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_studio}</a>
+          <a href={contactoUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_contacto}</a>
+        </div>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-4">{t.footer.legal_label}</div>
+        <div class="space-y-3">
+          <a href="/privacidad" class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_privacidad}</a>
+          <a href="/aviso-legal" class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_aviso}</a>
+          <a href="/cookies" class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_cookies}</a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-12 pt-8 border-t border-cyber-border flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="font-mono text-[10px] text-cyber-text/40">{t.footer.copyright}</p>
+      <p class="font-mono text-[10px] text-cyber-text/40">{t.footer.made_in}</p>
+    </div>
+  </div>
+</footer>
+
+</Layout>

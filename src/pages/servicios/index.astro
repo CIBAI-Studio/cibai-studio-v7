@@ -1,0 +1,266 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PuentesSection from '../../components/PuentesSection.astro';
+import LanguageSelector from '../../components/LanguageSelector.astro';
+import { getTranslations } from '../../i18n';
+import { loadSettings, lightenColor } from '../../lib/settings';
+import '../../styles/global.css';
+
+const t = getTranslations('es');
+const settings = loadSettings();
+const primaryColor = settings.visual.primaryColor;
+const secondaryColor = settings.visual.secondaryColor;
+
+const homeUrl = '/';
+const contactoUrl = '/contacto';
+
+const services = [
+  {
+    num: '01',
+    label: 'INTELIGENCIA_ARTIFICIAL',
+    title: 'IA que trabaja para tu negocio',
+    h2: 'Inteligencia Artificial para Empresas',
+    desc: 'Agentes IA personalizados, chatbots inteligentes y análisis predictivo. No plantillas genéricas: inteligencia artificial diseñada específicamente para tu empresa.',
+    cta: 'Activar mi IA',
+    href: '/servicios/inteligencia-artificial-para-empresas/',
+    tags: ['AGENTES_IA', 'CHATBOTS', 'PREDICTIVO'],
+    color: 'cyber-orange',
+    metaDesc: 'Creamos agentes de inteligencia artificial para empresas que trabajan 24/7.'
+  },
+  {
+    num: '02',
+    label: 'DISEÑO_WEB',
+    title: 'Webs que venden mientras duermes',
+    h2: 'Diseño Web Profesional orientado a conversión',
+    desc: 'Webs corporativas, ecommerce y plataformas e-learning diseñadas para convertir. Cada decisión responde a un objetivo de negocio concreto.',
+    cta: 'Quiero una web que venda',
+    href: '/servicios/diseno-web-profesional/',
+    tags: ['CORPORATIVA', 'ECOMMERCE', 'E-LEARNING'],
+    color: 'cyber-teal',
+    metaDesc: 'Diseño web profesional orientado a convertir visitantes en clientes.'
+  },
+  {
+    num: '03',
+    label: 'PROGRAMACIÓN_MEDIDA',
+    title: 'Software hecho para ti',
+    h2: 'Desarrollo de Software a Medida para tu Empresa',
+    desc: 'Construimos exactamente la herramienta digital que tu negocio necesita. Sin licencias genéricas, sin adaptarte al software.',
+    cta: 'Cuéntanos tu proyecto',
+    href: '/servicios/desarrollo-software-medida/',
+    tags: ['SAAS', 'APPS', 'GESTIÓN'],
+    color: 'cyber-orange',
+    metaDesc: 'Desarrollo de software a medida para empresas. Sin licencias, sin funciones que no usas.'
+  },
+  {
+    num: '04',
+    label: 'AUTOMATIZACIÓN',
+    title: 'Automatiza. Escala. Libérate.',
+    h2: 'Automatización de Procesos Empresariales con IA',
+    desc: 'Conectamos tus herramientas, automatizamos tus flujos de trabajo y liberamos a tu equipo para lo que de verdad importa.',
+    cta: 'Quiero automatizar mi negocio',
+    href: '/servicios/automatizacion-procesos-empresariales/',
+    tags: ['N8N', 'FLUJOS_IA', 'INTEGRACIONES'],
+    color: 'cyber-teal',
+    metaDesc: 'Automatización de procesos empresariales con IA y N8N.'
+  },
+  {
+    num: '05',
+    label: 'NEUROMARKETING_COPY',
+    title: 'Palabras que venden',
+    h2: 'Copywriting Persuasivo con Neuromarketing Aplicado',
+    desc: 'Combinamos neuromarketing, psicología de ventas y redacción persuasiva para crear mensajes que conectan, convencen y convierten.',
+    cta: 'Quiero copy que venda',
+    href: '/servicios/copywriting-persuasivo/',
+    tags: ['LANDING_PAGES', 'CAMPAÑAS', 'ESTRATEGIA'],
+    color: 'cyber-orange',
+    metaDesc: 'Copywriting persuasivo con neuromarketing aplicado. Copy para webs, landing pages y campañas.'
+  },
+  {
+    num: '06',
+    label: 'DIGITAL_BUSINESS_GROWTH',
+    title: 'De marca a negocio digital',
+    h2: 'Estrategia de Crecimiento Digital para Empresas y Marcas',
+    desc: 'Posicionamiento de marca digital real, embudo de ventas afinado, diferenciación que el mercado percibe. Tu negocio, predecible y escalable.',
+    cta: 'Quiero una estrategia de crecimiento',
+    href: '/servicios/estrategia-crecimiento-digital/',
+    tags: ['POSICIONAMIENTO', 'EMBUDO', 'MARCA_PERSONAL'],
+    color: 'cyber-teal',
+    metaDesc: 'Estrategia de crecimiento digital para empresas y marcas personales.'
+  }
+];
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://cibai.studio/" },
+    { "@type": "ListItem", "position": 2, "name": "Servicios", "item": "https://cibai.studio/servicios/" }
+  ]
+};
+---
+
+<Layout
+  title="Servicios de IA, Web, Software y Marketing Digital | CIBAI Studio"
+  description="6 servicios especializados: inteligencia artificial, diseño web, software a medida, automatización, copywriting y estrategia digital. CIBAI Studio, Berga."
+  locale="es"
+  canonicalPath="/servicios/"
+  hreflangEs="https://cibai.studio/servicios/"
+  schemaMarkup={[breadcrumbSchema]}
+>
+
+<!-- ═══════════════ TOP BAR (HUD) ═══════════════ -->
+<div class="fixed top-0 left-0 right-0 z-50 bg-cyber-black border-b border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-8">
+    <div class="flex items-center gap-4">
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-teal"></span>
+      <span class="font-mono text-[9px] text-cyber-text/60 uppercase tracking-widest">{t.hud.sys_online}</span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-teal/70">{t.hud.node_active}</span>
+    </div>
+    <div class="hidden sm:flex items-center gap-4">
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.ping} <span class="text-cyber-teal/70">8ms</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.uptime} <span class="text-cyber-orange/70">99.9%</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="fixed top-8 left-0 right-0 z-50 border-b border-cyber-border bg-cyber-black/90 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-16">
+    <a href={homeUrl} class="flex items-center gap-1">
+      <span class="text-lg font-bold tracking-tight text-cyber-white">CIBAI</span>
+      <span class="text-lg font-bold tracking-tight text-cyber-orange">.</span>
+      <span class="text-lg font-light tracking-tight text-cyber-orange">STUDIO</span>
+    </a>
+    <div class="flex items-center gap-6">
+      <div class="hidden md:flex items-center gap-8">
+        <a href={homeUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.inicio}</a>
+        <a href="/servicios/" class="font-mono text-xs uppercase tracking-widest text-cyber-orange transition-colors">{t.nav.servicios}</a>
+        <a href="/studio" class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.studio}</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <LanguageSelector currentLocale="es" />
+        <a href={contactoUrl} class="btn-primary text-xs py-2 px-5 hidden sm:inline-flex">{t.nav.proyecto}</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="main-content" class="relative min-h-[55vh] flex flex-col justify-end pt-32 pb-16 overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.03]" style={`background-image: linear-gradient(color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px); background-size: 60px 60px;`}></div>
+
+  <div class="mx-auto max-w-7xl px-6 w-full">
+    <nav aria-label="breadcrumb" class="mb-8">
+      <ol class="flex items-center gap-2 font-mono text-[10px] text-cyber-text/60 uppercase tracking-widest">
+        <li><a href={homeUrl} class="hover:text-cyber-orange transition-colors">Inicio</a></li>
+        <li class="text-cyber-border">/</li>
+        <li class="text-cyber-orange">Servicios</li>
+      </ol>
+    </nav>
+
+    <div class="section-number mb-4">// SERVICIOS</div>
+    <h1 class="text-[clamp(2.5rem,6vw,5rem)] font-black leading-[0.95] tracking-tight mb-6 max-w-4xl">
+      SEIS CATEGORÍAS.<br/>
+      <span class="text-cyber-orange glow-orange">UN SOLO OBJETIVO: HACERTE CRECER.</span>
+    </h1>
+    <p class="text-cyber-text text-lg font-light max-w-2xl leading-relaxed">
+      Inteligencia artificial, diseño web, software a medida, automatización, neuromarketing y crecimiento digital.
+      Cada servicio, pensado para mover tu negocio hacia adelante.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ GRID DE SERVICIOS ═══════════════ -->
+<section class="py-16 border-t border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {services.map((service) => (
+        <a href={service.href} class="card-brutal p-8 group hover:border-cyber-orange/50 transition-all block">
+          <div class="flex items-center justify-between mb-6">
+            <span class="text-4xl font-black text-cyber-orange/50 group-hover:text-cyber-orange/80 transition-colors">{service.num}</span>
+            <svg class="w-5 h-5 text-cyber-border group-hover:text-cyber-orange transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </div>
+          <div class="font-mono text-[9px] text-cyber-orange uppercase tracking-widest mb-2">{service.label}</div>
+          <h2 class="text-xl font-bold mb-2 text-cyber-white group-hover:text-cyber-orange transition-colors">{service.title}</h2>
+          <p class="text-xs text-cyber-text/70 mb-2 font-light">{service.h2}</p>
+          <p class="text-sm text-cyber-text leading-relaxed mb-5">{service.desc}</p>
+          <div class="flex flex-wrap gap-2 mb-5">
+            {service.tags.map((tag: string) => (
+              <span class="font-mono text-[9px] px-2 py-1 border border-cyber-border text-cyber-text/60">{tag}</span>
+            ))}
+          </div>
+          <div class="flex items-center gap-2 text-cyber-border group-hover:text-cyber-orange transition-colors">
+            <span class="font-mono text-[10px]">{service.cta}</span>
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<PuentesSection locale="es" />
+
+<!-- ═══════════════ CTA FINAL ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="absolute inset-0 opacity-[0.02]" style={`background-image: linear-gradient(color-mix(in srgb, ${secondaryColor} 20%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, ${secondaryColor} 20%, transparent) 1px, transparent 1px); background-size: 40px 40px;`}></div>
+  <div class="mx-auto max-w-7xl px-6 text-center relative">
+    <div class="section-number mb-4 mx-auto w-fit">// DIAGNÓSTICO GRATUITO</div>
+    <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-tight mb-4">
+      ¿No sabes por dónde empezar?
+    </h2>
+    <p class="text-cyber-text max-w-xl mx-auto mb-10 font-light leading-relaxed">
+      Solo trabajamos con un número limitado de clientes nuevos al mes.
+      Hablamos 30 minutos, analizamos tu empresa y te decimos exactamente qué servicios tendrían más impacto en tu negocio.
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href={contactoUrl} class="btn-primary btn-glitch">
+        Solicitar diagnóstico gratuito
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="border-t border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div>
+        <div class="flex items-center gap-1 mb-4">
+          <span class="text-lg font-bold text-cyber-white">CIBAI</span>
+          <span class="text-lg font-bold text-cyber-orange">.</span>
+          <span class="text-lg font-light text-cyber-orange">STUDIO</span>
+        </div>
+        <p class="text-sm text-cyber-text max-w-sm leading-relaxed">{t.footer.descripcion}</p>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-4">{t.footer.nav_label}</div>
+        <div class="space-y-3">
+          <a href={homeUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_inicio}</a>
+          <a href="/servicios/" class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_servicios}</a>
+          <a href="/studio" class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_studio}</a>
+          <a href={contactoUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_contacto}</a>
+        </div>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-4">{t.footer.legal_label}</div>
+        <div class="space-y-3">
+          <a href="/privacidad" class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_privacidad}</a>
+          <a href="/aviso-legal" class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_aviso}</a>
+          <a href="/cookies" class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_cookies}</a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-12 pt-8 border-t border-cyber-border flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="font-mono text-[10px] text-cyber-text/40">{t.footer.copyright}</p>
+      <p class="font-mono text-[10px] text-cyber-text/40">{t.footer.made_in}</p>
+    </div>
+  </div>
+</footer>
+
+</Layout>
