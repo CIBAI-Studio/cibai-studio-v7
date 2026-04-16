@@ -1,0 +1,348 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PuentesSection from '../../components/PuentesSection.astro';
+import LanguageSelector from '../../components/LanguageSelector.astro';
+import { getTranslations } from '../../i18n';
+import { loadSettings, lightenColor } from '../../lib/settings';
+import '../../styles/global.css';
+
+const t = getTranslations('es');
+const settings = loadSettings();
+const primaryColor = settings.visual.primaryColor;
+const secondaryColor = settings.visual.secondaryColor;
+
+const homeUrl = '/';
+const contactoUrl = '/contacto';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Desarrollo de Software a Medida para tu Empresa",
+  "description": "Desarrollo de software a medida para empresas. Sin licencias, sin funciones que no usas. Tu herramienta digital, construida exactamente para tu negocio.",
+  "provider": {
+    "@type": "Organization",
+    "name": "CIBAI Studio",
+    "url": "https://cibai.studio"
+  },
+  "serviceType": "Desarrollo de Software a Medida",
+  "areaServed": { "@type": "Country", "name": "España" },
+  "url": "https://cibai.studio/servicios/desarrollo-software-medida/"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://cibai.studio/" },
+    { "@type": "ListItem", "position": 2, "name": "Servicios", "item": "https://cibai.studio/servicios/" },
+    { "@type": "ListItem", "position": 3, "name": "Desarrollo de Software a Medida", "item": "https://cibai.studio/servicios/desarrollo-software-medida/" }
+  ]
+};
+---
+
+<Layout
+  title="Desarrollo de Software a Medida para tu Empresa | CIBAI Studio"
+  description="Desarrollo de software a medida para empresas. Sin licencias, sin funciones que no usas. Tu herramienta digital, construida exactamente para tu negocio."
+  locale="es"
+  canonicalPath="/servicios/desarrollo-software-medida/"
+  hreflangEs="https://cibai.studio/servicios/desarrollo-software-medida/"
+  schemaMarkup={[serviceSchema, breadcrumbSchema]}
+>
+
+<!-- ═══════════════ TOP BAR (HUD) ═══════════════ -->
+<div class="fixed top-0 left-0 right-0 z-50 bg-cyber-black border-b border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-8">
+    <div class="flex items-center gap-4">
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-teal"></span>
+      <span class="font-mono text-[9px] text-cyber-text/60 uppercase tracking-widest">{t.hud.sys_online}</span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-teal/70">{t.hud.node_active}</span>
+    </div>
+    <div class="hidden sm:flex items-center gap-4">
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.ping} <span class="text-cyber-teal/70">8ms</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.uptime} <span class="text-cyber-orange/70">99.9%</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="fixed top-8 left-0 right-0 z-50 border-b border-cyber-border bg-cyber-black/90 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-16">
+    <a href={homeUrl} class="flex items-center gap-1">
+      <span class="text-lg font-bold tracking-tight text-cyber-white">CIBAI</span>
+      <span class="text-lg font-bold tracking-tight text-cyber-orange">.</span>
+      <span class="text-lg font-light tracking-tight text-cyber-orange">STUDIO</span>
+    </a>
+    <div class="flex items-center gap-6">
+      <div class="hidden md:flex items-center gap-8">
+        <a href={homeUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.inicio}</a>
+        <a href="/soluciones-ia-empresas" class="font-mono text-xs uppercase tracking-widest text-cyber-orange transition-colors">{t.nav.servicios}</a>
+        <a href="/studio" class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.studio}</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <LanguageSelector currentLocale="es" />
+        <a href={contactoUrl} class="btn-primary text-xs py-2 px-5 hidden sm:inline-flex">{t.nav.proyecto}</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="main-content" class="relative min-h-[65vh] flex flex-col justify-end pt-32 pb-20 overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.03]" style={`background-image: linear-gradient(color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px); background-size: 60px 60px;`}></div>
+
+  <div class="mx-auto max-w-7xl px-6 w-full">
+    <nav aria-label="breadcrumb" class="mb-8">
+      <ol class="flex items-center gap-2 font-mono text-[10px] text-cyber-text/60 uppercase tracking-widest flex-wrap">
+        <li><a href={homeUrl} class="hover:text-cyber-orange transition-colors">Inicio</a></li>
+        <li class="text-cyber-border">/</li>
+        <li><a href="/soluciones-ia-empresas" class="hover:text-cyber-orange transition-colors">Servicios</a></li>
+        <li class="text-cyber-border">/</li>
+        <li class="text-cyber-orange">Desarrollo de Software a Medida</li>
+      </ol>
+    </nav>
+
+    <div class="section-number mb-4">// PROGRAMACIÓN_MEDIDA</div>
+
+    <h1 class="text-[clamp(2.5rem,6vw,5rem)] font-black leading-[0.95] tracking-tight mb-6 max-w-4xl">
+      Software<br/>
+      <span class="text-cyber-orange glow-orange">hecho para ti</span>
+    </h1>
+
+    <h2 class="text-xl md:text-2xl font-light text-cyber-text/80 max-w-2xl mb-8 leading-relaxed">
+      Desarrollo de Software a Medida para tu Empresa
+    </h2>
+
+    <p class="text-cyber-text text-base font-light max-w-2xl leading-relaxed mb-10">
+      Construimos exactamente la herramienta digital que tu negocio necesita.
+      Ni más, ni menos. Tuya para siempre, sin límites de licencias, sin adaptarte al software: el software se adapta a ti.
+    </p>
+
+    <div class="flex flex-wrap gap-4">
+      <a href={contactoUrl} class="btn-primary btn-glitch">
+        Cuéntanos tu proyecto
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <a href={contactoUrl} class="btn-secondary">
+        Solicitar demo
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ COPY PRINCIPAL (Variante A — PAS) ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      <div>
+        <div class="section-number mb-6">// PROBLEMA</div>
+        <div class="space-y-6">
+          <div class="card-brutal p-8">
+            <div class="font-mono text-[10px] text-cyber-orange uppercase tracking-widest mb-3">PROBLEMA</div>
+            <p class="text-cyber-white font-bold text-lg leading-relaxed">
+              Usas 5 herramientas diferentes para lo que debería ser una sola.
+            </p>
+          </div>
+          <div class="card-brutal p-8">
+            <div class="font-mono text-[10px] text-cyber-teal uppercase tracking-widest mb-3">AGITACIÓN</div>
+            <p class="text-cyber-text leading-relaxed">
+              Pagas licencias que usas al 20%. Tu equipo pierde tiempo cambiando entre plataformas.
+              Los datos nunca están donde los necesitas. Y cada actualización rompe algo.
+            </p>
+          </div>
+          <div class="card-brutal p-8 border-cyber-orange/40">
+            <div class="font-mono text-[10px] text-cyber-orange uppercase tracking-widest mb-3">SOLUCIÓN</div>
+            <p class="text-cyber-text leading-relaxed">
+              Construimos exactamente la <strong class="text-cyber-white">herramienta digital para empresas</strong> que tu
+              negocio necesita. Desarrollo de software a medida: ni más, ni menos.
+              Tuya para siempre, sin límites de licencias, sin funciones que no usas,
+              sin adaptarte al software: el software se adapta a ti.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-number mb-6">// SERVICIOS</div>
+        <div class="space-y-4">
+          {[
+            {
+              label: 'SAAS_MEDIDA',
+              title: 'SaaS a medida',
+              desc: 'Tu producto digital, construido desde cero. Arquitectura escalable, modelo de negocio tuyo.',
+              icon: '☁️'
+            },
+            {
+              label: 'APPS_MEDIDA',
+              title: 'Aplicaciones a medida',
+              desc: 'Web apps, herramientas internas, portales de gestión. Exactamente lo que necesitas, nada más.',
+              icon: '⚙️'
+            },
+            {
+              label: 'GESTIÓN',
+              title: 'Plataforma de gestión empresarial',
+              desc: 'Tu ERP propio. Procesos, datos y workflows centralizados en una sola herramienta que entiendes.',
+              icon: '🏗️'
+            },
+            {
+              label: 'DASHBOARDS',
+              title: 'Dashboards personalizados',
+              desc: 'Visualización de datos de negocio en tiempo real. Toma decisiones con información clara y accionable.',
+              icon: '📊'
+            }
+          ].map((service) => (
+            <div class="card-brutal p-6 group hover:border-cyber-orange/50 transition-all">
+              <div class="flex items-start gap-4">
+                <span class="text-2xl">{service.icon}</span>
+                <div>
+                  <div class="font-mono text-[9px] text-cyber-orange uppercase tracking-widest mb-1">{service.label}</div>
+                  <h3 class="font-bold text-cyber-white mb-2">{service.title}</h3>
+                  <p class="text-xs text-cyber-text leading-relaxed">{service.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ VARIANTE B (FAB) ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative bg-cyber-black/50">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="section-number mb-8">// POR QUÉ A MEDIDA</div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {[
+        {
+          label: 'QUÉ HACEMOS',
+          color: 'text-cyber-orange',
+          content: 'Software empresarial personalizado — desarrollo 100% a medida para tu modelo de negocio'
+        },
+        {
+          label: 'POR QUÉ ES MEJOR',
+          color: 'text-cyber-teal',
+          content: 'Sin restricciones de licencia · Sin funcionalidades innecesarias · Sin adaptarte a herramientas genéricas'
+        },
+        {
+          label: 'QUÉ GANAS TÚ',
+          color: 'text-cyber-orange',
+          content: 'Eficiencia real · Control total · Costes predecibles · Herramienta que crece contigo'
+        }
+      ].map((item) => (
+        <div class="card-brutal p-8">
+          <div class={`font-mono text-[10px] uppercase tracking-widest mb-4 ${item.color}`}>{item.label}</div>
+          <p class="text-cyber-text text-sm leading-relaxed">{item.content}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-8 card-brutal p-8 text-center">
+      <p class="text-cyber-text leading-relaxed max-w-2xl mx-auto">
+        <strong class="text-cyber-white">Programación a medida para empresas:</strong> desde una app sencilla hasta una
+        plataforma de gestión completa. Escalable desde el día uno.
+      </p>
+    </div>
+
+    <div class="mt-8 text-center">
+      <a href={contactoUrl} class="btn-primary btn-glitch">
+        Construir mi herramienta
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ENLAZADO INTERNO ═══════════════ -->
+<section class="py-16 border-t border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="section-number mb-8">// SERVICIOS RELACIONADOS</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <a href="/servicios/inteligencia-artificial-para-empresas/" class="card-brutal p-8 group hover:border-cyber-orange/50 transition-all block">
+        <div class="font-mono text-[9px] text-cyber-orange uppercase tracking-widest mb-2">RELACIONADO → IA</div>
+        <h3 class="font-bold text-cyber-white group-hover:text-cyber-orange transition-colors mb-2">Inteligencia Artificial para Empresas</h3>
+        <p class="text-xs text-cyber-text leading-relaxed">Potencia tu software a medida con capacidades de IA. Agentes, análisis predictivo, automatización inteligente.</p>
+        <div class="mt-4 flex items-center gap-2 text-cyber-border group-hover:text-cyber-orange transition-colors">
+          <span class="font-mono text-[10px]">Ver soluciones IA</span>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+      </a>
+      <a href={contactoUrl} class="card-brutal p-8 group hover:border-cyber-teal/50 transition-all block">
+        <div class="font-mono text-[9px] text-cyber-teal uppercase tracking-widest mb-2">PROYECTO</div>
+        <h3 class="font-bold text-cyber-white group-hover:text-cyber-teal transition-colors mb-2">Solo trabajamos con 4 clientes nuevos al mes</h3>
+        <p class="text-xs text-cyber-text leading-relaxed">Cuéntanos qué herramienta necesita tu empresa y lo construimos exactamente como lo necesitas.</p>
+        <div class="mt-4 flex items-center gap-2 text-cyber-border group-hover:text-cyber-teal transition-colors">
+          <span class="font-mono text-[10px]">Solicitar demo</span>
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<PuentesSection locale="es" />
+
+<!-- ═══════════════ CTA FINAL ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="absolute inset-0 opacity-[0.02]" style={`background-image: linear-gradient(color-mix(in srgb, ${secondaryColor} 20%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, ${secondaryColor} 20%, transparent) 1px, transparent 1px); background-size: 40px 40px;`}></div>
+  <div class="mx-auto max-w-7xl px-6 text-center relative">
+    <div class="section-number mb-4 mx-auto w-fit">// TU SOFTWARE, TUS REGLAS</div>
+    <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-tight mb-4">
+      Deja de adaptarte al software.<br/>
+      <span class="text-cyber-orange glow-orange">Que el software se adapte a ti.</span>
+    </h2>
+    <p class="text-cyber-text max-w-xl mx-auto mb-10 font-light leading-relaxed">
+      Solo trabajamos con 4 clientes nuevos al mes.
+      Cuéntanos tu proyecto y construimos exactamente lo que necesitas.
+    </p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <a href={contactoUrl} class="btn-primary btn-glitch">
+        Cuéntanos tu proyecto
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <a href={contactoUrl} class="btn-secondary">
+        Solicitar demo
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="border-t border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div>
+        <div class="flex items-center gap-1 mb-4">
+          <span class="text-lg font-bold text-cyber-white">CIBAI</span>
+          <span class="text-lg font-bold text-cyber-orange">.</span>
+          <span class="text-lg font-light text-cyber-orange">STUDIO</span>
+        </div>
+        <p class="text-sm text-cyber-text max-w-sm leading-relaxed">{t.footer.descripcion}</p>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-4">{t.footer.nav_label}</div>
+        <div class="space-y-3">
+          <a href={homeUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_inicio}</a>
+          <a href="/soluciones-ia-empresas" class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_servicios}</a>
+          <a href="/studio" class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_studio}</a>
+          <a href={contactoUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_contacto}</a>
+        </div>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-4">{t.footer.legal_label}</div>
+        <div class="space-y-3">
+          <a href="/privacidad" class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_privacidad}</a>
+          <a href="/aviso-legal" class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_aviso}</a>
+          <a href="/cookies" class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_cookies}</a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-12 pt-8 border-t border-cyber-border flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="font-mono text-[10px] text-cyber-text/40">{t.footer.copyright}</p>
+      <p class="font-mono text-[10px] text-cyber-text/40">{t.footer.made_in}</p>
+    </div>
+  </div>
+</footer>
+
+</Layout>
