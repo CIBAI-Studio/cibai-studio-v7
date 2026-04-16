@@ -1,0 +1,90 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SolucionesIAPage from '../components/SolucionesIAPage.astro';
+import '../styles/global.css';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Soluciones IA para Empresas",
+  "description": "CIBAI.Studio resuelve problemas reales de negocio a través de IA, automatización, software a medida y activos digitales. Soluciones adaptadas a tu contexto empresarial.",
+  "provider": {
+    "@type": "Organization",
+    "name": "CIBAI.Studio",
+    "url": "https://cibai.studio"
+  },
+  "serviceType": "Soluciones de Inteligencia Artificial para empresas",
+  "areaServed": {
+    "@type": "Country",
+    "name": "España"
+  },
+  "url": "https://cibai.studio/soluciones-ia-empresas",
+  "offers": {
+    "@type": "Offer",
+    "description": "Diagnóstico inicial gratuito para identificar las soluciones con mayor impacto para tu empresa",
+    "url": "https://cibai.studio/contacto"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://cibai.studio/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Soluciones IA para Empresas",
+      "item": "https://cibai.studio/soluciones-ia-empresas"
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Qué tipo de soluciones ofrece CIBAI.Studio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "CIBAI.Studio ofrece seis líneas de servicio: IA y Automatización de procesos, Agentes IA y RAG, Voz IA y Centralitas, Software a Medida, Web Corporativa y Ecommerce a Medida. Pueden aplicarse de forma aislada o combinadas para construir la solución completa que necesita cada empresa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Por dónde se empieza a trabajar con CIBAI.Studio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El punto de partida es un diagnóstico gratuito de 30 minutos. Analizamos la situación de la empresa e identificamos qué soluciones tendrían más impacto, en qué orden y con qué coste aproximado."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tiempo tarda en verse el retorno de las soluciones implementadas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depende de la solución. Las automatizaciones de procesos pueden generar retorno en pocas semanas al reducir horas de trabajo manual. Los proyectos de software a medida o agentes IA pueden requerir 1-3 meses de implementación antes de ver el impacto completo."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Soluciones IA para Empresas | CIBAI.Studio"
+  description="CIBAI.Studio resuelve problemas reales de negocio a través de IA, automatización, software a medida y activos digitales. Diagnóstico gratuito para tu empresa."
+  locale="es"
+  canonicalPath="/soluciones-ia-empresas"
+  hreflangEs="https://cibai.studio/soluciones-ia-empresas"
+  hreflangCa="https://cibai.studio/ca/soluciones-ia-empresas"
+  schemaMarkup={[serviceSchema, breadcrumbSchema, faqSchema]}
+>
+  <SolucionesIAPage locale="es" />
+</Layout>

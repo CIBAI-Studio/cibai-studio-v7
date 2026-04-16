@@ -1,0 +1,522 @@
+{
+  "hero": {
+    "badge_studio": "CIBAI_STUDIO",
+    "badge_location": "BERGA, BARCELONA, ESPANYA",
+    "badge_status": "STATUS: ONLINE",
+    "topbar": "Tecnologia que treballa per a la teva empresa, no al revés.",
+    "tagline": "IA, automatització i software per a empreses",
+    "h1_line1": "LA TECNOLOGIA NO",
+    "h1_line2": "TRANSFORMA EMPRESES.",
+    "h1_line3": "ELS SISTEMES BEN DISSENYATS, SÍ.",
+    "h1_full": "La tecnologia no transforma empreses. Els sistemes ben dissenyats, sí.",
+    "subtitle": "A CIBAI.Studio dissenyem i implementem solucions reals d'IA, automatització, software i actius digitals perquè la teva empresa operi millor, vengui més i escali sense multiplicar el caos.",
+    "microcopy": "Sense demos buides. Sense promeses inflades. Només solucions que funcionen on importa: en el treball real de la teva empresa.",
+    "terminal_cmd": "cibai",
+    "terminal_flag": "--diagnostic",
+    "typing_line1": "> IA aplicada. Automatització real. Software que encaixa.",
+    "typing_line2": "> Del diagnòstic a la implantació, sense dreceres.",
+    "typing_line3": "> Sistemes que funcionen on importa.",
+    "btn_project": "Sol·licitar diagnòstic",
+    "btn_portfolio": "Veure què resolem",
+    "slide2_badge1": "IA_AUTOMATITZACIÓ",
+    "slide2_badge2": "EFICIÈNCIA OPERATIVA",
+    "slide2_badge3": "SIGNAL: ACTIVE",
+    "h2_line1": "RECUPERA EL TEMPS",
+    "h2_line2": "QUE EL TEU EQUIP",
+    "h2_line3": "PERD EN TASQUES REPETITIVES",
+    "h2_full": "Recupera el temps que el teu equip perd en tasques que ja pot fer una màquina",
+    "slide2_subtitle": "Dissenyem i implementem fluxos intel·ligents, automatitzacions i integracions que eliminen el treball repetitiu, redueixen errors i donen al teu equip temps per al que genera valor real.",
+    "slide2_terminal_cmd": "automatitzar",
+    "slide2_terminal_flag": "--impacte=real",
+    "slide2_terminal_line1": "> Fluxos intel·ligents. Integracions. Zero treball doble.",
+    "slide2_terminal_line2": "> Menys tasques manuals, més temps per al que importa.",
+    "slide2_terminal_line3": "> Eficiència operativa activada.",
+    "btn_services": "Explorar IA i automatització",
+    "btn_contact": "Sol·licitar diagnòstic",
+    "slide3_badge1": "AGENTS_IA",
+    "slide3_badge2": "RAG · CHATBOTS · VEU",
+    "slide3_badge3": "NODE: ACTIVE",
+    "h3_line1": "RESPON MÉS RÀPID,",
+    "h3_line2": "ATÉN MILLOR,",
+    "h3_line3": "CONVERTEIX MÉS OPORTUNITATS",
+    "h3_full": "Respon més ràpid, atén millor i converteix el coneixement dispers en avantatge operatiu",
+    "slide3_subtitle": "Construïm chatbots, agents IA especialitzats, sistemes RAG i solucions de veu intel·ligent que milloren l'atenció, el suport intern, les vendes i la gestió del coneixement de la teva empresa.",
+    "slide3_terminal_cmd": "agents-ia",
+    "slide3_terminal_flag": "--mode=produccio",
+    "slide3_terminal_line1": "> Agents entrenats sobre la teva empresa, no plantilles.",
+    "slide3_terminal_line2": "> Atenció 24/7 sense augmentar l'equip.",
+    "slide3_terminal_line3": "> Coneixement accessible a l'instant.",
+    "btn_slide3_services": "Veure agents IA i RAG",
+    "btn_slide3_contact": "Sol·licitar diagnòstic",
+    "slide4_badge1": "SOFTWARE_WEB",
+    "slide4_badge2": "WEB · ECOMMERCE · APPS",
+    "slide4_badge3": "STACK: ACTIVE",
+    "h4_line1": "ACTIUS DIGITALS",
+    "h4_line2": "QUE POSICIONEN,",
+    "h4_line3": "CONVERTEIXEN I ESCALEN",
+    "h4_full": "Actius digitals que no només es veuen bé: posicionen, converteixen i escalen amb el teu negoci",
+    "slide4_subtitle": "Desenvolupem webs corporatives, ecommerce i eines a mida que s'alineen amb els teus processos reals, la teva forma de vendre i els objectius concrets de la teva empresa.",
+    "slide4_terminal_cmd": "web-ecommerce",
+    "slide4_terminal_flag": "--objectiu=conversio",
+    "slide4_terminal_line1": "> Webs que posicionen i converteixen, no només informen.",
+    "slide4_terminal_line2": "> Ecommerce sòlid, escalable i optimitzat.",
+    "slide4_terminal_line3": "> Software a mida per a la teva operativa real.",
+    "btn_slide4_services": "Veure desenvolupament a mida",
+    "btn_slide4_contact": "Sol·licitar diagnòstic",
+    "scroll": "Scroll"
+  },
+  "nav": {
+    "inicio": "Inici",
+    "soluciones": "Solucions",
+    "servicios": "Serveis",
+    "servicios_dropdown": {
+      "ia_automatizacion": "IA i Automatització",
+      "agentes_ia": "Agents IA i RAG",
+      "voz_ia": "Veu IA i Centraletes",
+      "software_medida": "Software a mida",
+      "web_corporativa": "Web corporativa",
+      "ecommerce": "Ecommerce a mida"
+    },
+    "en_tu_idioma": "En el teu idioma",
+    "en_tu_idioma_dropdown": {
+      "tecnologia_util": "Tecnologia útil",
+      "el_problema": "El Problema",
+      "resultados": "Resultats"
+    },
+    "casos_uso": "Casos d'ús",
+    "proceso": "Procés",
+    "portfolio": "Portfolio",
+    "studio": "Studio",
+    "contacto": "Contacte",
+    "proyecto": "DIAGNÒSTIC",
+    "solicitar_proyecto": "SOL·LICITAR DIAGNÒSTIC",
+    "abrir_menu": "Obrir menú de navegació",
+    "skip_content": "Saltar al contingut principal"
+  },
+  "hud": {
+    "sys_online": "SYS.ONLINE",
+    "node_active": "NODE_ACTIVE",
+    "ping": "PING:",
+    "uptime": "UPTIME:",
+    "rec": "REC"
+  },
+  "banda_credibilidad": {
+    "title": "Tecnologia útil. Execució real. Visió de negoci.",
+    "text": "No treballem des de la moda tecnològica ni des de demos impressionants que no escalen. Cada solució que dissenyem està connectada amb l'operativa real d'una empresa i té com a objectiu impacte mesurable: en eficiència, en captació, en atenció, en control.",
+    "items": [
+      "IA aplicada al negoci real",
+      "Automatització amb impacte mesurable",
+      "Software que encaixa en la teva operativa",
+      "Web i ecommerce premium orientats a conversió",
+      "Del diagnòstic a la implantació",
+      "Integració amb els teus sistemes actuals",
+      "Sense proves de concepte sense sortida"
+    ]
+  },
+  "dolor": {
+    "section_label": "// PROBLEMA",
+    "title": "La teva empresa no té un problema de tecnologia. Té un problema de sistemes.",
+    "text1": "Moltes empreses tenen eines, però no tenen sistemes. Treballen amb processos manuals que podrien estar automatitzats, equips saturats amb tasques operatives, eines que no es comuniquen entre si i actius digitals que no converteixen.",
+    "text2": "No és manca de pressupost ni de voluntat. És que ningú ha analitzat amb criteri què convé canviar, en quin ordre i amb quin impacte real.",
+    "text3": "A CIBAI.Studio fem això abans d'escriure una sola línia de codi.",
+    "list_label": "Els 8 dolors del client:",
+    "items": [
+      "Processos lents que consumeixen hores de l'equip cada dia sense generar valor",
+      "Eines desconnectades que generen treball doble i errors evitables",
+      "Equips saturats amb tasques administratives i repetitives que haurien d'estar automatitzades",
+      "Informació dispersa que ningú sap on trobar quan cal",
+      "Atenció al client lenta o inconsistent que danya la imatge i perd oportunitats",
+      "Una web que informa però no converteix ni genera leads qualificats",
+      "Manca de software adaptat a com funciona realment l'empresa",
+      "Projectes d'IA que van quedar en presentació i mai van arribar a producció"
+    ]
+  },
+  "beneficios": {
+    "section_label": "// RESULTATS",
+    "title": "El que canvia quan la tecnologia està ben plantejada i ben executada",
+    "intro": "No es tracta de tenir més eines. Es tracta que la teva empresa funcioni millor on importa.",
+    "items": [
+      {
+        "num": "01",
+        "title": "Operativa més eficient",
+        "description": "Menys tasques manuals, menys errors, menys temps perdut. El teu equip dedica la seva energia al que realment fa créixer el negoci."
+      },
+      {
+        "num": "02",
+        "title": "Control total sobre els processos",
+        "description": "Centralitzem fluxos, connectem sistemes i millorem la traçabilitat perquè sàpigues exactament què passa a cada part de la teva operació."
+      },
+      {
+        "num": "03",
+        "title": "Resposta més ràpida al client",
+        "description": "Automatitzem atenció, suport i accions operatives perquè la teva empresa respongui abans, millor i sense dependre que algú estigui disponible en aquell moment."
+      },
+      {
+        "num": "04",
+        "title": "Més conversió en cada punt de contacte",
+        "description": "Dissenyem actius digitals que no només representen bé l'empresa: capten, qualifiquen i converteixen oportunitats reals."
+      },
+      {
+        "num": "05",
+        "title": "Escalabilitat sense caos addicional",
+        "description": "Construïm sistemes preparats per créixer amb tu. Més volum, més clients, més operació — sense que el caos es multipliqui."
+      },
+      {
+        "num": "06",
+        "title": "Independència del coneixement humà",
+        "description": "Els processos deixen de viure al cap d'una persona. Queden documentats, automatitzats i sostinguts per sistemes que funcionen encara que l'equip canviï."
+      }
+    ]
+  },
+  "servicios": {
+    "section_label": "// SERVEIS",
+    "title_line1": "SOLUCIONS DISSENYADES",
+    "title_line2": "PER AL NEGOCI REAL",
+    "subtitle": "Des d'IA aplicada i automatització fins a software a mida, web corporativa i ecommerce. Cada solució amb un objectiu clar: millorar com funciona la teva empresa.",
+    "items": [
+      {
+        "num": "01",
+        "label": "IA_AUTOMATITZACIÓ",
+        "title": "IA i automatització aplicada",
+        "description": "Dissenyem i implementem automatitzacions, integracions i fluxos intel·ligents que eliminen tasques repetitives, redueixen errors i milloren l'eficiència operativa on més fa mal.",
+        "cta": "Descobrir IA i automatització",
+        "tags": ["AUTOMATITZACIÓ", "INTEGRACIONS", "FLUXOS_IA"]
+      },
+      {
+        "num": "02",
+        "label": "AGENTS_IA_RAG",
+        "title": "Agents IA, chatbots i RAG",
+        "description": "Construïm sistemes conversacionals i intel·ligents per a atenció, suport, vendes i gestió del coneixement. La diferència: estan entrenats sobre la teva empresa, no sobre una plantilla genèrica.",
+        "cta": "Explorar agents IA i RAG",
+        "tags": ["CHATBOTS", "RAG", "AGENTS_IA"]
+      },
+      {
+        "num": "03",
+        "label": "VEU_IA",
+        "title": "Veu IA i centraletes intel·ligents",
+        "description": "Integrem intel·ligència en l'atenció telefònica per millorar l'experiència, optimitzar el temps operatiu i construir fluxos més escalables sense augmentar l'equip.",
+        "cta": "Veure solucions de veu IA",
+        "tags": ["VEU_IA", "CENTRALETES", "RECEPCIÓ_24/7"]
+      },
+      {
+        "num": "04",
+        "label": "SOFTWARE_MIDA",
+        "title": "Software a mida",
+        "description": "Desenvolupem eines internes, panells de control i plataformes personalitzades que s'adapten a com funciona realment la teva empresa, no al revés.",
+        "cta": "Explorar software a mida",
+        "tags": ["NEXT.JS", "REACT", "APIs", "POSTGRES"]
+      },
+      {
+        "num": "05",
+        "label": "WEB_CORPORATIVA",
+        "title": "Web corporativa premium",
+        "description": "Dissenyem webs corporatives que van més enllà de semblar bé: posicionen la teva proposta de valor, transmeten autoritat i converteixen visites en oportunitats de negoci reals.",
+        "cta": "Veure webs corporatives",
+        "tags": ["UI/UX", "CONVERSIÓ", "SEO"]
+      },
+      {
+        "num": "06",
+        "label": "ECOMMERCE",
+        "title": "Ecommerce a mida",
+        "description": "Creem botigues online sòlides, escalables i optimitzades per vendre millor, amb una experiència de compra pensada tant per a qui compra com per a qui gestiona el negoci.",
+        "cta": "Veure ecommerce a mida",
+        "tags": ["ECOMMERCE", "STRIPE", "CONVERSIÓ"]
+      }
+    ]
+  },
+  "casos_uso": {
+    "section_label": "// CASOS D'ÚS",
+    "title_line1": "ON GENEREM",
+    "title_line2": "IMPACTE REAL",
+    "intro": "Cada empresa té els seus propis colls d'ampolla. Però hi ha àrees on la IA, l'automatització i el software ben aplicats generen un retorn clar i mesurable de manera consistent.",
+    "items": [
+      {
+        "label": "ATENCIÓ_CLIENT",
+        "title": "Atenció al client",
+        "description": "Chatbots, agents IA i veu intel·ligent que responen abans, millor i sense saturar l'equip. Disponibilitat 24/7 sense augmentar plantilla."
+      },
+      {
+        "label": "VENDES_CAPTACIÓ",
+        "title": "Vendes i captació",
+        "description": "Webs que converteixen, automatització del seguiment comercial i assistents intel·ligents per a gestió de leads. Més oportunitats, menys fricció en el procés."
+      },
+      {
+        "label": "DOCUMENTACIÓ",
+        "title": "Documentació i coneixement intern",
+        "description": "Sistemes RAG i cerca intel·ligent que permeten accedir a informació clau de l'empresa en segons, sense dependre que algú estigui disponible."
+      },
+      {
+        "label": "OPERACIONS",
+        "title": "Operacions i administració",
+        "description": "Automatització de tasques, validacions, reporting i fluxos que avui consumeixen hores d'equip i podrien estar resolts sense intervenció manual."
+      },
+      {
+        "label": "SUPORT_INTERN",
+        "title": "Suport intern i gestió d'equips",
+        "description": "Eines personalitzades, assistents interns i sistemes més ordenats perquè l'equip treballi amb més autonomia i menys friccions."
+      },
+      {
+        "label": "ECOMMERCE_VENDES",
+        "title": "Ecommerce i canals de venda digital",
+        "description": "Experiències de compra millor dissenyades, automatitzacions d'operacions, integracions i optimització de conversió en cada punt del funnel."
+      }
+    ]
+  },
+  "proceso": {
+    "section_label": "// MÈTODE",
+    "title": "AIXÍ TREBALLEM",
+    "subtitle": "No venem tecnologia solta. Dissenyem solucions connectades amb la realitat operativa de la teva empresa i les portem fins a producció.",
+    "closing_quote": "No fem projectes pensats per a una demo. Dissenyem sistemes pensats per al treball real de la teva empresa.",
+    "btn_start": "Sol·licitar diagnòstic",
+    "steps": [
+      {
+        "num": "01",
+        "title": "DIAGNÒSTIC",
+        "description": "Analitzem el teu punt de partida: processos, friccions, eines actuals i oportunitats de millora. Sense diagnòstic, no hi ha proposta seriosa."
+      },
+      {
+        "num": "02",
+        "title": "ESTRATÈGIA",
+        "description": "Definim què té sentit fer primer, quina solució genera més impacte amb menys complexitat i quin resultat concret esperem aconseguir."
+      },
+      {
+        "num": "03",
+        "title": "DISSENY I DESENVOLUPAMENT",
+        "description": "Construïm la solució: automatització, agent IA, software, web o sistema integrat. Sense dreceres, sense deute tècnic acumulat."
+      },
+      {
+        "num": "04",
+        "title": "IMPLANTACIÓ",
+        "description": "La portem a producció, la connectem amb la teva operativa real, formem els qui la faran servir i validem que funcioni en condicions reals."
+      },
+      {
+        "num": "05",
+        "title": "OPTIMITZACIÓ",
+        "description": "Mesurem, identifiquem millores i evolucionem la solució. Una implantació ben feta és l'inici, no el final."
+      }
+    ]
+  },
+  "portfolio": {
+    "section_label": "// PORTFOLIO",
+    "title": "PORTFOLIO",
+    "subtitle": "Projectes que parlen per nosaltres. Cadascun és una història de transformació.",
+    "items": [
+      {
+        "title": "VOLKANIK STUDIO",
+        "category": "Disseny Web + Branding"
+      },
+      {
+        "title": "ANTREX SAAS",
+        "category": "Webapp + Automatització"
+      },
+      {
+        "title": "RAYA EDITORIAL",
+        "category": "E-commerce + SEO"
+      },
+      {
+        "title": "NEROMA LABS",
+        "category": "Desenvolupament Full-Stack"
+      }
+    ]
+  },
+  "porque_cibai": {
+    "section_label": "// PER QUÈ CIBAI",
+    "title_line1": "PER QUÈ CIBAI.STUDIO",
+    "title_line2": "I NO UNA AGÈNCIA GENÈRICA",
+    "intro": "La diferència no està en les eines que fem servir. Està en com connectem tecnologia amb negoci, processos i execució real.",
+    "items": [
+      {
+        "num": "01",
+        "title": "Visió de negoci primer",
+        "description": "No plantegem solucions des de la moda tecnològica. Plantegem des de l'impacte que poden generar en eficiència, ingressos, atenció o control."
+      },
+      {
+        "num": "02",
+        "title": "Execució, no presentacions",
+        "description": "Dissenyem, desenvolupem i implantem. No ens quedem en el diagnòstic ni en el PowerPoint."
+      },
+      {
+        "num": "03",
+        "title": "A mida, no a plantilla",
+        "description": "No forcem la teva empresa a adaptar-se a una solució genèrica. Construïm el que té sentit per a la teva realitat operativa."
+      },
+      {
+        "num": "04",
+        "title": "Capacitat tècnica real",
+        "description": "Unim estratègia, disseny, desenvolupament, automatització i IA aplicada en un equip que entén tant el negoci com l'execució tècnica."
+      },
+      {
+        "num": "05",
+        "title": "Integració amb el teu ecosistema",
+        "description": "Pensem en com la solució conviu amb el que ja tens. Sense friccions innecessàries, sense trencar el que funciona."
+      }
+    ]
+  },
+  "studio": {
+    "section_label": "// STUDIO",
+    "title": "EL STUDIO DARRERE DE CADA SOLUCIÓ",
+    "subtitle": "CIBAI.Studio no és una agència genèrica ni un freelance amb logo. És un equip que combina estratègia de negoci, IA aplicada, automatització, disseny i desenvolupament per construir solucions que funcionen on importa: en el dia a dia d'una empresa.",
+    "philosophy_label": "// FILOSOFIA",
+    "blockquote": "El fum no escala. Els sistemes ben dissenyats, sí.",
+    "description": "No creiem en la tecnologia per la tecnologia. Creiem en les solucions ben plantejades, ben executades i connectades amb la realitat operativa de l'empresa.",
+    "founder_name": "Matías Oliver",
+    "founder_role": "Founder & Strategy Lead",
+    "founder_bio": "Lidera la visió estratègica del Studio, connectant IA aplicada, automatització i actius digitals amb objectius reals de negoci, eficiència i creixement. És la persona que fa que la tecnologia tingui sentit per al negoci abans que s'escrigui una línia de codi.",
+    "team_text": "Juntament amb un equip multidisciplinari d'especialistes en IA, automatització, desenvolupament, disseny i estratègia, CIBAI.Studio dissenya i implanta solucions que combinen criteri tècnic, execució real i focus en resultats.",
+    "closing": "No som una agència de webs que ara fa IA. No som una consultora que entrega informes. Som un studio que dissenya, construeix i implanta solucions amb criteri tècnic i visió de negoci.",
+    "btn_studio": "Parlar amb el Studio",
+    "stat1_value": "47",
+    "stat1_suffix": "Projectes",
+    "stat1_label": "LLIURATS",
+    "stat2_value": "100",
+    "stat2_suffix": "%",
+    "stat2_label": "CODI FUNCIONAL",
+    "stat3_value": "< 48",
+    "stat3_suffix": "h",
+    "stat3_label": "RESPOSTA INICIAL",
+    "values_label": "// VALORS",
+    "values": [
+      {
+        "num": "01",
+        "title": "BRUTALITAT",
+        "description": "El disseny que no fa declaracions no diu res. Cada decisió visual és una posició."
+      },
+      {
+        "num": "02",
+        "title": "PRECISIÓ",
+        "description": "Un píxel fora de lloc és un error. No lliurem fins que el codi i el disseny coincideixin exactament."
+      },
+      {
+        "num": "03",
+        "title": "VELOCITAT",
+        "description": "Els terminis no són suggeriments. Treballem ràpid sense comprometre ni un mil·límetre de qualitat."
+      }
+    ]
+  },
+  "puente_neuroguias": {
+    "section_label": "// NEUROGUIES",
+    "title": "Prefereixes aprendre a aplicar-ho tu mateix abans de delegar?",
+    "text": "Si busques formació, guies, playbooks i recursos pràctics per entendre i aplicar IA, automatització i neuromarketing amb criteri en el teu negoci, accedeix a Neuroguies.",
+    "btn": "Anar a Neuroguies"
+  },
+  "puente_cib": {
+    "section_label": "// CIB",
+    "title": "La teva empresa també necessita suport IT, cloud o infraestructura?",
+    "text": "Si a més de solucions avançades necessites llicències, cloud, xarxes, suport tècnic o manteniment, CIB pot ajudar-te a sostenir la base tecnològica de la teva operació.",
+    "btn": "Anar a CIB"
+  },
+  "cta_final": {
+    "section_label": "// DIAGNÒSTIC",
+    "title": "Si vols saber exactament on pot impactar la IA i l'automatització a la teva empresa, és el moment de parlar-ho.",
+    "text": "Podem ajudar-te a identificar els processos amb més potencial de millora, prioritzar què convé fer primer i dissenyar una solució alineada amb els teus objectius i la teva operativa real.",
+    "subtext": "Sense compromís. Sense fum. Només una conversa honesta sobre el que pot funcionar en el teu cas.",
+    "btn_primary": "Sol·licitar diagnòstic",
+    "btn_secondary": "Parlar amb el Studio"
+  },
+  "faq": {
+    "section_label": "// FAQ",
+    "title": "PREGUNTES FREQÜENTS",
+    "items": [
+      {
+        "question": "Amb quin tipus d'empreses treballeu?",
+        "answer": "Principalment amb pimes i mitjanes empreses que volen millorar els seus processos, la seva atenció, la seva captació o la seva operativa tecnològica. No treballem per a startups sense model, ni per a empreses que busquen només una presentació. Busquem projectes on hi hagi un problema real a resoldre."
+      },
+      {
+        "question": "Feu només consultoria o també executeu?",
+        "answer": "Executem. Podem ajudar-te a analitzar i definir la millor solució, però el nostre focus està en dissenyar-la, construir-la i implantar-la. Un diagnòstic sense execució no és el que fem."
+      },
+      {
+        "question": "Podeu integrar la solució amb les eines que ja fem servir?",
+        "answer": "Sí. Sempre analitzem quines eines i sistemes ja tens abans de proposar res. L'objectiu és que la solució encaixi i convisqui amb el teu ecosistema actual, no que generi més complexitat."
+      },
+      {
+        "question": "Treballeu amb solucions estàndard o sempre a mida?",
+        "answer": "Depèn del cas. Si hi ha una solució estàndard que encaixa bé en la teva realitat, la fem servir. Si no existeix o no és suficient, construïm a mida. El criteri és sempre l'impacte, no la tecnologia usada."
+      },
+      {
+        "question": "Quant tarda un projecte típic?",
+        "answer": "Depèn de l'abast. Un diagnòstic pot estar llest en dies. Una automatització o agent IA, en setmanes. Un software o web a mida, en mesos. Abans de qualsevol proposta definim terminis reals, no orientatius."
+      },
+      {
+        "question": "Oferiu manteniment o suport després d'implantar?",
+        "answer": "Sí. Definim juntament amb el client el nivell d'acompanyament posterior que té sentit per a cada projecte: des de suport tècnic fins a optimització contínua."
+      },
+      {
+        "question": "I si primer volem entendre millor com aplicar tot això?",
+        "answer": "En aquest cas, Neuroguies és el lloc indicat: formació pràctica, guies i recursos per aplicar IA, automatització i neuromarketing amb criteri. Molts clients passen per Neuroguies abans de contractar implementació."
+      }
+    ]
+  },
+  "contacto": {
+    "section_label": "// CONTACTE",
+    "title": "Explica'ns què vols resoldre o construir. T'ajudem a definir el següent pas.",
+    "subtitle": "Si vols explorar una automatització, un agent IA, una solució de veu, un desenvolupament a mida, una web corporativa o un ecommerce, escriu-nos. Pots venir amb una idea molt concreta o simplement amb un problema que vols resoldre.",
+    "support_text": "No necessites tenir-ho tot clar per parlar amb nosaltres. Molts projectes comencen per una fricció operativa o una oportunitat que algú va detectar però ningú va saber com resoldre. D'això també parlem.",
+    "label_nombre": "NOM I COGNOM",
+    "placeholder_nombre": "El teu nom",
+    "label_empresa": "EMPRESA",
+    "placeholder_empresa": "Nom de la teva empresa",
+    "label_cargo": "CÀRREC",
+    "placeholder_cargo": "El teu rol a l'empresa",
+    "label_email": "EMAIL",
+    "placeholder_email": "tu@email.com",
+    "label_telefono": "TELÈFON (OPCIONAL)",
+    "placeholder_telefono": "+34 000 000 000",
+    "label_proyecto": "QUINA ÀREA VOLS MILLORAR?",
+    "option_ia_automatizacion": "IA i Automatització",
+    "option_agentes_ia": "Agents IA i RAG",
+    "option_voz_ia": "Veu IA i Centraletes",
+    "option_software": "Software a mida",
+    "option_web": "Web corporativa",
+    "option_ecommerce": "Ecommerce a mida",
+    "option_otro": "Altre",
+    "label_mensaje": "DESCRIU-NOS EL TEU PROJECTE, REPTE O PROBLEMA",
+    "placeholder_mensaje": "Com més context ens donis, més útil serà la primera conversa.",
+    "label_contacto_pref": "COM PREFEREIXES QUE ET CONTACTEM?",
+    "option_email": "Email",
+    "option_telefono": "Telèfon",
+    "option_videollamada": "Videotrucada",
+    "btn_enviar": "Sol·licitar diagnòstic",
+    "microcopy_form": "Com més context ens donis, més útil serà la primera conversa.",
+    "terminal_path": "cibai@studio:~/projectes",
+    "terminal_empresa": "CIBAI Studio",
+    "terminal_ubicacion": "Berga, Barcelona, Espanya",
+    "terminal_email": "hola@cibai.studio",
+    "terminal_horario": "Dll-Div 9:00-18:00h",
+    "terminal_status": "Disponibles per a projectes",
+    "terminal_uptime": "online 365 days, load avg: 0.02, 0.01, 0.00",
+    "terminal_respuesta1": "Revisarem la teva consulta i respondrem en menys de 48h.",
+    "terminal_respuesta2": "Primera conversa honesta, sense compromís.",
+    "terminal_respuesta3": "Sense demos buides. Sense promeses inflades.",
+    "form_success": "Gràcies. Revisarem la teva consulta i et respondrem en menys de 48h amb una primera valoració o per concretar una reunió."
+  },
+  "footer": {
+    "descripcion": "Dissenyem i implementem solucions d'IA, automatització, software a mida i actius digitals per a empreses que volen vendre més, operar millor i créixer amb més sistema.",
+    "tagline": "Tecnologia útil per a negocis reals.",
+    "disponibles": "Disponibles per a nous projectes",
+    "nav_label": "NAVEGACIÓ",
+    "legal_label": "LEGAL",
+    "link_inicio": "Inici",
+    "link_soluciones": "Solucions",
+    "link_servicios": "Serveis",
+    "link_casos_uso": "Casos d'ús",
+    "link_studio": "Studio",
+    "link_contacto": "Contacte",
+    "link_privacidad": "Política de privacitat",
+    "link_aviso": "Avís legal",
+    "link_cookies": "Política de cookies",
+    "copyright": "© 2026 CIBAI Studio. Tots els drets reservats.",
+    "made_in": "Fet amb intensitat a Barcelona"
+  },
+  "meta": {
+    "title": "CIBAI.Studio | IA, Automatització i Software per a Empreses",
+    "description": "Dissenyem i implementem solucions d'IA, automatització, software a mida i webs per a empreses. Resultats reals, no demos. Sol·licita el teu diagnòstic.",
+    "schema_description": "Estudi especialitzat en IA, automatització, software a mida i actius digitals per a empreses.",
+    "ia_title": "IA i Automatització per a Empreses | CIBAI.Studio",
+    "ia_description": "Reduïm tasques manuals, connectem eines i dissenyem fluxos intel·ligents perquè la teva empresa guanyi eficiència real. Sol·licita diagnòstic gratuït.",
+    "studio_title": "Studio | Equip d'IA, Automatització i Software — CIBAI",
+    "studio_description": "Coneix l'equip de CIBAI.Studio: estratègia, IA, automatització, disseny i desenvolupament orientats a resultats reals per a empreses. Parla amb el Studio.",
+    "contacto_title": "Contacte — CIBAI.Studio | Diagnòstic Gratuït",
+    "contacto_description": "Sol·licita un diagnòstic inicial gratuït per identificar oportunitats d'IA, automatització i software a la teva empresa. Responem en 48h."
+  }
+}

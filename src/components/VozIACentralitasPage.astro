@@ -1,0 +1,463 @@
+---
+import type { Locale } from '../i18n';
+import { getTranslations, getLocalizedPath } from '../i18n';
+import LanguageSelector from './LanguageSelector.astro';
+import PuentesSection from './PuentesSection.astro';
+import { loadSettings, lightenColor } from '../lib/settings';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const settings = loadSettings();
+const primaryColor = settings.visual.primaryColor;
+const secondaryColor = settings.visual.secondaryColor;
+const primaryColorLight = lightenColor(primaryColor, 30);
+
+const isCA = locale === 'ca';
+const homeUrl = getLocalizedPath('/', locale);
+const contactoUrl = getLocalizedPath('/contacto', locale);
+---
+
+<!-- ═══════════════ TOP BAR (HUD) ═══════════════ -->
+<div class="fixed top-0 left-0 right-0 z-50 bg-cyber-black border-b border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-8">
+    <div class="flex items-center gap-4">
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-teal"></span>
+      <span class="font-mono text-[9px] text-cyber-text/60 uppercase tracking-widest">{t.hud.sys_online}</span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-teal/70">{t.hud.node_active}</span>
+    </div>
+    <div class="hidden sm:flex items-center gap-4">
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.ping} <span class="text-cyber-teal/70">8ms</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.uptime} <span class="text-cyber-orange/70">99.9%</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-red"></span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.rec}</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="fixed top-8 left-0 right-0 z-50 border-b border-cyber-border bg-cyber-black/90 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-16">
+    <a href={homeUrl} class="flex items-center gap-1">
+      <span class="text-lg font-bold tracking-tight text-cyber-white">CIBAI</span>
+      <span class="text-lg font-bold tracking-tight text-cyber-orange">.</span>
+      <span class="text-lg font-light tracking-tight text-cyber-orange">STUDIO</span>
+    </a>
+    <div class="flex items-center gap-6">
+      <div class="hidden md:flex items-center gap-8">
+        <a href={homeUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.inicio}</a>
+        <a href={getLocalizedPath('/ia-automatizacion-empresas', locale)} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.servicios}</a>
+        <a href={getLocalizedPath('/studio', locale)} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.studio}</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <LanguageSelector currentLocale={locale} />
+        <a href={contactoUrl} class="btn-primary text-xs py-2 px-5 hidden sm:inline-flex">{t.nav.proyecto}</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<main class="min-h-screen bg-cyber-black text-cyber-white pt-24">
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section id="main-content" class="relative min-h-[60vh] flex flex-col justify-end pt-32 pb-16 overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.03]" style={`background-image: linear-gradient(color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px); background-size: 60px 60px;`}></div>
+
+    <div class="mx-auto max-w-7xl px-6 w-full">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="mb-8">
+        <ol class="flex items-center gap-2 font-mono text-[10px] text-cyber-text/60 uppercase tracking-widest">
+          <li><a href={homeUrl} class="hover:text-cyber-orange transition-colors">{isCA ? 'Inici' : 'Inicio'}</a></li>
+          <li class="text-cyber-border">/</li>
+          <li class="text-cyber-orange">{isCA ? 'Veu IA i Centraletes' : 'Voz IA y Centralitas'}</li>
+        </ol>
+      </nav>
+
+      <div class="section-number mb-4">// {isCA ? 'SERVEIS' : 'SERVICIOS'}</div>
+      <h1 class="text-[clamp(2.5rem,6vw,5.5rem)] font-black leading-[0.95] tracking-tight mb-6">
+        {isCA
+          ? <><span>VEU IA I CENTRALETES</span><br/><span>INTEL·LIGENTS</span><br/><span class="text-cyber-orange glow-orange">PER A LA TEVA EMPRESA</span></>
+          : <><span>VOZ IA Y CENTRALITAS</span><br/><span>INTELIGENTES</span><br/><span class="text-cyber-orange glow-orange">PARA TU EMPRESA</span></>
+        }
+      </h1>
+      <p class="text-cyber-text text-lg font-light max-w-2xl leading-relaxed mb-10">
+        {isCA
+          ? 'Automatitzem l’atenció telefònica, l’enrutament de trucades i la recepció virtual amb IA perquè la teva empresa atengui més i millor sense augmentar l’equip.'
+          : 'Automatizamos la atención telefónica, el enrutado de llamadas y la recepción virtual con IA para que tu empresa atienda más y mejor sin aumentar el equipo.'
+        }
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href={contactoUrl} class="btn-primary btn-glitch">
+          {isCA ? 'Sol·licitar diagnòstic' : 'Solicitar diagnóstico'}
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PARA QUÉ EMPRESA ═══════════════ -->
+  <section class="py-24 border-t border-cyber-border relative">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-16">
+        <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight mb-4">
+          {isCA
+            ? <><span>PER A QUIN TIPUS</span><br/><span class="text-cyber-teal glow-teal">D’EMPRESA?</span></>
+            : <><span>¿PARA QUÉ TIPO</span><br/><span class="text-cyber-teal glow-teal">DE EMPRESA?</span></>
+          }
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {[
+          {
+            num: '01',
+            title: isCA ? 'Empreses amb alt volum de trucades entrants no ateses' : 'Empresas con alto volumen de llamadas entrantes no atendidas',
+            desc: isCA
+              ? 'Quan el telèfon no para de sonar i l’equip no pot assumir totes les trucades, la veu IA actua com a primera capa d’atenció sense límit de capacitat.'
+              : 'Cuando el teléfono no para de sonar y el equipo no puede asumir todas las llamadas, la voz IA actúa como primera capa de atención sin límite de capacidad.'
+          },
+          {
+            num: '02',
+            title: isCA ? 'Negocis que perden vendes per no tenir disponibilitat 24/7' : 'Negocios que pierden ventas por no tener disponibilidad 24/7',
+            desc: isCA
+              ? 'Si les teves oportunitats truquen fora de l’horari d’oficina, l’agent de veu IA no descansa. Capta, qualifica i registra cada contacte.'
+              : 'Si tus oportunidades llaman fuera del horario de oficina, el agente de voz IA no descansa. Capta, cualifica y registra cada contacto.'
+          },
+          {
+            num: '03',
+            title: isCA ? 'Empreses amb equip d’atenció sobrecarregat de consultes repetitives' : 'Empresas con equipo de atención sobrecargado de consultas repetitivas',
+            desc: isCA
+              ? 'Horaris, adreces, estat de comandes, cites... L’agent de veu resol automàticament les consultes repetitives perquè el teu equip es dediqui a casos complexos.'
+              : 'Horarios, direcciones, estado de pedidos, citas... El agente de voz resuelve automáticamente las consultas repetitivas para que tu equipo se dedique a casos complejos.'
+          },
+          {
+            num: '04',
+            title: isCA ? 'Organitzacions que necessiten enrutar trucades de forma intel·ligent' : 'Organizaciones que necesitan enrutar llamadas de forma inteligente',
+            desc: isCA
+              ? 'Centraletes que entenen el motiu de la trucada i dirigeixen cada usuari al departament o agent correcte sense menús complicats.'
+              : 'Centralitas que entienden el motivo de la llamada y dirigen a cada usuario al departamento o agente correcto sin menús complicados.'
+          }
+        ].map((item) => (
+          <div class="card-brutal p-8">
+            <span class="text-4xl font-black text-cyber-orange/70 block mb-4">{item.num}</span>
+            <h3 class="text-xl font-bold mb-3 text-cyber-white">{item.title}</h3>
+            <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ QUÈ FEM ═══════════════ -->
+  <section class="py-24 border-t border-cyber-border relative">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-16">
+        <div class="section-number mb-4">// {isCA ? 'SERVEIS' : 'SERVICIOS'}</div>
+        <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+          {isCA
+            ? <><span>QUÈ FEM EN</span><br/><span class="text-cyber-orange glow-orange">VEU IA</span></>
+            : <><span>QUÉ HACEMOS EN</span><br/><span class="text-cyber-orange glow-orange">VOZ IA</span></>
+          }
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        {[
+          {
+            label: isCA ? 'RECEPCIÓ VIRTUAL' : 'RECEPCIÓN VIRTUAL',
+            title: isCA ? 'Recepció virtual intel·ligent' : 'Recepción virtual inteligente',
+            desc: isCA
+              ? 'Atenció automàtica de trucades amb respostes naturals i conversacionals. L’agent de veu s’identifica, entén la consulta i respon de forma fluïda. Disponibilitat total 24/7, fins i tot en caps de setmana i festius, sense cues d’espera.'
+              : 'Atención automática de llamadas con respuestas naturales y conversacionales. El agente de voz se identifica, entiende la consulta y responde de forma fluida. Disponibilidad total 24/7, incluso en fines de semana y festivos, sin colas de espera.'
+          },
+          {
+            label: isCA ? 'CENTRALETA IA A MIDA' : 'CENTRALITA IA A MEDIDA',
+            title: isCA ? 'Centraleta IA a mida' : 'Centralita IA a medida',
+            desc: isCA
+              ? 'Enrutament intel·ligent basat en la intenció de la trucada, l’hora del dia i la disponibilitat dels agents. Sense menús IVR rígids. El sistema entén el que diu el client i el porta directament on necessita arribar.'
+              : 'Enrutado inteligente basado en la intención de la llamada, la hora del día y la disponibilidad de los agentes. Sin menús IVR rígidos. El sistema entiende lo que dice el cliente y lo lleva directamente a donde necesita llegar.'
+          },
+          {
+            label: isCA ? 'AUTOMATITZACIÓ DE CONSULTES' : 'AUTOMATIZACIÓN DE CONSULTAS',
+            title: isCA ? 'Automatització de consultes repetitives' : 'Automatización de consultas repetitivas',
+            desc: isCA
+              ? 'FAQs, horaris, ubicació, estat de comandes... tot allò que el teu equip respon desenes de vegades al dia pot ser gestionat per l’agent de veu sense intervenció humana. Allibera el teu equip per a tasques de major valor.'
+              : 'FAQs, horarios, ubicación, estado de pedidos... todo aquello que tu equipo responde decenas de veces al día puede ser gestionado por el agente de voz sin intervención humana. Libera a tu equipo para tareas de mayor valor.'
+          },
+          {
+            label: isCA ? 'INTEGRACIÓ AMB CRM' : 'INTEGRACIÓN CON CRM',
+            title: isCA ? 'Integració amb CRM i sistemes interns' : 'Integración con CRM y sistemas internos',
+            desc: isCA
+              ? 'Registre automàtic de cada interacció telefònica al CRM: nom del contacte, motiu de la trucada, transcripció i seguiment recomanat. Cap trucada es perd ni es deixa sense registrar.'
+              : 'Registro automático de cada interacción telefónica en el CRM: nombre del contacto, motivo de la llamada, transcripción y seguimiento recomendado. Ninguna llamada se pierde ni se deja sin registrar.'
+          },
+          {
+            label: isCA ? 'VEU SOBRE AGENTS IA' : 'VOZ SOBRE AGENTES IA',
+            title: isCA ? 'Veu sobre agents IA i bases de coneixement' : 'Voz sobre agentes IA y bases de conocimiento',
+            desc: isCA
+              ? 'Integrem el canal de veu amb els sistemes RAG i agents IA del client perquè les respostes es basin en el coneixement real de l’empresa: catàlegs, polítiques, documentació tècnica i procediments interns.'
+              : 'Integramos el canal de voz con los sistemas RAG y agentes IA del cliente para que las respuestas se basen en el conocimiento real de la empresa: catálogos, políticas, documentación técnica y procedimientos internos.'
+          }
+        ].map((item, i) => (
+          <div class="flex gap-6 p-6 border border-cyber-border hover:border-cyber-orange/40 transition-colors group">
+            <span class="font-mono text-[10px] text-cyber-orange uppercase tracking-widest min-w-[160px] pt-1 hidden md:block">{item.label}</span>
+            <div class="flex-1">
+              <h3 class="text-lg font-bold mb-2 text-cyber-white group-hover:text-cyber-orange transition-colors">{item.title}</h3>
+              <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+            </div>
+            <span class="text-3xl font-black text-cyber-border group-hover:text-cyber-orange/30 transition-colors hidden lg:block">0{i + 1}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CASOS DE USO ═══════════════ -->
+  <section class="py-24 border-t border-cyber-border relative">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-16">
+        <div class="section-number mb-4">// {isCA ? 'CASOS D’ÚS' : 'CASOS DE USO'}</div>
+        <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+          {isCA
+            ? <><span>EXEMPLES REALS DE</span><br/><span class="text-cyber-orange glow-orange">VEU IA EN EMPRESES</span></>
+            : <><span>EJEMPLOS REALES DE</span><br/><span class="text-cyber-orange glow-orange">VOZ IA EN EMPRESAS</span></>
+          }
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {[
+          {
+            sector: isCA ? 'CLÍNICA MÈDICA' : 'CLÍNICA MÉDICA',
+            tags: isCA ? ['SALUT', 'CITES', 'RECEPCIÓ'] : ['SALUD', 'CITAS', 'RECEPCIÓN'],
+            title: isCA ? 'Reducció del 60% de trucades entrants al personal' : 'Reducción del 60% de llamadas entrantes al personal',
+            desc: isCA
+              ? 'L’agent de veu gestiona la confirmació i cancel·lació de cites, respon preguntes sobre serveis i horaris, i deriva al personal només les consultes que ho requereixin.'
+              : 'El agente de voz gestiona la confirmación y cancelación de citas, responde preguntas sobre servicios y horarios, y deriva al personal solo las consultas que lo requieren.'
+          },
+          {
+            sector: 'E-COMMERCE',
+            tags: isCA ? ['COMERÇ', 'COMANDES', 'SUPORT'] : ['COMERCIO', 'PEDIDOS', 'SOPORTE'],
+            title: isCA ? 'Atenció de l’estat de comandes de forma automàtica' : 'Atención del estado de pedidos de forma automática',
+            desc: isCA
+              ? 'Els clients truquen per saber on és la seva comanda. L’agent de veu consulta el sistema en temps real i dona una resposta immediata sense implicar cap agent humà.'
+              : 'Los clientes llaman para saber dónde está su pedido. El agente de voz consulta el sistema en tiempo real y da una respuesta inmediata sin implicar a ningún agente humano.'
+          },
+          {
+            sector: isCA ? 'EMPRESA DE SERVEIS' : 'EMPRESA DE SERVICIOS',
+            tags: isCA ? ['LEADS', 'QUALIFICACIÓ', 'VENDES'] : ['LEADS', 'CUALIFICACIÓN', 'VENTAS'],
+            title: isCA ? 'Qualificació de leads per telèfon amb IA' : 'Cualificación de leads por teléfono con IA',
+            desc: isCA
+              ? 'El primer contacte telefònic el gestiona l’agent de veu: recull les necessitats del potencial client, valora si encaixa amb els serveis oferts i agenda la reunió amb el comercial adequat.'
+              : 'El primer contacto telefónico lo gestiona el agente de voz: recoge las necesidades del potencial cliente, valora si encaja con los servicios ofrecidos y agenda la reunión con el comercial adecuado.'
+          },
+          {
+            sector: 'CALL CENTER',
+            tags: isCA ? ['ATENCIÓ', 'DERIVACIÓ', 'AUTOMATITZACIÓ'] : ['ATENCIÓN', 'DERIVACIÓN', 'AUTOMATIZACIÓN'],
+            title: isCA ? 'Primera capa d’atenció automatitzada amb derivació intel·ligent' : 'Primera capa de atención automatizada con derivación inteligente',
+            desc: isCA
+              ? 'L’agent de veu actua com a filtre intel·ligent: resol el que pot, i quan cal derivar, ho fa al departament i agent correcte amb context complet de la trucada.'
+              : 'El agente de voz actúa como filtro inteligente: resuelve lo que puede, y cuando hay que derivar, lo hace al departamento y agente correcto con contexto completo de la llamada.'
+          }
+        ].map((item) => (
+          <div class="card-brutal p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="font-mono text-[10px] text-cyber-teal uppercase tracking-widest">{item.sector}</span>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              {item.tags.map((tag: string) => (
+                <span class="font-mono text-[10px] px-2 py-1 border border-cyber-border text-cyber-text">{tag}</span>
+              ))}
+            </div>
+            <h3 class="text-lg font-bold mb-3 text-cyber-white">{item.title}</h3>
+            <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PROCESO ═══════════════ -->
+  <section class="py-24 border-t border-cyber-border relative">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-16">
+        <div class="section-number mb-4">// {isCA ? 'METODOLOGIA' : 'METODOLOGÍA'}</div>
+        <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+          {isCA
+            ? <><span>COM TREBALLEM</span><br/><span class="text-cyber-teal glow-teal">EN VEU IA</span></>
+            : <><span>CÓMO TRABAJAMOS</span><br/><span class="text-cyber-teal glow-teal">EN VOZ IA</span></>
+          }
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        {[
+          {
+            num: '01',
+            title: isCA ? 'Anàlisi del flux de trucades' : 'Análisis del flujo de llamadas',
+            desc: isCA
+              ? 'Auditem el volum, tipologia i distribució de les trucades actuals per identificar on té sentit automatitzar.'
+              : 'Auditamos el volumen, tipología y distribución de las llamadas actuales para identificar dónde tiene sentido automatizar.'
+          },
+          {
+            num: '02',
+            title: isCA ? 'Disseny de l’agent de veu' : 'Diseño del agente de voz',
+            desc: isCA
+              ? 'Definim els fluxos conversacionals, el to de l’agent, les intencions reconegudes i els escalats a humans.'
+              : 'Definimos los flujos conversacionales, el tono del agente, las intenciones reconocidas y los escalados a humanos.'
+          },
+          {
+            num: '03',
+            title: isCA ? 'Integració centraleta' : 'Integración centralita',
+            desc: isCA
+              ? 'Connectem l’agent de veu amb la infraestructura telefònica existent i els sistemes interns (CRM, ERP, calendaris).'
+              : 'Conectamos el agente de voz con la infraestructura telefónica existente y los sistemas internos (CRM, ERP, calendarios).'
+          },
+          {
+            num: '04',
+            title: isCA ? 'Testing amb trucades reals' : 'Testing con llamadas reales',
+            desc: isCA
+              ? 'Proves exhaustives amb escenaris reals: trucades típiques, casos límit, escalats i situacions inesperades.'
+              : 'Pruebas exhaustivas con escenarios reales: llamadas típicas, casos límite, escalados y situaciones inesperadas.'
+          },
+          {
+            num: '05',
+            title: isCA ? 'Desplegament i millora contínua' : 'Despliegue y mejora continua',
+            desc: isCA
+              ? 'Activem el sistema en producció i monitoritzem les interaccions per optimitzar contínuament el rendiment.'
+              : 'Activamos el sistema en producción y monitorizamos las interacciones para optimizar continuamente el rendimiento.'
+          }
+        ].map((step) => (
+          <div class="card-brutal p-6 group">
+            <span class="text-4xl font-black text-cyber-orange/80 block mb-4">{step.num}</span>
+            <h3 class="font-mono text-sm font-bold tracking-wider mb-3 text-cyber-white">{step.title}</h3>
+            <p class="text-xs text-cyber-text leading-relaxed">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FAQ ═══════════════ -->
+  <section class="py-24 border-t border-cyber-border relative">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-16">
+        <div class="section-number mb-4">// FAQ</div>
+        <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+          {isCA
+            ? <><span>PREGUNTES FREQÜENTS SOBRE</span><br/><span class="text-cyber-orange glow-orange">VEU IA I CENTRALETES</span></>
+            : <><span>PREGUNTAS FRECUENTES SOBRE</span><br/><span class="text-cyber-orange glow-orange">VOZ IA Y CENTRALITAS</span></>
+          }
+        </h2>
+      </div>
+
+      <div class="space-y-4 max-w-3xl">
+        {[
+          {
+            q: isCA ? 'Amb quines centraletes és compatible?' : '¿Con qué centralitas es compatible?',
+            a: isCA
+              ? 'Treballem amb les principals plataformes de telefonia IP i centraletes cloud: Twilio, Vonage, 3CX, Asterisk, RingCentral i d’altres. Si tens una infraestructura existent, analitzem com integrar l’agent de veu sense haver de canviar-la.'
+              : 'Trabajamos con las principales plataformas de telefonía IP y centralitas cloud: Twilio, Vonage, 3CX, Asterisk, RingCentral y otras. Si tienes una infraestructura existente, analizamos cómo integrar el agente de voz sin tener que cambiarla.'
+          },
+          {
+            q: isCA ? 'Sona natural o robòtic?' : '¿Suena natural o robótico?',
+            a: isCA
+              ? 'Els agents de veu actuals amb models de síntesi de veu moderns sonen molt naturals. Treballem amb veus configurables que s’adapten al to de marca: formal, proper, professional. En les proves prèvies al llançament valorem conjuntament la qualitat de la veu.'
+              : 'Los agentes de voz actuales con modelos de síntesis de voz modernos suenan muy naturales. Trabajamos con voces configurables que se adaptan al tono de marca: formal, cercano, profesional. En las pruebas previas al lanzamiento valoramos conjuntamente la calidad de la voz.'
+          },
+          {
+            q: isCA ? 'Quant temps d’implementació?' : '¿Cuánto tiempo de implementación?',
+            a: isCA
+              ? 'Un agent de veu bàsic per gestionar consultes freqüents pot estar operatiu en 2-3 setmanes. Projectes més complexos amb integracions de CRM, múltiples fluxos i derivació intel·ligent requereixen entre 4 i 8 setmanes. Ho definim amb precisió al diagnòstic inicial.'
+              : 'Un agente de voz básico para gestionar consultas frecuentes puede estar operativo en 2-3 semanas. Proyectos más complejos con integraciones de CRM, múltiples flujos y derivación inteligente requieren entre 4 y 8 semanas. Lo definimos con precisión en el diagnóstico inicial.'
+          },
+          {
+            q: isCA ? 'Què passa quan l’agent no sap respondre?' : '¿Qué pasa cuando el agente no sabe responder?',
+            a: isCA
+              ? 'El sistema gestiona els casos de no-coneixement amb transparència: informa l’usuari que derivarà la trucada a una persona, recull les dades del contacte per a un seguiment posterior, o agenda una trucada de retorn. Cap trucada s’abandona sense resposta.'
+              : 'El sistema gestiona los casos de no-conocimiento con transparencia: informa al usuario que derivará la llamada a una persona, recoge los datos de contacto para seguimiento posterior, o agenda una llamada de retorno. Ninguna llamada queda sin respuesta.'
+          }
+        ].map((item) => (
+          <details class="group border border-cyber-border">
+            <summary class="flex items-center justify-between p-6 cursor-pointer hover:bg-cyber-dark/50 transition-colors list-none">
+              <h3 class="font-mono text-sm font-bold tracking-wider text-cyber-white pr-4">{item.q}</h3>
+              <svg class="w-4 h-4 text-cyber-orange flex-shrink-0 transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+            </summary>
+            <div class="px-6 pb-6">
+              <p class="text-sm text-cyber-text leading-relaxed">{item.a}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <PuentesSection locale={locale} />
+
+  <!-- ═══════════════ CTA FINAL ═══════════════ -->
+  <section class="py-24 border-t border-cyber-border relative">
+    <div class="mx-auto max-w-7xl px-6 text-center">
+      <div class="section-number mb-4 mx-auto w-fit">// {isCA ? 'DIAGNÒSTIC' : 'DIAGNÓSTICO'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-tight mb-4">
+        {isCA
+          ? '¿La teva empresa perd trucades cada dia?'
+          : '¿Tu empresa pierde llamadas cada día?'
+        }
+      </h2>
+      <p class="text-cyber-text max-w-lg mx-auto mb-10 font-light">
+        {isCA
+          ? 'Cada trucada no atesa és una oportunitat perduda. Analitzem el teu flux actual i et proposem exactament com la veu IA pot tancar aquest forat.'
+          : 'Cada llamada no atendida es una oportunidad perdida. Analizamos tu flujo actual y te proponemos exactamente cómo la voz IA puede cerrar ese agujero.'
+        }
+      </p>
+      <a href={contactoUrl} class="btn-primary btn-glitch">
+        {isCA ? 'Sol·licitar diagnòstic gratuït' : 'Solicitar diagnóstico gratuito'}
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="border-t border-cyber-border py-12 mt-16">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div>
+          <a href={homeUrl} class="flex items-center gap-1 mb-3">
+            <span class="text-lg font-bold tracking-tight text-cyber-white">CIBAI</span>
+            <span class="text-lg font-bold tracking-tight text-cyber-orange">.</span>
+            <span class="text-lg font-light tracking-tight text-cyber-orange">STUDIO</span>
+          </a>
+          <p class="text-xs text-cyber-text/60 font-mono max-w-sm">{t.footer.descripcion}</p>
+        </div>
+        <div class="flex flex-col gap-2 text-xs font-mono text-cyber-text/60">
+          <span class="uppercase tracking-widest text-cyber-text/40">{t.footer.nav_label}</span>
+          <a href={homeUrl} class="hover:text-cyber-orange transition-colors">{t.footer.link_inicio}</a>
+          <a href={getLocalizedPath('/ia-automatizacion-empresas', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_servicios}</a>
+          <a href={getLocalizedPath('/casos-de-uso', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_casos_uso}</a>
+          <a href={getLocalizedPath('/studio', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_studio}</a>
+          <a href={contactoUrl} class="hover:text-cyber-orange transition-colors">{t.footer.link_contacto}</a>
+        </div>
+        <div class="flex flex-col gap-2 text-xs font-mono text-cyber-text/60">
+          <span class="uppercase tracking-widest text-cyber-text/40">{t.footer.legal_label}</span>
+          <a href={getLocalizedPath('/privacidad', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_privacidad}</a>
+          <a href={getLocalizedPath('/aviso-legal', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_aviso}</a>
+          <a href={getLocalizedPath('/cookies', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_cookies}</a>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t border-cyber-border/50 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <span class="font-mono text-[10px] text-cyber-text/40">{t.footer.copyright}</span>
+        <span class="font-mono text-[10px] text-cyber-text/40">{t.footer.made_in}</span>
+      </div>
+    </div>
+  </footer>
+
+</main>

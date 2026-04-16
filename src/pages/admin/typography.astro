@@ -1,0 +1,229 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import '../../styles/global.css';
+import { getAuthUser } from '../../lib/auth';
+import { loadSettings, saveSettings, type TypoElement, type TypographyConfig } from '../../lib/settings';
+
+const user = getAuthUser(Astro.cookies);
+if (!user) return Astro.redirect('/admin/login');
+
+const settings = loadSettings();
+let successMessage = '';
+
+const elements: { key: TypoElement; label: string; example: string }[] = [
+  { key: 'h1', label: 'H1 — Título principal', example: 'HACEMOS LA WEB BRUTAL' },
+  { key: 'h2', label: 'H2 — Título de sección', example: 'NUESTROS SISTEMAS' },
+  { key: 'h3', label: 'H3 — Título de tarjeta', example: 'Diseño Web Premium' },
+  { key: 'h4', label: 'H4 — Subtítulo', example: 'Subtítulo secundario' },
+  { key: 'h5', label: 'H5 — Etiqueta destacada', example: 'Etiqueta destacada' },
+  { key: 'h6', label: 'H6 — Etiqueta menor', example: 'Etiqueta menor' },
+  { key: 'p', label: 'P — Párrafo / texto cuerpo', example: 'Interfaces visuales que convierten. Diseño UI/UX con identidad de marca.' },
+  { key: 'span', label: 'SPAN — Texto mono / labels', example: '// SERVICIOS — STATUS: ONLINE' },
+];
+
+const commonFonts = [
+  // === SANS-SERIF ===
+  "'Inter', sans-serif",
+  "'Helvetica Neue', sans-serif",
+  "system-ui, sans-serif",
+  "'Arial Black', sans-serif",
+  // === MONOSPACE / CÓDIGO ===
+  "'JetBrains Mono', monospace",
+  "'Fira Code', monospace",
+  "'IBM Plex Mono', monospace",
+  "'Space Mono', monospace",
+  "'Courier Prime', monospace",
+  // === BRUTALES / DISPLAY ===
+  "'Bebas Neue', sans-serif",
+  "'Oswald', sans-serif",
+  "'Rajdhani', sans-serif",
+  "'Barlow Condensed', sans-serif",
+  "'Teko', sans-serif",
+  "'Anton', sans-serif",
+  "'Black Ops One', sans-serif",
+  "'Bungee', sans-serif",
+  "'Bungee Shade', sans-serif",
+  "'Bungee Inline', sans-serif",
+  "'Major Mono Display', monospace",
+  "'Press Start 2P', monospace",
+  "'Share Tech Mono', monospace",
+  "'VT323', monospace",
+  "'Silkscreen', monospace",
+  "'DotGothic16', sans-serif",
+  "'Orbitron', sans-serif",
+  "'Audiowide', sans-serif",
+  "'Saira Stencil One', sans-serif",
+  "'Stalinist One', sans-serif",
+  "'Rubik Mono One', sans-serif",
+  "'Rubik Glitch', sans-serif",
+  "'Rubik Distressed', sans-serif",
+  "'Monoton', sans-serif",
+  "'Nabla', sans-serif",
+  "'Syne', sans-serif",
+  "'Syne Mono', monospace",
+  "'Climate Crisis', sans-serif",
+  "'Tourney', sans-serif",
+  "'Racing Sans One', sans-serif",
+  "'Michroma', sans-serif",
+  "'Chakra Petch', sans-serif",
+  "'Exo 2', sans-serif",
+  "'Kanit', sans-serif",
+  "'Russo One', sans-serif",
+  "'Iceland', sans-serif",
+  // === SERIF / EDITORIAL ===
+  "'Georgia', serif",
+  "'Times New Roman', serif",
+  "'Playfair Display', serif",
+  "'DM Serif Display', serif",
+];
+
+// Build Google Fonts URL for all the fonts that need loading
+const googleFontFamilies = [
+  'Bebas+Neue', 'Oswald:wght@300;400;500;600;700', 'Rajdhani:wght@300;400;500;600;700',
+  'Barlow+Condensed:wght@300;400;500;600;700;800;900', 'Teko:wght@300;400;500;600;700',
+  'Anton', 'Black+Ops+One', 'Bungee', 'Bungee+Shade', 'Bungee+Inline',
+  'Major+Mono+Display', 'Press+Start+2P', 'Share+Tech+Mono', 'VT323', 'Silkscreen',
+  'DotGothic16', 'Orbitron:wght@400;500;600;700;800;900', 'Audiowide',
+  'Saira+Stencil+One', 'Stalinist+One', 'Rubik+Mono+One', 'Rubik+Glitch',
+  'Rubik+Distressed', 'Monoton', 'Syne:wght@400;500;600;700;800',
+  'Syne+Mono', 'Climate+Crisis', 'Tourney:wght@100;300;500;700;900',
+  'Racing+Sans+One', 'Michroma', 'Chakra+Petch:wght@300;400;500;600;700',
+  'Exo+2:wght@300;400;500;600;700;800;900', 'Kanit:wght@300;400;500;600;700;800;900',
+  'Russo+One', 'Iceland', 'IBM+Plex+Mono:wght@400;500;600;700',
+  'Space+Mono:wght@400;700', 'Courier+Prime:wght@400;700',
+  'Playfair+Display:wght@400;500;600;700;800;900', 'DM+Serif+Display',
+  'Nabla',
+];
+const googleFontsUrl = `https://fonts.googleapis.com/css2?${googleFontFamilies.map(f => `family=${f}`).join('&')}&display=swap`;
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData();
+
+  for (const el of elements) {
+    const config: TypographyConfig = {
+      fontFamily: (formData.get(`${el.key}_fontFamily`) as string) || settings.typography[el.key].fontFamily,
+      fontSize: (formData.get(`${el.key}_fontSize`) as string) || settings.typography[el.key].fontSize,
+      fontWeight: (formData.get(`${el.key}_fontWeight`) as string) || settings.typography[el.key].fontWeight,
+      lineHeight: (formData.get(`${el.key}_lineHeight`) as string) || settings.typography[el.key].lineHeight,
+      letterSpacing: (formData.get(`${el.key}_letterSpacing`) as string) || settings.typography[el.key].letterSpacing,
+    };
+    settings.typography[el.key] = config;
+  }
+
+  saveSettings(settings);
+  successMessage = 'Tipografías guardadas correctamente.';
+}
+---
+
+<AdminLayout title="Tipografías" userName={user.name}>
+  {/* Load all brutal Google Fonts for previewing */}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href={googleFontsUrl} rel="stylesheet" />
+
+  <div class="mb-8">
+    <h1 class="text-2xl font-black tracking-tight mb-2">Tipografías</h1>
+    <p class="text-sm text-cyber-text">Configura la fuente y propiedades tipográficas para cada tipo de elemento de texto. Los cambios se ven en tiempo real en la vista previa.</p>
+  </div>
+
+  {successMessage && (
+    <div class="mb-6 px-4 py-3 border border-cyber-teal/30 bg-cyber-teal/5 text-cyber-teal font-mono text-xs">
+      {successMessage}
+    </div>
+  )}
+
+  <form method="POST">
+    {elements.map((el) => {
+      const config = settings.typography[el.key];
+      return (
+        <div class="card-brutal p-6 mb-6">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="font-mono text-sm font-bold text-cyber-white">
+              <span class="text-cyber-orange">&lt;{el.key}&gt;</span> — {el.label}
+            </h2>
+          </div>
+
+          {/* Preview */}
+          <div class="mb-4 p-4 border border-cyber-border/30 bg-cyber-black/50 overflow-hidden"
+            id={`preview_${el.key}`}
+            style={`font-family: ${config.fontFamily}; font-size: ${config.fontSize}; font-weight: ${config.fontWeight}; line-height: ${config.lineHeight}; letter-spacing: ${config.letterSpacing};`}
+          >
+            {el.example}
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div>
+              <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">Fuente</label>
+              <select name={`${el.key}_fontFamily`} data-typo={el.key} data-prop="fontFamily"
+                class="typo-input w-full bg-cyber-black border border-cyber-border px-2 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors">
+                {commonFonts.map(f => (
+                  <option value={f} selected={config.fontFamily === f}>{f.split("'")[1] || f.split(',')[0]}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">Tamaño</label>
+              <input type="text" name={`${el.key}_fontSize`} value={config.fontSize} data-typo={el.key} data-prop="fontSize"
+                class="typo-input w-full bg-cyber-black border border-cyber-border px-2 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors"
+                placeholder="1rem" />
+            </div>
+            <div>
+              <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">Peso</label>
+              <select name={`${el.key}_fontWeight`} data-typo={el.key} data-prop="fontWeight"
+                class="typo-input w-full bg-cyber-black border border-cyber-border px-2 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors">
+                {['100','200','300','400','500','600','700','800','900'].map(w => (
+                  <option value={w} selected={config.fontWeight === w}>{w}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">Line-height</label>
+              <input type="text" name={`${el.key}_lineHeight`} value={config.lineHeight} data-typo={el.key} data-prop="lineHeight"
+                class="typo-input w-full bg-cyber-black border border-cyber-border px-2 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors"
+                placeholder="1.5" />
+            </div>
+            <div>
+              <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">Letter-spacing</label>
+              <input type="text" name={`${el.key}_letterSpacing`} value={config.letterSpacing} data-typo={el.key} data-prop="letterSpacing"
+                class="typo-input w-full bg-cyber-black border border-cyber-border px-2 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors"
+                placeholder="0em" />
+            </div>
+          </div>
+        </div>
+      );
+    })}
+
+    <button type="submit" class="btn-primary text-xs py-3 px-6">
+      Guardar tipografías
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    </button>
+  </form>
+
+  <script>
+    // Real-time typography preview
+    const propMap: Record<string, string> = {
+      fontFamily: 'fontFamily',
+      fontSize: 'fontSize',
+      fontWeight: 'fontWeight',
+      lineHeight: 'lineHeight',
+      letterSpacing: 'letterSpacing',
+    };
+
+    document.querySelectorAll('.typo-input').forEach(input => {
+      const el = input as HTMLInputElement | HTMLSelectElement;
+      const handler = () => {
+        const key = el.dataset.typo;
+        const prop = el.dataset.prop;
+        if (!key || !prop) return;
+        const preview = document.getElementById(`preview_${key}`);
+        if (!preview) return;
+        const cssProp = propMap[prop];
+        if (cssProp) {
+          (preview.style as any)[cssProp] = el.value;
+        }
+      };
+      el.addEventListener('input', handler);
+      el.addEventListener('change', handler);
+    });
+  </script>
+</AdminLayout>

@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  userName?: string;
+}
+
+const { title, userName } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>{title} | CIBAI Admin</title>
+  </head>
+  <body class="bg-cyber-black text-cyber-white min-h-screen">
+    {userName ? (
+      <nav class="border-b border-cyber-border bg-cyber-dark">
+        <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-14">
+          <div class="flex items-center gap-6">
+            <a href="/admin" class="flex items-center gap-1">
+              <span class="text-sm font-bold text-cyber-white">CIBAI</span>
+              <span class="text-sm font-bold text-cyber-orange">.</span>
+              <span class="text-sm font-light text-cyber-orange">ADMIN</span>
+            </a>
+            <div class="hidden md:flex items-center gap-4">
+              <a href="/admin" class="font-mono text-[10px] uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">Traducciones</a>
+              <a href="/admin/hero" class="font-mono text-[10px] uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">Hero</a>
+              <a href="/admin/services" class="font-mono text-[10px] uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">Servicios</a>
+              <a href="/admin/parameters" class="font-mono text-[10px] uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">Parámetros</a>
+              <a href="/admin/visual" class="font-mono text-[10px] uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">Visual</a>
+              <a href="/admin/typography" class="font-mono text-[10px] uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">Tipografías</a>
+              <a href="/admin/users" class="font-mono text-[10px] uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">Usuarios</a>
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="font-mono text-[10px] text-cyber-text">{userName}</span>
+            <a href="/admin/logout" class="font-mono text-[10px] text-cyber-red hover:text-cyber-red/80 uppercase tracking-widest transition-colors">Salir</a>
+          </div>
+        </div>
+      </nav>
+    ) : null}
+
+    <main class="mx-auto max-w-7xl px-6 py-8">
+      <slot />
+    </main>
+  </body>
+</html>

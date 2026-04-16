@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CasosDeUsoPage from '../../components/CasosDeUsoPage.astro';
+import '../../styles/global.css';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Casos d'Ús IA i Automatització en Empreses",
+  "description": "Descobreix com la IA, l'automatització i el programari a mida impacten en atenció, vendes, operacions i ecommerce. Casos reals per a empreses com la teva.",
+  "provider": {
+    "@type": "Organization",
+    "name": "CIBAI.Studio",
+    "url": "https://cibai.studio"
+  },
+  "url": "https://cibai.studio/ca/casos-de-uso"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inici",
+      "item": "https://cibai.studio/ca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Casos d'Ús",
+      "item": "https://cibai.studio/ca/casos-de-uso"
+    }
+  ]
+};
+---
+
+<Layout
+  title="Casos d'Ús IA i Automatització en Empreses | CIBAI"
+  description="Descobreix com la IA, l'automatització i el programari a mida impacten en atenció, vendes, operacions i ecommerce. Casos reals per a empreses com la teva."
+  locale="ca"
+  canonicalPath="/ca/casos-de-uso"
+  hreflangEs="https://cibai.studio/casos-de-uso"
+  hreflangCa="https://cibai.studio/ca/casos-de-uso"
+  schemaMarkup={[serviceSchema, breadcrumbSchema]}
+>
+  <CasosDeUsoPage locale="ca" />
+</Layout>

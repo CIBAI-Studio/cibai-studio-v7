@@ -1,0 +1,474 @@
+---
+import type { Locale } from '../i18n';
+import { getTranslations, getLocalizedPath } from '../i18n';
+import LanguageSelector from './LanguageSelector.astro';
+import PuentesSection from './PuentesSection.astro';
+import { loadSettings, lightenColor } from '../lib/settings';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const settings = loadSettings();
+const primaryColor = settings.visual.primaryColor;
+const secondaryColor = settings.visual.secondaryColor;
+const primaryColorLight = lightenColor(primaryColor, 30);
+
+const isCA = locale === 'ca';
+const homeUrl = getLocalizedPath('/', locale);
+const contactoUrl = getLocalizedPath('/contacto', locale);
+const softwareUrl = getLocalizedPath('/software-a-medida', locale);
+---
+
+<!-- ═══════════════ TOP BAR (HUD) ═══════════════ -->
+<div class="fixed top-0 left-0 right-0 z-50 bg-cyber-black border-b border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-8">
+    <div class="flex items-center gap-4">
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-teal"></span>
+      <span class="font-mono text-[9px] text-cyber-text/60 uppercase tracking-widest">{t.hud.sys_online}</span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-teal/70">{t.hud.node_active}</span>
+    </div>
+    <div class="hidden sm:flex items-center gap-4">
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.ping} <span class="text-cyber-teal/70">8ms</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.uptime} <span class="text-cyber-orange/70">99.9%</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-red"></span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.rec}</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="fixed top-8 left-0 right-0 z-50 border-b border-cyber-border bg-cyber-black/90 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-16">
+    <a href={homeUrl} class="flex items-center gap-1">
+      <span class="text-lg font-bold tracking-tight text-cyber-white">CIBAI</span>
+      <span class="text-lg font-bold tracking-tight text-cyber-orange">.</span>
+      <span class="text-lg font-light tracking-tight text-cyber-orange">STUDIO</span>
+    </a>
+    <div class="flex items-center gap-6">
+      <div class="hidden md:flex items-center gap-8">
+        <a href={homeUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.inicio}</a>
+        <a href={getLocalizedPath('/ia-automatizacion-empresas', locale)} class="font-mono text-xs uppercase tracking-widest text-cyber-orange transition-colors">{t.nav.servicios}</a>
+        <a href={getLocalizedPath('/studio', locale)} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.studio}</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <LanguageSelector currentLocale={locale} />
+        <a href={contactoUrl} class="btn-primary text-xs py-2 px-5 hidden sm:inline-flex">{t.nav.proyecto}</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="main-content" class="relative min-h-[65vh] flex flex-col justify-end pt-32 pb-16 overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.03]" style={`background-image: linear-gradient(color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px); background-size: 60px 60px;`}></div>
+
+  <div class="mx-auto max-w-7xl px-6 w-full">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-8">
+      <ol class="flex items-center gap-2 font-mono text-[10px] text-cyber-text/60 uppercase tracking-widest">
+        <li><a href={homeUrl} class="hover:text-cyber-orange transition-colors">{isCA ? 'Inici' : 'Inicio'}</a></li>
+        <li class="text-cyber-border">/</li>
+        <li><a href={getLocalizedPath('/soluciones-ia-empresas', locale)} class="hover:text-cyber-orange transition-colors">{isCA ? 'Solucions' : 'Soluciones'}</a></li>
+        <li class="text-cyber-border">/</li>
+        <li class="text-cyber-orange">{isCA ? 'Software a Mida' : 'Software a Medida'}</li>
+      </ol>
+    </nav>
+
+    <div class="section-number mb-4">// {isCA ? 'SERVEI' : 'SERVICIO'}</div>
+    <h1 class="text-[clamp(2.5rem,6vw,5.5rem)] font-black leading-[0.95] tracking-tight mb-6">
+      {isCA
+        ? <><span>EL SOFTWARE QUE</span><br/><span>LA TEVA EMPRESA</span><br/><span class="text-cyber-orange glow-orange">NECESSITA DE VERITAT</span></>
+        : <><span>EL SOFTWARE QUE</span><br/><span>TU EMPRESA</span><br/><span class="text-cyber-orange glow-orange">NECESITA DE VERDAD</span></>
+      }
+    </h1>
+    <p class="text-cyber-text text-lg font-light max-w-2xl leading-relaxed mb-4">
+      {isCA
+        ? 'Desenvolupem eines internes, panells de gestió, ERPs i aplicacions adaptades als teus processos reals. No plantilles genèriques. Software que s’ajusta a com funciona la teva empresa.'
+        : 'Desarrollamos herramientas internas, paneles de gestión, ERPs y aplicaciones adaptadas a tus procesos reales. No plantillas genéricas. Software que se ajusta a cómo funciona tu empresa.'
+      }
+    </p>
+    <p class="text-cyber-text/60 text-sm font-mono max-w-2xl leading-relaxed mb-10">
+      {isCA
+        ? '// Software a medida para empresas que necesitan herramientas adaptadas a su realidad'
+        : '// Software a medida para empresas que necesitan herramientas adaptadas a su realidad'
+      }
+    </p>
+    <div class="flex flex-wrap gap-4">
+      <a href={contactoUrl} class="btn-primary btn-glitch">
+        {isCA ? 'Sol·licitar diagnòstic' : 'Solicitar diagnóstico'}
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <a href={getLocalizedPath('/soluciones-ia-empresas', locale)} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-orange transition-colors flex items-center gap-2 py-2">
+        {isCA ? 'Veure totes les solucions' : 'Ver todas las soluciones'}
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PER A QUIN TIPUS D’EMPRESA ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'PER A QUI' : 'PARA QUIÉN'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>PER A QUINA</span><br/><span class="text-cyber-teal glow-teal">EMPRESA?</span></>
+          : <><span>¿PARA QUÉ</span><br/><span class="text-cyber-teal glow-teal">EMPRESA?</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {[
+        {
+          num: '01',
+          title: isCA ? 'Empreses amb processos que no caben en eines estàndard' : 'Empresas con procesos que no caben en herramientas estándar',
+          desc: isCA
+            ? 'Quan el teu negoci té una lògica pròpia que les solucions de mercat no cobreixen, la única sortida real és construir l’eina que s’adapti a tu, no al revés.'
+            : 'Cuando tu negocio tiene una lógica propia que las soluciones de mercado no cubren, la única salida real es construir la herramienta que se adapte a ti, no al revés.'
+        },
+        {
+          num: '02',
+          title: isCA ? 'Empreses que necessiten panells de gestió interna' : 'Empresas que necesitan paneles de gestión interna',
+          desc: isCA
+            ? 'Back-offices, intranets, panells d’administració, eines per a equips de vendes, logística o atenció al client. Construïm exactament el que necessites veure i controlar.'
+            : 'Back-offices, intranets, paneles de administración, herramientas para equipos de ventas, logística o atención al cliente. Construimos exactamente lo que necesitas ver y controlar.'
+        },
+        {
+          num: '03',
+          title: isCA ? 'Empreses que volen automatitzar fluxos amb lògica personalitzada' : 'Empresas que quieren automatizar flujos con lógica personalizada',
+          desc: isCA
+            ? 'Les eines d’automatització genèriques no entenen les regles de negoci específiques. El software a mida permet codificar la teva lògica directament en el sistema.'
+            : 'Las herramientas de automatización genéricas no entienden las reglas de negocio específicas. El software a medida permite codificar tu lógica directamente en el sistema.'
+        },
+        {
+          num: '04',
+          title: isCA ? 'Empreses que necessiten integrar sistemes heterogenis' : 'Empresas que necesitan integrar sistemas heterogéneos',
+          desc: isCA
+            ? 'Quan tens múltiples sistemes que no es parlen entre ells i les integracions estàndard no arriben, un connector o middleware a mida resol el problema definitivament.'
+            : 'Cuando tienes múltiples sistemas que no se hablan entre sí y las integraciones estándar no llegan, un conector o middleware a medida resuelve el problema definitivamente.'
+        }
+      ].map((item) => (
+        <div class="card-brutal p-8">
+          <span class="text-4xl font-black text-cyber-orange/70 block mb-4">{item.num}</span>
+          <h3 class="text-xl font-bold mb-3 text-cyber-white">{item.title}</h3>
+          <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ QUÈ FEM ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'SERVEIS' : 'SERVICIOS'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>QUÈ FEM EN</span><br/><span class="text-cyber-orange glow-orange">SOFTWARE A MIDA</span></>
+          : <><span>QUÉ HACEMOS EN</span><br/><span class="text-cyber-orange glow-orange">SOFTWARE A MEDIDA</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="space-y-4">
+      {[
+        {
+          label: isCA ? 'EINES I PANELLS' : 'HERRAMIENTAS Y PANELES',
+          title: isCA ? 'Eines internes i panells de gestió' : 'Herramientas internas y paneles de gestión',
+          desc: isCA
+            ? 'Dissenyem i desenvolupem back-offices, intranets i panells d’administració personalitzats: gestió de comandes, clients, inventari, equip o qualsevol procés intern del teu negoci.'
+            : 'Diseñamos y desarrollamos back-offices, intranets y paneles de administración personalizados: gestión de pedidos, clientes, inventario, equipo o cualquier proceso interno de tu negocio.'
+        },
+        {
+          label: isCA ? 'AUTOMATITZACIÓ PERSONALITZADA' : 'AUTOMATIZACIÓN PERSONALIZADA',
+          title: isCA ? 'Automatització de processos amb lògica personalitzada' : 'Automatización de procesos con lógica personalizada',
+          desc: isCA
+            ? 'Implementem fluxos de treball automatitzats amb les regles de negoci específiques de la teva empresa: assignació de tasques, aprovacions, càlculs complexos, generació de documents.'
+            : 'Implementamos flujos de trabajo automatizados con las reglas de negocio específicas de tu empresa: asignación de tareas, aprobaciones, cálculos complejos, generación de documentos.'
+        },
+        {
+          label: isCA ? 'INTEGRACIONS I APIs' : 'INTEGRACIONES Y APIS',
+          title: isCA ? 'Integracions entre sistemes i APIs' : 'Integraciones entre sistemas y APIs',
+          desc: isCA
+            ? 'Connectem els teus sistemes existents: ERP, CRM, ecommerce, eines de comptabilitat, plataformes logístiques. Construïm connectors, middlewares i APIs que sincronitzen la informació automàticament.'
+            : 'Conectamos tus sistemas existentes: ERP, CRM, ecommerce, herramientas de contabilidad, plataformas logísticas. Construimos conectores, middlewares y APIs que sincronizan la información automáticamente.'
+        },
+        {
+          label: isCA ? 'DASHBOARDS I REPORTING' : 'DASHBOARDS Y REPORTING',
+          title: isCA ? 'Dashboards i reporting a mida' : 'Dashboards y reporting a medida',
+          desc: isCA
+            ? 'Panells de control amb les mètriques que importa al teu negoci: vendes, operacions, finances, màrqueting. Dades en temps real, visualitzacions clares, exportació automatitzada.'
+            : 'Paneles de control con las métricas que importan a tu negocio: ventas, operaciones, finanzas, marketing. Datos en tiempo real, visualizaciones claras, exportación automatizada.'
+        },
+        {
+          label: isCA ? 'APLICACIONS WEB I MÒBIL' : 'APLICACIONES WEB Y MÓVIL',
+          title: isCA ? 'Aplicacions web i mòbil a mida' : 'Aplicaciones web y móvil a medida',
+          desc: isCA
+            ? 'Desenvolupem aplicacions web i mòbil adaptades al teu cas d’ús: portals de clients, apps per a camps o mobilitat, plataformes SaaS internes. Arquitectura escalable i mantenible.'
+            : 'Desarrollamos aplicaciones web y móvil adaptadas a tu caso de uso: portales de clientes, apps para campo o movilidad, plataformas SaaS internas. Arquitectura escalable y mantenible.'
+        }
+      ].map((item, i) => (
+        <div class="flex gap-6 p-6 border border-cyber-border hover:border-cyber-orange/40 transition-colors group">
+          <span class="font-mono text-[10px] text-cyber-orange uppercase tracking-widest min-w-[160px] pt-1 hidden md:block">{item.label}</span>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold mb-2 text-cyber-white group-hover:text-cyber-orange transition-colors">{item.title}</h3>
+            <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+          </div>
+          <span class="text-3xl font-black text-cyber-border group-hover:text-cyber-orange/30 transition-colors hidden lg:block">0{i + 1}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CASOS D’ÚS ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'CASOS D’ÚS' : 'CASOS DE USO'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>EXEMPLES DE PROJECTES</span><br/><span class="text-cyber-orange glow-orange">REALS</span></>
+          : <><span>EJEMPLOS DE PROYECTOS</span><br/><span class="text-cyber-orange glow-orange">REALES</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {[
+        {
+          title: isCA ? 'Panel de gestió de comandes' : 'Panel de gestión de pedidos',
+          tags: isCA ? ['LOGÍSTICA', 'GESTIÓ', 'TEMPS REAL'] : ['LOGÍSTICA', 'GESTIÓN', 'TIEMPO REAL'],
+          desc: isCA
+            ? 'Una empresa de distribució necessitava gestionar comandes de múltiples canals (web, telèfon, B2B) en un sol panell. Construïm un back-office a mida amb estats, assignació d’operaris i notificacions automàtiques.'
+            : 'Una empresa de distribución necesitaba gestionar pedidos de múltiples canales (web, teléfono, B2B) en un solo panel. Construimos un back-office a medida con estados, asignación de operarios y notificaciones automáticas.'
+        },
+        {
+          title: isCA ? 'CRM personalitzat per a empresa de serveis' : 'CRM personalizado para empresa de servicios',
+          tags: isCA ? ['CRM', 'VENDES', 'SEGUIMENT'] : ['CRM', 'VENTAS', 'SEGUIMIENTO'],
+          desc: isCA
+            ? 'Les eines CRM genèriques no s’adaptaven al cicle de venda llarg i complex d’aquesta empresa. Construïm un CRM específic amb el seu pipeline, les seves regles de qualificació i integrat amb el seu sistema de facturació.'
+            : 'Las herramientas CRM genéricas no se adaptaban al ciclo de venta largo y complejo de esta empresa. Construimos un CRM específico con su pipeline, sus reglas de calificación e integrado con su sistema de facturación.'
+        },
+        {
+          title: isCA ? 'Eina de facturació automatitzada' : 'Herramienta de facturación automatizada',
+          tags: isCA ? ['FACTURACIÓ', 'AUTOMATITZACIÓ', 'COMPTABILITAT'] : ['FACTURACIÓN', 'AUTOMATIZACIÓN', 'CONTABILIDAD'],
+          desc: isCA
+            ? 'Una empresa amb centenars de clients recurrents generava factures manualment cada mes. Construïm un sistema que les genera automàticament a partir de les dades del servei, les envia i registra els pagaments.'
+            : 'Una empresa con cientos de clientes recurrentes generaba facturas manualmente cada mes. Construimos un sistema que las genera automáticamente a partir de los datos del servicio, las envía y registra los pagos.'
+        },
+        {
+          title: isCA ? 'Dashboard operatiu per a direcció' : 'Dashboard operativo para dirección',
+          tags: isCA ? ['DASHBOARD', 'KPIs', 'DADES'] : ['DASHBOARD', 'KPIs', 'DATOS'],
+          desc: isCA
+            ? 'La direcció d’una empresa de 80 persones no tenia visibilitat en temps real dels KPIs operatius. Construïm un dashboard que agrega dades de 4 sistemes diferents i mostra l’estat del negoci en temps real.'
+            : 'La dirección de una empresa de 80 personas no tenía visibilidad en tiempo real de los KPIs operativos. Construimos un dashboard que agrega datos de 4 sistemas distintos y muestra el estado del negocio en tiempo real.'
+        }
+      ].map((item) => (
+        <div class="card-brutal p-8">
+          <div class="flex flex-wrap gap-2 mb-4">
+            {item.tags.map((tag: string) => (
+              <span class="font-mono text-[10px] px-2 py-1 border border-cyber-border text-cyber-text">{tag}</span>
+            ))}
+          </div>
+          <h3 class="text-lg font-bold mb-3 text-cyber-white">{item.title}</h3>
+          <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ COM TREBALLEM ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'METODOLOGIA' : 'METODOLOGÍA'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>COM TREBALLEM EN</span><br/><span class="text-cyber-teal glow-teal">SOFTWARE A MIDA</span></>
+          : <><span>CÓMO TRABAJAMOS EN</span><br/><span class="text-cyber-teal glow-teal">SOFTWARE A MEDIDA</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      {[
+        {
+          num: '01',
+          title: isCA ? 'Diagnòstic' : 'Diagnóstico',
+          desc: isCA
+            ? 'Entenem els teus processos, necessitats reals, sistemes existents i objectius del projecte.'
+            : 'Entendemos tus procesos, necesidades reales, sistemas existentes y objetivos del proyecto.'
+        },
+        {
+          num: '02',
+          title: isCA ? 'Disseny tècnic' : 'Diseño técnico',
+          desc: isCA
+            ? 'Definim l’arquitectura, les tecnologies, els fluxos de dades i les integracions necessàries.'
+            : 'Definimos la arquitectura, las tecnologías, los flujos de datos y las integraciones necesarias.'
+        },
+        {
+          num: '03',
+          title: isCA ? 'Desenvolupament' : 'Desarrollo',
+          desc: isCA
+            ? 'Construïm per sprints amb entregables visibles. Validació contínua amb el teu equip.'
+            : 'Construimos por sprints con entregables visibles. Validación continua con tu equipo.'
+        },
+        {
+          num: '04',
+          title: 'QA',
+          desc: isCA
+            ? 'Proves exhaustives de funcionalitat, rendiment i integració abans de la posada en marxa.'
+            : 'Pruebas exhaustivas de funcionalidad, rendimiento e integración antes de la puesta en marcha.'
+        },
+        {
+          num: '05',
+          title: isCA ? 'Entrega i suport' : 'Entrega y soporte',
+          desc: isCA
+            ? 'Implantació en producció, formació de l’equip, documentació i suport post-llançament.'
+            : 'Implantación en producción, formación del equipo, documentación y soporte post-lanzamiento.'
+        }
+      ].map((step) => (
+        <div class="card-brutal p-6 group">
+          <span class="text-4xl font-black text-cyber-orange/80 block mb-4">{step.num}</span>
+          <h3 class="font-mono text-sm font-bold tracking-wider mb-3 text-cyber-white">{step.title}</h3>
+          <p class="text-xs text-cyber-text leading-relaxed">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FAQ ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// FAQ</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>PREGUNTES FREQÜENTS SOBRE</span><br/><span class="text-cyber-orange glow-orange">SOFTWARE A MIDA</span></>
+          : <><span>PREGUNTAS FRECUENTES SOBRE</span><br/><span class="text-cyber-orange glow-orange">SOFTWARE A MEDIDA</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="space-y-4 max-w-3xl">
+      {[
+        {
+          q: isCA ? 'Quant tarda un projecte de software a mida?' : '¿Cuánto tarda un proyecto de software a medida?',
+          a: isCA
+            ? 'Depèn de la complexitat. Una eina interna o panell de gestió pot estar llest en 4–8 setmanes. Projectes més complexos amb múltiples integracions o lògiques avançades poden requerir de 2 a 6 mesos. Al diagnòstic inicial definim terminis i fites concretes.'
+            : 'Depende de la complejidad. Una herramienta interna o panel de gestión puede estar listo en 4–8 semanas. Proyectos más complejos con múltiples integraciones o lógicas avanzadas pueden requerir de 2 a 6 meses. En el diagnóstico inicial definimos plazos e hitos concretos.'
+        },
+        {
+          q: isCA ? 'Amb quines tecnologies treballeu?' : '¿Con qué tecnologías trabajáis?',
+          a: isCA
+            ? 'Triem la tecnologia adequada per a cada projecte. Treballem habitualment amb React, Next.js, Node.js, Python, PostgreSQL i diverses eines cloud. L’objectiu no és imposar una tecnologia, sinó triar la que millor resol el teu problema amb el menor cost de manteniment futur.'
+            : 'Elegimos la tecnología adecuada para cada proyecto. Trabajamos habitualmente con React, Next.js, Node.js, Python, PostgreSQL y diversas herramientas cloud. El objetivo no es imponer una tecnología, sino elegir la que mejor resuelve tu problema con el menor coste de mantenimiento futuro.'
+        },
+        {
+          q: isCA ? 'Oferiu manteniment i suport post-llançament?' : '¿Ofrecéis mantenimiento y soporte post-lanzamiento?',
+          a: isCA
+            ? 'Sí. Oferim plans de manteniment i suport adaptat a les necessitats de cada client: des de suport puntual per incidències fins a contractes de manteniment mensual que inclouen millores contínues, monitoratge i actualitzacions de seguretat.'
+            : 'Sí. Ofrecemos planes de mantenimiento y soporte adaptados a las necesidades de cada cliente: desde soporte puntual por incidencias hasta contratos de mantenimiento mensual que incluyen mejoras continuas, monitoreo y actualizaciones de seguridad.'
+        },
+        {
+          q: isCA ? 'Podeu integrar el software amb els nostres sistemes actuals?' : '¿Podéis integrar el software con nuestros sistemas actuales?',
+          a: isCA
+            ? 'Absolutament. La integració amb sistemes existents és una de les nostres especialitats. Treballem amb APIs REST, webhooks, connexions directes a bases de dades i connectors específics per a les principals plataformes (Salesforce, SAP, Holded, WooCommerce, Shopify, entre d’altres).'
+            : 'Absolutamente. La integración con sistemas existentes es una de nuestras especialidades. Trabajamos con APIs REST, webhooks, conexiones directas a bases de datos y conectores específicos para las principales plataformas (Salesforce, SAP, Holded, WooCommerce, Shopify, entre otros).'
+        }
+      ].map((item) => (
+        <details class="group border border-cyber-border">
+          <summary class="flex items-center justify-between p-6 cursor-pointer hover:bg-cyber-dark/50 transition-colors list-none">
+            <h3 class="font-mono text-sm font-bold tracking-wider text-cyber-white pr-4">{item.q}</h3>
+            <svg class="w-4 h-4 text-cyber-orange flex-shrink-0 transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-6">
+            <p class="text-sm text-cyber-text leading-relaxed">{item.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<PuentesSection locale={locale} />
+
+<!-- ═══════════════ CTA FINAL ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="absolute inset-0 opacity-[0.02]" style={`background-image: linear-gradient(color-mix(in srgb, ${secondaryColor} 20%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, ${secondaryColor} 20%, transparent) 1px, transparent 1px); background-size: 40px 40px;`}></div>
+  <div class="mx-auto max-w-7xl px-6 text-center relative">
+    <div class="section-number mb-4 mx-auto w-fit">// {isCA ? 'DIAGNÒSTIC' : 'DIAGNÓSTICO'}</div>
+    <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-tight mb-4">
+      {isCA
+        ? '¿Necessites una eina que no existeix al mercat?'
+        : '¿Necesitas una herramienta que no existe en el mercado?'
+      }
+    </h2>
+    <p class="text-cyber-text max-w-xl mx-auto mb-10 font-light leading-relaxed">
+      {isCA
+        ? 'El punt de partida és una conversa. Explica’ns el teu problema i et diem si podem construir la solució, quant trigaria i quin cost tindria.'
+        : 'El punto de partida es una conversación. Cuéntanos tu problema y te decimos si podemos construir la solución, cuánto tardaría y qué coste tendría.'
+      }
+    </p>
+    <a href={contactoUrl} class="btn-primary btn-glitch">
+      {isCA ? 'Sol·licitar diagnòstic' : 'Solicitar diagnóstico'}
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="border-t border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div class="md:col-span-1">
+        <div class="flex items-center gap-1 mb-4">
+          <span class="text-lg font-bold text-cyber-white">CIBAI</span>
+          <span class="text-lg font-bold text-cyber-orange">.</span>
+          <span class="text-lg font-light text-cyber-orange">STUDIO</span>
+        </div>
+        <p class="text-sm text-cyber-text max-w-sm leading-relaxed mb-4">
+          {t.footer.descripcion}
+        </p>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-4">{t.footer.nav_label}</div>
+        <div class="space-y-3">
+          <a href={homeUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_inicio}</a>
+          <a href={getLocalizedPath('/ia-automatizacion-empresas', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_servicios}</a>
+          <a href={getLocalizedPath('/casos-de-uso', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_casos_uso}</a>
+          <a href={getLocalizedPath('/studio', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_studio}</a>
+          <a href={contactoUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_contacto}</a>
+        </div>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-4">{t.footer.legal_label}</div>
+        <div class="space-y-3">
+          <a href={getLocalizedPath('/privacidad', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_privacidad}</a>
+          <a href={getLocalizedPath('/aviso-legal', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_aviso}</a>
+          <a href={getLocalizedPath('/cookies', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_cookies}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-cyber-border">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-2">
+      <span class="font-mono text-[10px] text-cyber-text">{t.footer.copyright}</span>
+      <span class="font-mono text-[10px] text-cyber-text">{t.footer.made_in}</span>
+    </div>
+  </div>
+</footer>

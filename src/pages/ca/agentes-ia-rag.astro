@@ -1,0 +1,113 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AgentesIARagPage from '../../components/AgentesIARagPage.astro';
+import '../../styles/global.css';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Agents IA, Chatbots i RAG per a Empreses",
+  "description": "Construïm agents IA especialitzats, chatbots intel·ligents i sistemes RAG que milloren l'atenció, el suport i la gestió del coneixement de la teva empresa.",
+  "provider": {
+    "@type": "Organization",
+    "name": "CIBAI.Studio",
+    "url": "https://cibai.studio"
+  },
+  "serviceType": "Agents IA, chatbots i sistemes RAG per a empreses",
+  "areaServed": {
+    "@type": "Country",
+    "name": "España"
+  },
+  "url": "https://cibai.studio/ca/agentes-ia-rag",
+  "offers": {
+    "@type": "Offer",
+    "description": "Diagnòstic gratuït per identificar la solució d'IA conversacional més adequada per a la teva empresa",
+    "url": "https://cibai.studio/ca/contacto"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inici",
+      "item": "https://cibai.studio/ca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Agents IA i RAG",
+      "item": "https://cibai.studio/ca/agentes-ia-rag"
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Es pot connectar l'agent als nostres sistemes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Connectem l'agent als teus sistemes existents via API: CRM, ERP, bases de dades, helpdesk, ecommerce i més. Si el teu sistema té una API o accés a dades, l'agent hi pot accedir per llegir i escriure informació en temps real."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Quant de temps d'entrenament necessita l'agent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un agent bàsic amb RAG sobre documentació existent pot estar operatiu en 2–3 setmanes. Agents més complexos amb integracions de sistemes i múltiples capacitats requereixen entre 4 i 8 setmanes. L'agent millora contínuament amb l'ús i el feedback."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿És segur? ¿Les dades de la nostra empresa són privades?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Construïm amb models que permeten processament en entorns privats o amb acords de no entrenament de dades. Els teus documents i dades no s'utilitzen per entrenar models externs. Implementem controls d'accés, encriptació i auditoria de totes les interaccions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Podem actualitzar la base de coneixement nosaltres mateixos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Et proporcionem un panel d'administració per gestionar la base de coneixement del teu agent: afegir documents, actualitzar informació existent i revisar les converses. L'agent reflecteix els canvis en qüestió de minuts sense necessitat de suport tècnic."
+      }
+    }
+  ]
+};
+
+const definitionSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Quina diferència hi ha entre un chatbot, un agent IA i un sistema RAG?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un chatbot conversacional respon preguntes segons un arbre de decisions o regles, limitat al que s'ha programat. Un agent IA especialitzat raona, decideix i actua de forma autònoma, pot buscar informació, executar tasques i escalar. Un sistema RAG connecta l'agent IA amb la teva documentació, base de coneixement i dades internes per oferir respostes precises, actualitzades i contextuals."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Agents IA, Chatbots i RAG per a Empreses | CIBAI"
+  description="Creem chatbots, agents IA especialitzats i sistemes RAG per a atenció, suport i coneixement intern. Sol·licita diagnòstic i veu com aplicar-ho."
+  locale="ca"
+  canonicalPath="/ca/agentes-ia-rag"
+  hreflangEs="https://cibai.studio/agentes-ia-rag"
+  hreflangCa="https://cibai.studio/ca/agentes-ia-rag"
+  schemaMarkup={[serviceSchema, breadcrumbSchema, faqSchema, definitionSchema]}
+>
+  <AgentesIARagPage locale="ca" />
+</Layout>

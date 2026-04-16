@@ -1,0 +1,552 @@
+---
+import type { Locale } from '../i18n';
+import { getTranslations, getLocalizedPath } from '../i18n';
+import LanguageSelector from './LanguageSelector.astro';
+import PuentesSection from './PuentesSection.astro';
+import { loadSettings, lightenColor } from '../lib/settings';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const settings = loadSettings();
+const primaryColor = settings.visual.primaryColor;
+const secondaryColor = settings.visual.secondaryColor;
+const primaryColorLight = lightenColor(primaryColor, 30);
+
+const isCA = locale === 'ca';
+const homeUrl = getLocalizedPath('/', locale);
+const contactoUrl = getLocalizedPath('/contacto', locale);
+---
+
+<!-- ═══════════════ TOP BAR (HUD) ═══════════════ -->
+<div class="fixed top-0 left-0 right-0 z-50 bg-cyber-black border-b border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-8">
+    <div class="flex items-center gap-4">
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-teal"></span>
+      <span class="font-mono text-[9px] text-cyber-text/60 uppercase tracking-widest">{t.hud.sys_online}</span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-teal/70">{t.hud.node_active}</span>
+    </div>
+    <div class="hidden sm:flex items-center gap-4">
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.ping} <span class="text-cyber-teal/70">8ms</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.uptime} <span class="text-cyber-orange/70">99.9%</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-red"></span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.rec}</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="fixed top-8 left-0 right-0 z-50 border-b border-cyber-border bg-cyber-black/90 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-16">
+    <a href={homeUrl} class="flex items-center gap-1">
+      <span class="text-lg font-bold tracking-tight text-cyber-white">CIBAI</span>
+      <span class="text-lg font-bold tracking-tight text-cyber-orange">.</span>
+      <span class="text-lg font-light tracking-tight text-cyber-orange">STUDIO</span>
+    </a>
+    <div class="flex items-center gap-6">
+      <div class="hidden md:flex items-center gap-8">
+        <a href={homeUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.inicio}</a>
+        <a href={getLocalizedPath('/ia-automatizacion-empresas', locale)} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.servicios}</a>
+        <a href={getLocalizedPath('/studio', locale)} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.studio}</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <LanguageSelector currentLocale={locale} />
+        <a href={contactoUrl} class="btn-primary text-xs py-2 px-5 hidden sm:inline-flex">{t.nav.proyecto}</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<main class="min-h-screen bg-cyber-black text-cyber-white pt-24">
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="main-content" class="relative min-h-[60vh] flex flex-col justify-end pt-32 pb-16 overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.03]" style={`background-image: linear-gradient(color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px); background-size: 60px 60px;`}></div>
+
+  <div class="mx-auto max-w-7xl px-6 w-full">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-8">
+      <ol class="flex items-center gap-2 font-mono text-[10px] text-cyber-text/60 uppercase tracking-widest">
+        <li><a href={homeUrl} class="hover:text-cyber-orange transition-colors">{isCA ? 'Inici' : 'Inicio'}</a></li>
+        <li class="text-cyber-border">/</li>
+        <li class="text-cyber-orange">{isCA ? 'Agents IA i RAG' : 'Agentes IA y RAG'}</li>
+      </ol>
+    </nav>
+
+    <div class="section-number mb-4">// {isCA ? 'SERVEIS' : 'SERVICIOS'}</div>
+    <h1 class="text-[clamp(2.5rem,6vw,5.5rem)] font-black leading-[0.95] tracking-tight mb-6">
+      {isCA
+        ? <><span>AGENTS IA, CHATBOTS</span><br/><span>I RAG PER A</span><br/><span class="text-cyber-orange glow-orange">LA TEVA EMPRESA</span></>
+        : <><span>AGENTES IA, CHATBOTS</span><br/><span>Y RAG PARA</span><br/><span class="text-cyber-orange glow-orange">TU EMPRESA</span></>
+      }
+    </h1>
+    <p class="text-cyber-text text-lg font-light max-w-2xl leading-relaxed mb-10">
+      {isCA
+        ? 'Construïm agents IA especialitzats, chatbots intel·ligents i sistemes RAG que milloren l’atenció, el suport i la gestió del coneixement de la teva empresa.'
+        : 'Construimos agentes IA especializados, chatbots inteligentes y sistemas RAG que mejoran la atención, el soporte y la gestión del conocimiento de tu empresa.'
+      }
+    </p>
+    <div class="flex flex-wrap gap-4">
+      <a href={contactoUrl} class="btn-primary btn-glitch">
+        {isCA ? 'Sol·licitar diagnòstic' : 'Solicitar diagnóstico'}
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <a href={getLocalizedPath('/casos-de-uso', locale)} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white border border-cyber-border px-5 py-2 transition-colors">
+        {isCA ? 'Veure casos d’ús' : 'Ver casos de uso'}
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ DIFERENCIA FEATURED SNIPPET ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'CONCEPTES CLAU' : 'CONCEPTOS CLAVE'}</div>
+      <h2 class="text-[clamp(1.75rem,3.5vw,3rem)] font-black leading-[1.05] tracking-tight mb-4">
+        {isCA
+          ? <><span>¿Quina diferència hi ha entre un chatbot,</span><br/><span class="text-cyber-teal glow-teal">un agent IA i un sistema RAG?</span></>
+          : <><span>¿Qué diferencia hay entre un chatbot,</span><br/><span class="text-cyber-teal glow-teal">un agente IA y un sistema RAG?</span></>
+        }
+      </h2>
+      <p class="text-cyber-text max-w-2xl font-light">
+        {isCA
+          ? 'Tres tecnologies que sovint es confonen però que tenen capacitats molt diferents. Aquí la distinció clara.'
+          : 'Tres tecnologías que a menudo se confunden pero que tienen capacidades muy diferentes. Aquí la distinción clara.'
+        }
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="card-brutal p-8 border-l-2 border-l-cyber-border">
+        <div class="font-mono text-[10px] uppercase tracking-widest text-cyber-text/50 mb-3">
+          {isCA ? 'TECNOLOGIA 01' : 'TECNOLOGÍA 01'}
+        </div>
+        <h3 class="text-xl font-black mb-4 text-cyber-white">
+          {isCA ? 'CHATBOT CONVERSACIONAL' : 'CHATBOT CONVERSACIONAL'}
+        </h3>
+        <p class="text-sm text-cyber-text leading-relaxed mb-4">
+          {isCA
+            ? 'Respon preguntes segons un arbre de decisions o regles. Limitat al que s’ha programat. Bo per a FAQs simples.'
+            : 'Responde preguntas según un árbol de decisión o reglas. Limitado a lo que se ha programado. Bueno para FAQs simples.'
+          }
+        </p>
+        <div class="mt-auto pt-4 border-t border-cyber-border/50">
+          <span class="font-mono text-[10px] text-cyber-text/40 uppercase tracking-widest">
+            {isCA ? 'Nivell: Bàsic' : 'Nivel: Básico'}
+          </span>
+        </div>
+      </div>
+
+      <div class="card-brutal p-8 border-l-2 border-l-cyber-orange">
+        <div class="font-mono text-[10px] uppercase tracking-widest text-cyber-orange/70 mb-3">
+          {isCA ? 'TECNOLOGIA 02' : 'TECNOLOGÍA 02'}
+        </div>
+        <h3 class="text-xl font-black mb-4 text-cyber-orange">
+          {isCA ? 'AGENT IA ESPECIALITZAT' : 'AGENTE IA ESPECIALIZADO'}
+        </h3>
+        <p class="text-sm text-cyber-text leading-relaxed mb-4">
+          {isCA
+            ? 'Raona, decideix i actua de forma autònoma. Aprèn del context. Pot buscar informació, executar tasques i escalar. Molt més flexible i potent.'
+            : 'Razona, decide y actúa de forma autónoma. Aprende del contexto. Puede buscar información, ejecutar tareas y escalar. Mucho más flexible y potente.'
+          }
+        </p>
+        <div class="mt-auto pt-4 border-t border-cyber-border/50">
+          <span class="font-mono text-[10px] text-cyber-orange/60 uppercase tracking-widest">
+            {isCA ? 'Nivell: Avançat' : 'Nivel: Avanzado'}
+          </span>
+        </div>
+      </div>
+
+      <div class="card-brutal p-8 border-l-2 border-l-cyber-teal">
+        <div class="font-mono text-[10px] uppercase tracking-widest text-cyber-teal/70 mb-3">
+          {isCA ? 'TECNOLOGIA 03' : 'TECNOLOGÍA 03'}
+        </div>
+        <h3 class="text-xl font-black mb-4 text-cyber-teal">
+          {isCA ? 'SISTEMA RAG' : 'SISTEMA RAG'}
+        </h3>
+        <p class="text-sm text-cyber-text leading-relaxed mb-4">
+          {isCA
+            ? 'Connecta l’agent IA amb la teva documentació, base de coneixement i dades internes. L’agent "sap" el que sap la teva empresa. Respostes precises, actualitzades i contextuals.'
+            : 'Conecta el agente IA con tu documentación, base de conocimiento y datos internos. El agente "sabe" lo que sabe tu empresa. Respuestas precisas, actualizadas y contextuales.'
+          }
+        </p>
+        <div class="mt-auto pt-4 border-t border-cyber-border/50">
+          <span class="font-mono text-[10px] text-cyber-teal/60 uppercase tracking-widest">
+            {isCA ? 'Nivell: Expert' : 'Nivel: Expert'}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ QUÉ RESUELVEN ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight mb-4">
+        {isCA
+          ? <><span>QUÈ RESOLEN ELS AGENTS IA</span><br/><span class="text-cyber-teal glow-teal">I ELS SISTEMES RAG?</span></>
+          : <><span>¿QUÉ RESUELVEN LOS AGENTES IA</span><br/><span class="text-cyber-teal glow-teal">Y LOS SISTEMAS RAG?</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {[
+        {
+          num: '01',
+          title: isCA ? 'Atenció al client 24/7 sense augmentar l’equip' : 'Atención al cliente 24/7 sin aumentar el equipo',
+          desc: isCA
+            ? 'L’agent respon a qualsevol hora, en qualsevol idioma, sense temps d’espera. Escala automàticament en pics de demanda i escala les consultes complexes a un humà quan cal.'
+            : 'El agente responde a cualquier hora, en cualquier idioma, sin tiempos de espera. Escala automáticamente en picos de demanda y escala las consultas complejas a un humano cuando es necesario.'
+        },
+        {
+          num: '02',
+          title: isCA ? 'Suport intern: l’equip troba respostes a l’instant' : 'Soporte interno: el equipo encuentra respuestas al instante',
+          desc: isCA
+            ? 'L’equip deixa de perdre temps buscant documents, preguntant a companys o consultant manuals. L’agent RAG troba la resposta correcta en els documents de l’empresa en segons.'
+            : 'El equipo deja de perder tiempo buscando documentos, preguntando a compañeros o consultando manuales. El agente RAG encuentra la respuesta correcta en los documentos de la empresa en segundos.'
+        },
+        {
+          num: '03',
+          title: isCA ? 'Vendes: qualificació de leads i atenció comercial automatitzada' : 'Ventas: cualificación de leads y atención comercial automatizada',
+          desc: isCA
+            ? 'L’agent conversa amb el visitant, entén les seves necessitats, qualifica l’oportunitat i transfereix els leads calents a l’equip comercial amb tota la informació rellevant.'
+            : 'El agente conversa con el visitante, entiende sus necesidades, cualifica la oportunidad y transfiere los leads calientes al equipo comercial con toda la información relevante.'
+        },
+        {
+          num: '04',
+          title: isCA ? 'Coneixement: onboarding i accés a informació empresarial' : 'Conocimiento: onboarding y acceso a información empresarial',
+          desc: isCA
+            ? 'Nous empleats s’integren més ràpid quan poden consultar un agent que coneix tots els processos, polítiques i documents de l’empresa. Menys dependència de persones clau.'
+            : 'Nuevos empleados se integran más rápido cuando pueden consultar un agente que conoce todos los procesos, políticas y documentos de la empresa. Menos dependencia de personas clave.'
+        }
+      ].map((item) => (
+        <div class="card-brutal p-8">
+          <span class="text-4xl font-black text-cyber-orange/70 block mb-4">{item.num}</span>
+          <h3 class="text-xl font-bold mb-3 text-cyber-white">{item.title}</h3>
+          <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ QUÉ CONSTRUIMOS ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'SERVEIS' : 'SERVICIOS'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>QUÈ CONSTRUÏM</span><br/><span class="text-cyber-orange glow-orange">EN IA CONVERSACIONAL</span></>
+          : <><span>QUÉ CONSTRUIMOS</span><br/><span class="text-cyber-orange glow-orange">EN IA CONVERSACIONAL</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="space-y-4">
+      {[
+        {
+          label: isCA ? 'CHATBOTS IA' : 'CHATBOTS IA',
+          title: isCA ? 'Chatbots d’atenció al client amb IA' : 'Chatbots de atención al cliente con IA',
+          desc: isCA
+            ? 'Chatbots intelligents amb processament de llenguatge natural que entenen l’intent de l’usuari, gestionen múltiples fluxos de conversa i ofereixen respostes contextuals. Integrables a web, WhatsApp, Telegram i eines de suport.'
+            : 'Chatbots inteligentes con procesamiento de lenguaje natural que entienden el intento del usuario, gestionan múltiples flujos de conversación y ofrecen respuestas contextuales. Integrables en web, WhatsApp, Telegram y herramientas de soporte.'
+        },
+        {
+          label: isCA ? 'AGENTS IA' : 'AGENTES IA',
+          title: isCA ? 'Agents IA per a suport tècnic i vendes' : 'Agentes IA para soporte técnico y ventas',
+          desc: isCA
+            ? 'Agents autònoms que no només responen sinó que actuen: consulten bases de dades, creen tickets, actualitzen el CRM, envien emails i prenen decisions dins de límits establerts. Capacitats de multi-pas i encadenament de tasques.'
+            : 'Agentes autónomos que no solo responden sino que actúan: consultan bases de datos, crean tickets, actualizan el CRM, envían emails y toman decisiones dentro de límites establecidos. Capacidades de multi-paso y encadenamiento de tareas.'
+        },
+        {
+          label: isCA ? 'SISTEMES RAG' : 'SISTEMAS RAG',
+          title: isCA ? 'Sistemes RAG sobre documentació interna' : 'Sistemas RAG sobre documentación interna',
+          desc: isCA
+            ? 'Arquitectures RAG (Retrieval Augmented Generation) que indexen la teva documentació, manuals, polítiques i base de coneixement. L’agent recupera el context precís i genera respostes fidels a les fonts internes sense al·lucinar informació.'
+            : 'Arquitecturas RAG (Retrieval Augmented Generation) que indexan tu documentación, manuales, políticas y base de conocimiento. El agente recupera el contexto preciso y genera respuestas fieles a las fuentes internas sin alucinar información.'
+        },
+        {
+          label: isCA ? 'AUTOMATITZACIÓ' : 'AUTOMATIZACIÓN',
+          title: isCA ? 'Agents per a automatització de processos' : 'Agentes para automatización de procesos',
+          desc: isCA
+            ? 'Agents que executen tasques repetitives de forma autònoma: processar formularis, classificar i enrutar sol·licituds, actualitzar registres, generar documents i notificar a les persones adequades en cada moment.'
+            : 'Agentes que ejecutan tareas repetitivas de forma autónoma: procesar formularios, clasificar y enrutar solicitudes, actualizar registros, generar documentos y notificar a las personas adecuadas en cada momento.'
+        },
+        {
+          label: isCA ? 'VEU IA' : 'VOZ IA',
+          title: isCA ? 'Assistents de veu IA (integració amb centraletes)' : 'Asistentes de voz IA (integración con centralitas)',
+          desc: isCA
+            ? 'Assistents de veu basats en IA per a centraletes telefòniques. Atenció telefònica automatitzada, recollida d’informació i transferència a l’agent humà amb context complet. Compatible amb les principals plataformes VoIP.'
+            : 'Asistentes de voz basados en IA para centralitas telefónicas. Atención telefónica automatizada, recogida de información y transferencia al agente humano con contexto completo. Compatible con las principales plataformas VoIP.'
+        }
+      ].map((item, i) => (
+        <div class="flex gap-6 p-6 border border-cyber-border hover:border-cyber-orange/40 transition-colors group">
+          <span class="font-mono text-[10px] text-cyber-orange uppercase tracking-widest min-w-[140px] pt-1 hidden md:block">{item.label}</span>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold mb-2 text-cyber-white group-hover:text-cyber-orange transition-colors">{item.title}</h3>
+            <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+          </div>
+          <span class="text-3xl font-black text-cyber-border group-hover:text-cyber-orange/30 transition-colors hidden lg:block">0{i + 1}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ APLICACIONES MÁS FRECUENTES ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'CASOS D’ÚS' : 'CASOS DE USO'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>APLICACIONS MÉS FREQÜENTS</span><br/><span class="text-cyber-orange glow-orange">EN EMPRESES</span></>
+          : <><span>APLICACIONES MÁS FRECUENTES</span><br/><span class="text-cyber-orange glow-orange">EN EMPRESAS</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {[
+        {
+          title: isCA ? 'Atenció al client 24/7' : 'Atención al cliente 24/7',
+          sector: isCA ? 'E-commerce, serveis' : 'E-commerce, servicios',
+          desc: isCA
+            ? 'Agent que respon consultes sobre comandes, devolucions, productes i serveis a qualsevol hora sense temps d’espera.'
+            : 'Agente que responde consultas sobre pedidos, devoluciones, productos y servicios a cualquier hora sin tiempos de espera.'
+        },
+        {
+          title: isCA ? 'Base de coneixement interna' : 'Base de conocimiento interna',
+          sector: isCA ? 'Onboarding, formació' : 'Onboarding, formación',
+          desc: isCA
+            ? 'Agent RAG que indexa tots els documents, manuals i polítiques de l’empresa. L’equip troba qualsevol informació en segons.'
+            : 'Agente RAG que indexa todos los documentos, manuales y políticas de la empresa. El equipo encuentra cualquier información en segundos.'
+        },
+        {
+          title: isCA ? 'Suport tècnic de primer nivell' : 'Soporte técnico de primer nivel',
+          sector: isCA ? 'Software, tecnologia' : 'Software, tecnología',
+          desc: isCA
+            ? 'L’agent resol les incidències més comunes de forma autònoma, crea tickets per a les complexes i prioritza la cua del suport tècnic.'
+            : 'El agente resuelve las incidencias más comunes de forma autónoma, crea tickets para las complejas y prioriza la cola del soporte técnico.'
+        },
+        {
+          title: isCA ? 'Qualificació de leads comercials' : 'Cualificación de leads comerciales',
+          sector: isCA ? 'B2B, vendes' : 'B2B, ventas',
+          desc: isCA
+            ? 'L’agent conversa amb els visitants de la web, identifica necessitats, qualifica el lead i el transfereix a l’equip comercial amb tot el context.'
+            : 'El agente conversa con los visitantes de la web, identifica necesidades, cualifica el lead y lo transfiere al equipo comercial con todo el contexto.'
+        },
+        {
+          title: isCA ? 'Automatització documental' : 'Automatización documental',
+          sector: isCA ? 'Contractes, factures' : 'Contratos, facturas',
+          desc: isCA
+            ? 'Extracció de dades de documents amb IA, generació automàtica de contractes i factures, i gestió del cicle de vida documental.'
+            : 'Extracción de datos de documentos con IA, generación automática de contratos y facturas, y gestión del ciclo de vida documental.'
+        },
+        {
+          title: isCA ? 'Anàlisi de dades conversacional' : 'Análisis de datos conversacional',
+          sector: isCA ? 'BI, reporting' : 'BI, reporting',
+          desc: isCA
+            ? 'Fes preguntes als teus dades en llenguatge natural. L’agent consulta els teus sistemes i genera informes i insights instantàniament.'
+            : 'Haz preguntas a tus datos en lenguaje natural. El agente consulta tus sistemas y genera informes e insights instantáneamente.'
+        }
+      ].map((item) => (
+        <div class="card-brutal p-6">
+          <div class="font-mono text-[10px] uppercase tracking-widest text-cyber-teal/70 mb-3">{item.sector}</div>
+          <h3 class="text-base font-bold mb-3 text-cyber-white">{item.title}</h3>
+          <p class="text-xs text-cyber-text leading-relaxed">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CÓMO IMPLEMENTAMOS ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'METODOLOGIA' : 'METODOLOGÍA'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>COM IMPLEMENTEM</span><br/><span class="text-cyber-teal glow-teal">AGENTS IA I RAG</span></>
+          : <><span>CÓMO IMPLEMENTAMOS</span><br/><span class="text-cyber-teal glow-teal">AGENTES IA Y RAG</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      {[
+        {
+          num: '01',
+          title: isCA ? 'Diagnòstic' : 'Diagnóstico',
+          desc: isCA
+            ? 'Analitzem els teus processos, els casos d’ús prioritaris i el coneixement que ha de tenir l’agent.'
+            : 'Analizamos tus procesos, los casos de uso prioritarios y el conocimiento que debe tener el agente.'
+        },
+        {
+          num: '02',
+          title: isCA ? 'Disseny de l’agent' : 'Diseño del agente',
+          desc: isCA
+            ? 'Definim la personalitat, les capacitats, els límits i els fluxos de conversa de l’agent.'
+            : 'Definimos la personalidad, las capacidades, los límites y los flujos de conversación del agente.'
+        },
+        {
+          num: '03',
+          title: isCA ? 'Entrenament i RAG' : 'Entrenamiento y RAG',
+          desc: isCA
+            ? 'Indexem la documentació, configurem el sistema RAG i ajustem els prompts per a màxima precisió.'
+            : 'Indexamos la documentación, configuramos el sistema RAG y ajustamos los prompts para máxima precisión.'
+        },
+        {
+          num: '04',
+          title: isCA ? 'Testing' : 'Testing',
+          desc: isCA
+            ? 'Proves exhaustives de qualitat de respostes, cobertura de casos límit i avaluació de seguretat.'
+            : 'Pruebas exhaustivas de calidad de respuestas, cobertura de casos límite y evaluación de seguridad.'
+        },
+        {
+          num: '05',
+          title: isCA ? 'Desplegament' : 'Despliegue',
+          desc: isCA
+            ? 'Posada en producció, monitoratge de rendiment i formació a l’equip per gestionar i millorar l’agent.'
+            : 'Puesta en producción, monitoreo de rendimiento y formación al equipo para gestionar y mejorar el agente.'
+        }
+      ].map((step) => (
+        <div class="card-brutal p-6 group">
+          <span class="text-4xl font-black text-cyber-orange/80 block mb-4">{step.num}</span>
+          <h3 class="font-mono text-sm font-bold tracking-wider mb-3 text-cyber-white">{step.title}</h3>
+          <p class="text-xs text-cyber-text leading-relaxed">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FAQ ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// FAQ</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>PREGUNTES FREQÜENTS SOBRE</span><br/><span class="text-cyber-orange glow-orange">AGENTS IA I RAG</span></>
+          : <><span>PREGUNTAS FRECUENTES SOBRE</span><br/><span class="text-cyber-orange glow-orange">AGENTES IA Y RAG</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="space-y-4 max-w-3xl">
+      {[
+        {
+          q: isCA ? '¿Es pot connectar l’agent als nostres sistemes?' : '¿Se puede conectar el agente a nuestros sistemas?',
+          a: isCA
+            ? 'Sí. Connectem l’agent als teus sistemes existents via API: CRM, ERP, bases de dades, helpdesk, ecommerce i més. Si el teu sistema té una API o accés a dades, l’agent hi pot accedir per llegir i escriure informació en temps real.'
+            : 'Sí. Conectamos el agente a tus sistemas existentes vía API: CRM, ERP, bases de datos, helpdesk, ecommerce y más. Si tu sistema tiene una API o acceso a datos, el agente puede acceder para leer y escribir información en tiempo real.'
+        },
+        {
+          q: isCA ? '¿Quant de temps d’entrenament necessita l’agent?' : '¿Cuánto tiempo de entrenamiento necesita el agente?',
+          a: isCA
+            ? 'Un agent bàsic amb RAG sobre documentació existent pot estar operatiu en 2–3 setmanes. Agents més complexos amb integracions de sistemes i múltiples capacitats requereixen entre 4 i 8 setmanes. L’agent millora contínuament amb l’ús i el feedback.'
+            : 'Un agente básico con RAG sobre documentación existente puede estar operativo en 2–3 semanas. Agentes más complejos con integraciones de sistemas y múltiples capacidades requieren entre 4 y 8 semanas. El agente mejora continuamente con el uso y el feedback.'
+        },
+        {
+          q: isCA ? '¿És segur? ¿Les dades de la nostra empresa són privades?' : '¿Es seguro? ¿Los datos de nuestra empresa son privados?',
+          a: isCA
+            ? 'Sí. Construïm amb models que permeten processament en entorns privats o amb acords de no entrenament de dades. Els teus documents i dades no s’utilitzen per entrenar models externs. Implementem controls d’accés, encriptació i auditoria de totes les interaccions.'
+            : 'Sí. Construimos con modelos que permiten procesamiento en entornos privados o con acuerdos de no entrenamiento de datos. Tus documentos y datos no se usan para entrenar modelos externos. Implementamos controles de acceso, encriptación y auditoría de todas las interacciones.'
+        },
+        {
+          q: isCA ? '¿Podem actualitzar la base de coneixement nosaltres mateixos?' : '¿Podemos actualizar la base de conocimiento nosotros mismos?',
+          a: isCA
+            ? 'Sí. Et proporcionem un panel d’administració per gestionar la base de coneixement del teu agent: afegir documents, actualitzar informació existent i revisar les converses. L’agent reflecteix els canvis en qüestió de minuts sense necessitat de suport tècnic.'
+            : 'Sí. Te proporcionamos un panel de administración para gestionar la base de conocimiento de tu agente: añadir documentos, actualizar información existente y revisar las conversaciones. El agente refleja los cambios en cuestión de minutos sin necesidad de soporte técnico.'
+        }
+      ].map((item) => (
+        <details class="group border border-cyber-border">
+          <summary class="flex items-center justify-between p-6 cursor-pointer hover:bg-cyber-dark/50 transition-colors list-none">
+            <h3 class="font-mono text-sm font-bold tracking-wider text-cyber-white pr-4">{item.q}</h3>
+            <svg class="w-4 h-4 text-cyber-orange flex-shrink-0 transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-6">
+            <p class="text-sm text-cyber-text leading-relaxed">{item.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<PuentesSection locale={locale} />
+
+<!-- ═══════════════ CTA FINAL ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6 text-center">
+    <div class="section-number mb-4 mx-auto w-fit">// {isCA ? 'DIAGNÒSTIC' : 'DIAGNÓSTICO'}</div>
+    <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-tight mb-4">
+      {isCA
+        ? '¿Vols un agent IA que conegui la teva empresa des del primer dia?'
+        : '¿Quieres un agente IA que conozca tu empresa desde el primer día?'
+      }
+    </h2>
+    <p class="text-cyber-text max-w-lg mx-auto mb-10 font-light">
+      {isCA
+        ? 'Parla amb nosaltres i t’expliquem exactament com aplicar agents IA i RAG al teu cas concret. El diagnòstic és gratuït.'
+        : 'Habla con nosotros y te explicamos exactamente cómo aplicar agentes IA y RAG a tu caso concreto. El diagnóstico es gratuito.'
+      }
+    </p>
+    <a href={contactoUrl} class="btn-primary btn-glitch">
+      {isCA ? 'Sol·licitar diagnòstic gratuït' : 'Solicitar diagnóstico gratuito'}
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="border-t border-cyber-border py-12 mt-16">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      <div>
+        <a href={homeUrl} class="flex items-center gap-1 mb-3">
+          <span class="text-lg font-bold tracking-tight text-cyber-white">CIBAI</span>
+          <span class="text-lg font-bold tracking-tight text-cyber-orange">.</span>
+          <span class="text-lg font-light tracking-tight text-cyber-orange">STUDIO</span>
+        </a>
+        <p class="text-xs text-cyber-text/60 font-mono max-w-sm">{t.footer.descripcion}</p>
+      </div>
+      <div class="flex flex-col gap-2 text-xs font-mono text-cyber-text/60">
+        <span class="uppercase tracking-widest text-cyber-text/40">{t.footer.nav_label}</span>
+        <a href={homeUrl} class="hover:text-cyber-orange transition-colors">{t.footer.link_inicio}</a>
+        <a href={getLocalizedPath('/ia-automatizacion-empresas', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_servicios}</a>
+        <a href={getLocalizedPath('/casos-de-uso', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_casos_uso}</a>
+        <a href={getLocalizedPath('/studio', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_studio}</a>
+        <a href={contactoUrl} class="hover:text-cyber-orange transition-colors">{t.footer.link_contacto}</a>
+      </div>
+      <div class="flex flex-col gap-2 text-xs font-mono text-cyber-text/60">
+        <span class="uppercase tracking-widest text-cyber-text/40">{t.footer.legal_label}</span>
+        <a href={getLocalizedPath('/privacidad', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_privacidad}</a>
+        <a href={getLocalizedPath('/aviso-legal', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_aviso}</a>
+        <a href={getLocalizedPath('/cookies', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_cookies}</a>
+      </div>
+    </div>
+    <div class="mt-8 pt-8 border-t border-cyber-border/50 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <span class="font-mono text-[10px] text-cyber-text/40">{t.footer.copyright}</span>
+      <span class="font-mono text-[10px] text-cyber-text/40">{t.footer.made_in}</span>
+    </div>
+  </div>
+</footer>
+
+</main>

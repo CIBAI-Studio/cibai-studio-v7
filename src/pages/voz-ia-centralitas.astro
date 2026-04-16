@@ -1,0 +1,98 @@
+---
+import Layout from '../layouts/Layout.astro';
+import VozIACentralitasPage from '../components/VozIACentralitasPage.astro';
+import '../styles/global.css';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Voz IA y Centralitas Inteligentes para Empresas",
+  "description": "Automatizamos la atención telefónica, el enrutado de llamadas y la recepción virtual con IA para que tu empresa atienda más y mejor sin aumentar el equipo.",
+  "provider": {
+    "@type": "Organization",
+    "name": "CIBAI.Studio",
+    "url": "https://cibai.studio"
+  },
+  "serviceType": "Automatización de atención telefónica con IA y voz",
+  "areaServed": {
+    "@type": "Country",
+    "name": "España"
+  },
+  "url": "https://cibai.studio/voz-ia-centralitas",
+  "offers": {
+    "@type": "Offer",
+    "description": "Diagnóstico inicial gratuito para identificar oportunidades de automatización telefónica",
+    "url": "https://cibai.studio/contacto"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://cibai.studio/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Voz IA y Centralitas",
+      "item": "https://cibai.studio/voz-ia-centralitas"
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Con qué centralitas es compatible?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trabajamos con las principales plataformas de telefonía IP y centralitas cloud: Twilio, Vonage, 3CX, Asterisk, RingCentral y otras. Si tienes una infraestructura existente, analizamos cómo integrar el agente de voz sin tener que cambiarla."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Suena natural o robótico?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Los agentes de voz actuales con modelos de síntesis de voz modernos suenan muy naturales. Trabajamos con voces configurables que se adaptan al tono de marca: formal, cercano, profesional. En las pruebas previas al lanzamiento valoramos conjuntamente la calidad de la voz."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tiempo de implementación?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un agente de voz básico para gestionar consultas frecuentes puede estar operativo en 2-3 semanas. Proyectos más complejos con integraciones de CRM, múltiples flujos y derivación inteligente requieren entre 4 y 8 semanas. Lo definimos con precisión en el diagnóstico inicial."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa cuando el agente no sabe responder?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El sistema gestiona los casos de no-conocimiento con transparencia: informa al usuario que derivará la llamada a una persona, recoge los datos de contacto para seguimiento posterior, o agenda una llamada de retorno. Ninguna llamada queda sin respuesta."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Voz IA y Centralitas Inteligentes para Empresas | CIBAI"
+  description="Automatiza la atención telefónica, mejora el enrutado y reduce la carga con voz IA y centralitas inteligentes. Solución a medida para empresas. Más info."
+  locale="es"
+  canonicalPath="/voz-ia-centralitas"
+  hreflangEs="https://cibai.studio/voz-ia-centralitas"
+  hreflangCa="https://cibai.studio/ca/voz-ia-centralitas"
+  schemaMarkup={[serviceSchema, breadcrumbSchema, faqSchema]}
+>
+  <VozIACentralitasPage locale="es" />
+</Layout>

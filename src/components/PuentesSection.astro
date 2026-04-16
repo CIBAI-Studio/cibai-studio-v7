@@ -1,0 +1,62 @@
+---
+/**
+ * PuentesSection — sección reutilizable de puentes a Neuroguias y CIB.
+ * Extraída de HomePage.astro para usarse en páginas de servicio y casos de uso.
+ */
+import type { Locale } from '../i18n';
+import { getTranslations } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+---
+
+<!-- ═══════════════ PUENTES: NEUROGUIAS + CIB ═══════════════ -->
+<section class="border-t border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-cyber-border">
+
+      <!-- Neuroguias -->
+      <div class="py-16 md:pr-12">
+        <div class="font-mono text-[10px] text-cyber-teal uppercase tracking-widest mb-4">
+          {t.puente_neuroguias.section_label}
+        </div>
+        <h3 class="text-xl md:text-2xl font-bold tracking-tight mb-4 text-cyber-white leading-snug">
+          {t.puente_neuroguias.title}
+        </h3>
+        <p class="text-sm text-cyber-text leading-relaxed mb-6">
+          {t.puente_neuroguias.text}
+        </p>
+        <a href="#" class="btn-secondary text-xs">
+          {t.puente_neuroguias.btn}
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- CIB -->
+      <div class="py-16 md:pl-12">
+        <div class="font-mono text-[10px] text-cyber-orange uppercase tracking-widest mb-4">
+          {t.puente_cib.section_label}
+        </div>
+        <h3 class="text-xl md:text-2xl font-bold tracking-tight mb-4 text-cyber-white leading-snug">
+          {t.puente_cib.title}
+        </h3>
+        <p class="text-sm text-cyber-text leading-relaxed mb-6">
+          {t.puente_cib.text}
+        </p>
+        <a href="#" class="btn-secondary text-xs">
+          {t.puente_cib.btn}
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>

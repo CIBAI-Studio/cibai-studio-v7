@@ -1,0 +1,98 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import WebCorporativaPage from '../../components/WebCorporativaPage.astro';
+import '../../styles/global.css';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Web Corporativa Premium per a Empreses",
+  "description": "Dissenyem webs corporatives que posicionen la teva proposta de valor, generen confiança i converteixen visites en oportunitats reals de negoci. Sense plantilles. Sense friccions.",
+  "provider": {
+    "@type": "Organization",
+    "name": "CIBAI.Studio",
+    "url": "https://cibai.studio"
+  },
+  "serviceType": "Disseny i desenvolupament web corporatiu",
+  "areaServed": {
+    "@type": "Country",
+    "name": "España"
+  },
+  "url": "https://cibai.studio/ca/web-corporativa",
+  "offers": {
+    "@type": "Offer",
+    "description": "Proposta personalitzada de web corporativa en 48 hores",
+    "url": "https://cibai.studio/ca/contacto"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inici",
+      "item": "https://cibai.studio/ca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Web Corporativa",
+      "item": "https://cibai.studio/ca/web-corporativa"
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Quant tarda una web corporativa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un projecte de web corporativa estàndard es lliura en 4–6 setmanes des de l'inici del briefing fins al llançament. Projectes més complexos amb integracions avançades o moltes seccions poden requerir 8–10 setmanes. En la primera reunió definim el termini exacte."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Quina tecnologia useu?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Treballem principalment amb Next.js i Astro per al frontend, en funció de les necessitats del projecte. Per a contingut, integrem CMS headless com Sanity, Contentful o Strapi. Tot el codi és propietat del client i completament transferible."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Inclou el copy (textos)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, en els nostres projectes complets el copy estratègic i SEO forma part de l'abast. Treballem amb redactors especialitzats en B2B per crear textos que posicionin i converteixin. Si prefereixes aportar el teu propi copy, ho adaptem al disseny."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Què passa després del llançament?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oferim un mes de suport post-llançament inclòs. Posteriorment, teniu l'opció de contractar un pla de manteniment mensual o gestionar la web de forma autònoma. Formes al teu equip per poder actualitzar continguts sense dependència tècnica."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Web Corporativa Premium per a Empreses | CIBAI.Studio"
+  description="Dissenyem webs corporatives que posicionen la teva proposta de valor, generen confiança i converteixen visites en oportunitats. Veure exemples i sol·licitar proposta."
+  locale="ca"
+  canonicalPath="/ca/web-corporativa"
+  hreflangEs="https://cibai.studio/web-corporativa"
+  hreflangCa="https://cibai.studio/ca/web-corporativa"
+  schemaMarkup={[serviceSchema, breadcrumbSchema, faqSchema]}
+>
+  <WebCorporativaPage locale="ca" />
+</Layout>

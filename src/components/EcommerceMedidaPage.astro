@@ -1,0 +1,463 @@
+---
+import type { Locale } from '../i18n';
+import { getTranslations, getLocalizedPath } from '../i18n';
+import LanguageSelector from './LanguageSelector.astro';
+import PuentesSection from './PuentesSection.astro';
+import { loadSettings, lightenColor } from '../lib/settings';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const settings = loadSettings();
+const primaryColor = settings.visual.primaryColor;
+const secondaryColor = settings.visual.secondaryColor;
+const primaryColorLight = lightenColor(primaryColor, 30);
+
+const isCA = locale === 'ca';
+const homeUrl = getLocalizedPath('/', locale);
+const contactoUrl = getLocalizedPath('/contacto', locale);
+---
+
+<!-- ═══════════════ TOP BAR (HUD) ═══════════════ -->
+<div class="fixed top-0 left-0 right-0 z-50 bg-cyber-black border-b border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-8">
+    <div class="flex items-center gap-4">
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-teal"></span>
+      <span class="font-mono text-[9px] text-cyber-text/60 uppercase tracking-widest">{t.hud.sys_online}</span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-teal/70">{t.hud.node_active}</span>
+    </div>
+    <div class="hidden sm:flex items-center gap-4">
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.ping} <span class="text-cyber-teal/70">8ms</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.uptime} <span class="text-cyber-orange/70">99.9%</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-red"></span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.rec}</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="fixed top-8 left-0 right-0 z-50 border-b border-cyber-border bg-cyber-black/90 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-16">
+    <a href={homeUrl} class="flex items-center gap-1">
+      <span class="text-lg font-bold tracking-tight text-cyber-white">CIBAI</span>
+      <span class="text-lg font-bold tracking-tight text-cyber-orange">.</span>
+      <span class="text-lg font-light tracking-tight text-cyber-orange">STUDIO</span>
+    </a>
+    <div class="flex items-center gap-6">
+      <div class="hidden md:flex items-center gap-8">
+        <a href={homeUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.inicio}</a>
+        <a href={getLocalizedPath('/ia-automatizacion-empresas', locale)} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.servicios}</a>
+        <a href={getLocalizedPath('/studio', locale)} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.studio}</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <LanguageSelector currentLocale={locale} />
+        <a href={contactoUrl} class="btn-primary text-xs py-2 px-5 hidden sm:inline-flex">{t.nav.proyecto}</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<main class="min-h-screen bg-cyber-black text-cyber-white pt-24">
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section id="main-content" class="relative min-h-[60vh] flex flex-col justify-end pt-32 pb-16 overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.03]" style={`background-image: linear-gradient(color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px); background-size: 60px 60px;`}></div>
+
+    <div class="mx-auto max-w-7xl px-6 w-full">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="mb-8">
+        <ol class="flex items-center gap-2 font-mono text-[10px] text-cyber-text/60 uppercase tracking-widest">
+          <li><a href={homeUrl} class="hover:text-cyber-orange transition-colors">{isCA ? 'Inici' : 'Inicio'}</a></li>
+          <li class="text-cyber-border">/</li>
+          <li class="text-cyber-orange">{isCA ? 'Ecommerce a Mida' : 'Ecommerce a Medida'}</li>
+        </ol>
+      </nav>
+
+      <div class="section-number mb-4">// {isCA ? 'SERVEIS' : 'SERVICIOS'}</div>
+      <h1 class="text-[clamp(2.5rem,6vw,5.5rem)] font-black leading-[0.95] tracking-tight mb-6">
+        {isCA
+          ? <><span>ECOMMERCE A MIDA</span><br/><span>PER VENDRE MILLOR</span><br/><span class="text-cyber-orange glow-orange">I ESCALAR SENSE FRICCIONS</span></>
+          : <><span>ECOMMERCE A MEDIDA</span><br/><span>PARA VENDER MEJOR</span><br/><span class="text-cyber-orange glow-orange">Y ESCALAR SIN FRICCIONES</span></>
+        }
+      </h1>
+      <p class="text-cyber-text text-lg font-light max-w-2xl leading-relaxed mb-10">
+        {isCA
+          ? 'Dissenyem i desenvolupem botigues online sòlides, escalables i orientades a conversió. Sense plantilles. Sense limitacions. Ecommerce que encaixa amb la teva operativa.'
+          : 'Diseñamos y desarrollamos tiendas online sólidas, escalables y orientadas a conversión. No plantillas. No limitaciones. Ecommerce que encaja con tu operativa.'
+        }
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href={contactoUrl} class="btn-primary btn-glitch">
+          {isCA ? 'Sol·licitar diagnòstic' : 'Solicitar diagnóstico'}
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PARA QUÉ EMPRESA ═══════════════ -->
+  <section class="py-24 border-t border-cyber-border relative">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-16">
+        <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight mb-4">
+          {isCA
+            ? <><span>PER A QUIN TIPUS</span><br/><span class="text-cyber-teal glow-teal">D’EMPRESA?</span></>
+            : <><span>¿PARA QUÉ TIPO</span><br/><span class="text-cyber-teal glow-teal">DE EMPRESA?</span></>
+          }
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {[
+          {
+            num: '01',
+            title: isCA ? 'Negocis que venen online però la seva botiga actual té limitacions tècniques' : 'Negocios que venden online pero su tienda actual tiene limitaciones técnicas',
+            desc: isCA
+              ? 'Si la plataforma actual no t’aguanta el creixement, no permet les personalitzacions que necessites o és lenta, és el moment de fer-ho bé.'
+              : 'Si la plataforma actual no aguanta tu crecimiento, no permite las personalizaciones que necesitas o es lenta, es el momento de hacerlo bien.'
+          },
+          {
+            num: '02',
+            title: isCA ? 'Empreses B2B que necessiten un portal de vendes o catàleg privat' : 'Empresas B2B que necesitan un portal de ventas o catálogo privado',
+            desc: isCA
+              ? 'Canals de venda privats per a distribuïdors, preus per client, catàlegs restringits i gestió de comandes B2B sense les limitacions d’eines genèriques.'
+              : 'Canales de venta privados para distribuidores, precios por cliente, catálogos restringidos y gestión de pedidos B2B sin las limitaciones de herramientas genéricas.'
+          },
+          {
+            num: '03',
+            title: isCA ? 'Marques que volen una botiga 100% personalitzada, no una plantilla de Shopify' : 'Marcas que quieren una tienda 100% personalizada, no una plantilla de Shopify',
+            desc: isCA
+              ? 'Si la identitat de marca és estratègica i l’experiència de compra ha de ser única, les plantilles estàndard no són suficients. Construïm des de zero.'
+              : 'Si la identidad de marca es estratégica y la experiencia de compra debe ser única, las plantillas estándar no son suficientes. Construimos desde cero.'
+          },
+          {
+            num: '04',
+            title: isCA ? 'Empreses amb operativa complexa (stocks múltiples, bundles, subscripcions)' : 'Empresas con operativa compleja (stocks múltiples, bundles, suscripciones)',
+            desc: isCA
+              ? 'Gestió de múltiples magatzems, productes configurables, subscripcions recurrents, bundles dinàmics... Dissenyem la lògica de negoci que necessites sense compromisos.'
+              : 'Gestión de múltiples almacenes, productos configurables, suscripciones recurrentes, bundles dinámicos... Diseñamos la lógica de negocio que necesitas sin compromisos.'
+          }
+        ].map((item) => (
+          <div class="card-brutal p-8">
+            <span class="text-4xl font-black text-cyber-orange/70 block mb-4">{item.num}</span>
+            <h3 class="text-xl font-bold mb-3 text-cyber-white">{item.title}</h3>
+            <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ QUÈ FEM ═══════════════ -->
+  <section class="py-24 border-t border-cyber-border relative">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-16">
+        <div class="section-number mb-4">// {isCA ? 'SERVEIS' : 'SERVICIOS'}</div>
+        <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+          {isCA
+            ? <><span>QUÈ FEM EN</span><br/><span class="text-cyber-orange glow-orange">ECOMMERCE</span></>
+            : <><span>QUÉ HACEMOS EN</span><br/><span class="text-cyber-orange glow-orange">ECOMMERCE</span></>
+          }
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        {[
+          {
+            label: isCA ? 'DISSENY UX' : 'DISEÑO UX',
+            title: isCA ? 'Disseny UX orientat a conversió' : 'Diseño UX orientado a conversión',
+            desc: isCA
+              ? 'Arquitectura del catàleg pensada per a la descoberta, fitxes de producte que generen confiança i venda, i checkout sense fricció que redueix l’abandonament. Cada decisió de disseny parteix de dades i objectius de negoci.'
+              : 'Arquitectura del catálogo pensada para el descubrimiento, fichas de producto que generan confianza y venta, y checkout sin fricción que reduce el abandono. Cada decisión de diseño parte de datos y objetivos de negocio.'
+          },
+          {
+            label: isCA ? 'FRONTEND I BACKEND' : 'FRONTEND Y BACKEND',
+            title: isCA ? 'Desenvolupament frontend i backend a mida' : 'Desarrollo frontend y backend a medida',
+            desc: isCA
+              ? 'Sense limitacions de plantilla. Arquitectura headless commerce quan la situació ho requereix. Stack modern amb rendiment optimitzat: temps de càrrega ràpids, puntuacions Core Web Vitals altes, codi net i mantenible.'
+              : 'Sin limitaciones de plantilla. Arquitectura headless commerce cuando la situación lo requiere. Stack moderno con rendimiento optimizado: tiempos de carga rápidos, puntuaciones Core Web Vitals altas, código limpio y mantenible.'
+          },
+          {
+            label: isCA ? 'INTEGRACIONS' : 'INTEGRACIONES',
+            title: isCA ? 'Integracions amb ERP, WMS i sistemes externs' : 'Integraciones con ERP, WMS y sistemas externos',
+            desc: isCA
+              ? 'Connectem la botiga amb el teu ERP per a sincronització d’estoc i preus, WMS per a gestió de magatzem, passarel·les de pagament (Stripe, Redsys, PayPal), marketplaces (Amazon, Miravia) i plataformes de shipping.'
+              : 'Conectamos la tienda con tu ERP para sincronización de stock y precios, WMS para gestión de almacén, pasarelas de pago (Stripe, Redsys, PayPal), marketplaces (Amazon, Miravia) y plataformas de shipping.'
+          },
+          {
+            label: isCA ? 'AUTOMATITZACIÓ OPERATIVA' : 'AUTOMATIZACIÓN OPERATIVA',
+            title: isCA ? 'Automatització de l’operativa de la botiga' : 'Automatización de la operativa de la tienda',
+            desc: isCA
+              ? 'Gestió de comandes automatitzada, actualitzacions d’estoc en temps real, notificacions a clients en cada fase del procés, fulfillment automatitzat i alertes per a l’equip intern. Menys feina manual, menys errors.'
+              : 'Gestión de pedidos automatizada, actualizaciones de stock en tiempo real, notificaciones a clientes en cada fase del proceso, fulfillment automatizado y alertas para el equipo interno. Menos trabajo manual, menos errores.'
+          },
+          {
+            label: isCA ? 'SEO TÈCNIC I ANALÍTICA' : 'SEO TÉCNICO Y ANALÍTICA',
+            title: isCA ? 'SEO tècnic i analítica de conversió' : 'SEO técnico y analítica de conversión',
+            desc: isCA
+              ? 'Schema de producte i de valoracions, breadcrumbs estructurats, Rich Snippets per a preus i estoc, URLs canòniques, sitemaps per categories i productes. Implementació de GA4 amb seguiment de conversions, embut de vendes i atribució multicanal.'
+              : 'Schema de producto y valoraciones, breadcrumbs estructurados, Rich Snippets para precios y stock, URLs canónicas, sitemaps para categorías y productos. Implementación de GA4 con seguimiento de conversiones, embudo de ventas y atribución multicanal.'
+          }
+        ].map((item, i) => (
+          <div class="flex gap-6 p-6 border border-cyber-border hover:border-cyber-orange/40 transition-colors group">
+            <span class="font-mono text-[10px] text-cyber-orange uppercase tracking-widest min-w-[160px] pt-1 hidden md:block">{item.label}</span>
+            <div class="flex-1">
+              <h3 class="text-lg font-bold mb-2 text-cyber-white group-hover:text-cyber-orange transition-colors">{item.title}</h3>
+              <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+            </div>
+            <span class="text-3xl font-black text-cyber-border group-hover:text-cyber-orange/30 transition-colors hidden lg:block">0{i + 1}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CASOS DE USO ═══════════════ -->
+  <section class="py-24 border-t border-cyber-border relative">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-16">
+        <div class="section-number mb-4">// {isCA ? 'CASOS D’ÚS' : 'CASOS DE USO'}</div>
+        <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+          {isCA
+            ? <><span>EXEMPLES REALS DE</span><br/><span class="text-cyber-orange glow-orange">ECOMMERCE A MIDA</span></>
+            : <><span>EJEMPLOS REALES DE</span><br/><span class="text-cyber-orange glow-orange">ECOMMERCE A MEDIDA</span></>
+          }
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {[
+          {
+            sector: isCA ? 'MARCA DE MODA' : 'MARCA DE MODA',
+            tags: isCA ? ['HEADLESS', 'UX PREMIUM', 'CONVERSIÓ'] : ['HEADLESS', 'UX PREMIUM', 'CONVERSIÓN'],
+            title: isCA ? 'Botiga headless amb experiència de compra premium' : 'Tienda headless con experiencia de compra premium',
+            desc: isCA
+              ? 'Arquitectura headless per separar frontend i backend, amb un disseny completament a mida que reflectia la identitat de la marca. Temps de càrrega per sota de 1.5s i increment del 38% en la taxa de conversió respecte a la botiga anterior.'
+              : 'Arquitectura headless para separar frontend y backend, con un diseño completamente a medida que reflejaba la identidad de marca. Tiempos de carga por debajo de 1.5s e incremento del 38% en la tasa de conversión respecto a la tienda anterior.'
+          },
+          {
+            sector: isCA ? 'DISTRIBUÏDOR B2B' : 'DISTRIBUIDOR B2B',
+            tags: isCA ? ['B2B', 'PORTAL PRIVAT', 'PREUS PER CLIENT'] : ['B2B', 'PORTAL PRIVADO', 'PRECIOS POR CLIENTE'],
+            title: isCA ? 'Portal de comandes privat amb catàleg i preus per client' : 'Portal de pedidos privado con catálogo y precios por cliente',
+            desc: isCA
+              ? 'Plataforma de comandes B2B amb autenticació per client, catàlegs personalitzats per segment, preus negociats per compte i integració bidireccional amb ERP per a sincronització de comandes i estoc.'
+              : 'Plataforma de pedidos B2B con autenticación por cliente, catálogos personalizados por segmento, precios negociados por cuenta e integración bidireccional con ERP para sincronización de pedidos y stock.'
+          },
+          {
+            sector: isCA ? 'EMPRESA D’ALIMENTACIÓ' : 'EMPRESA DE ALIMENTACIÓN',
+            tags: isCA ? ['ESTOC COMPLEX', 'RECURRÈNCIA', 'GESTIÓ'] : ['STOCK COMPLEJO', 'RECURRENCIA', 'GESTIÓN'],
+            title: isCA ? 'Botiga amb gestió d’estoc complex i comandes recurrents' : 'Tienda con gestión de stock complejo y pedidos recurrentes',
+            desc: isCA
+              ? 'Gestió de múltiples magatzems amb caducitats, subscripcions setmanals/mensuals per a productes frescos, lògica de disponibilitat per zona geogràfica i integració amb la plataforma logística per a rutes de distribució.'
+              : 'Gestión de múltiples almacenes con caducidades, suscripciones semanales/mensuales para productos frescos, lógica de disponibilidad por zona geográfica e integración con la plataforma logística para rutas de distribución.'
+          },
+          {
+            sector: isCA ? 'STARTUP DTC' : 'STARTUP DTC',
+            tags: isCA ? ['LLANÇAMENT RÀPID', 'FULFILLMENT', 'AUTOMATITZACIÓ'] : ['LANZAMIENTO RÁPIDO', 'FULFILLMENT', 'AUTOMATIZACIÓN'],
+            title: isCA ? 'Ecommerce llançat en 6 setmanes amb automatització de fulfillment' : 'Ecommerce lanzado en 6 semanas con automatización de fulfillment',
+            desc: isCA
+              ? 'Botiga completament operativa en 6 setmanes: disseny, desenvolupament, integració amb el proveïdor de fulfillment, configuració de pagaments i desplegament. Automatització total del flux de comanda fins al lliurament.'
+              : 'Tienda completamente operativa en 6 semanas: diseño, desarrollo, integración con el proveedor de fulfillment, configuración de pagos y despliegue. Automatización total del flujo de pedido hasta la entrega.'
+          }
+        ].map((item) => (
+          <div class="card-brutal p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="font-mono text-[10px] text-cyber-teal uppercase tracking-widest">{item.sector}</span>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              {item.tags.map((tag: string) => (
+                <span class="font-mono text-[10px] px-2 py-1 border border-cyber-border text-cyber-text">{tag}</span>
+              ))}
+            </div>
+            <h3 class="text-lg font-bold mb-3 text-cyber-white">{item.title}</h3>
+            <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PROCESO ═══════════════ -->
+  <section class="py-24 border-t border-cyber-border relative">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-16">
+        <div class="section-number mb-4">// {isCA ? 'METODOLOGIA' : 'METODOLOGÍA'}</div>
+        <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+          {isCA
+            ? <><span>COM TREBALLEM</span><br/><span class="text-cyber-teal glow-teal">EN ECOMMERCE</span></>
+            : <><span>CÓMO TRABAJAMOS</span><br/><span class="text-cyber-teal glow-teal">EN ECOMMERCE</span></>
+          }
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        {[
+          {
+            num: '01',
+            title: isCA ? 'Briefing i anàlisi' : 'Briefing y análisis',
+            desc: isCA
+              ? 'Recollim tots els requisits de negoci, tècnics i de disseny. Analitzem la competència i les referències.'
+              : 'Recogemos todos los requisitos de negocio, técnicos y de diseño. Analizamos la competencia y las referencias.'
+          },
+          {
+            num: '02',
+            title: isCA ? 'Arquitectura tècnica' : 'Arquitectura técnica',
+            desc: isCA
+              ? 'Definim l’stack tecnològic, les integracions necessàries, el model de dades i l’arquitectura d’informació.'
+              : 'Definimos el stack tecnológico, las integraciones necesarias, el modelo de datos y la arquitectura de información.'
+          },
+          {
+            num: '03',
+            title: isCA ? 'Disseny UX/UI' : 'Diseño UX/UI',
+            desc: isCA
+              ? 'Wireframes, prototips interactius i disseny visual complet. Validació amb usuaris reals si el projecte ho permet.'
+              : 'Wireframes, prototipos interactivos y diseño visual completo. Validación con usuarios reales si el proyecto lo permite.'
+          },
+          {
+            num: '04',
+            title: isCA ? 'Desenvolupament' : 'Desarrollo',
+            desc: isCA
+              ? 'Implementació iterativa amb revisions periòdiques. Entorn de staging per a validació abans de producció.'
+              : 'Implementación iterativa con revisiones periódicas. Entorno de staging para validación antes de producción.'
+          },
+          {
+            num: '05',
+            title: isCA ? 'QA i llançament' : 'QA y lanzamiento',
+            desc: isCA
+              ? 'Proves exhaustives de rendiment, compatibilitat i conversió. Llançament controlat amb monitoratge i suport post-llançament.'
+              : 'Pruebas exhaustivas de rendimiento, compatibilidad y conversión. Lanzamiento controlado con monitorización y soporte post-lanzamiento.'
+          }
+        ].map((step) => (
+          <div class="card-brutal p-6 group">
+            <span class="text-4xl font-black text-cyber-orange/80 block mb-4">{step.num}</span>
+            <h3 class="font-mono text-sm font-bold tracking-wider mb-3 text-cyber-white">{step.title}</h3>
+            <p class="text-xs text-cyber-text leading-relaxed">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FAQ ═══════════════ -->
+  <section class="py-24 border-t border-cyber-border relative">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="mb-16">
+        <div class="section-number mb-4">// FAQ</div>
+        <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+          {isCA
+            ? <><span>PREGUNTES FREQÜENTS SOBRE</span><br/><span class="text-cyber-orange glow-orange">ECOMMERCE A MIDA</span></>
+            : <><span>PREGUNTAS FRECUENTES SOBRE</span><br/><span class="text-cyber-orange glow-orange">ECOMMERCE A MEDIDA</span></>
+          }
+        </h2>
+      </div>
+
+      <div class="space-y-4 max-w-3xl">
+        {[
+          {
+            q: isCA ? 'Quina plataforma feu servir?' : '¿Qué plataforma usáis?',
+            a: isCA
+              ? 'Depenem dels requisits del projecte. Treballem amb WooCommerce, Shopify (incloent Shopify Plus), Medusa.js per a arquitectures headless, i solucions completament a mida quan cap plataforma estàndard s’adapta bé. T’assessorem sobre quin encaixa millor amb la teva situació.'
+              : 'Depende de los requisitos del proyecto. Trabajamos con WooCommerce, Shopify (incluyendo Shopify Plus), Medusa.js para arquitecturas headless, y soluciones completamente a medida cuando ninguna plataforma estándar se adapta bien. Te asesoramos sobre cuál encaja mejor con tu situación.'
+          },
+          {
+            q: isCA ? 'Podem gestionar el catàleg nosaltres mateixos?' : '¿Podemos gestionar el catálogo nosotros mismos?',
+            a: isCA
+              ? 'Sí, sempre. Tots els projectes inclouen un panell d’administració adaptat perquè el teu equip pugui gestionar productes, estoc, comandes i contingut sense dependre de nosaltres per al dia a dia. Formem al teu equip al llançament.'
+              : 'Sí, siempre. Todos los proyectos incluyen un panel de administración adaptado para que tu equipo pueda gestionar productos, stock, pedidos y contenido sin depender de nosotros para el día a día. Formamos a tu equipo en el lanzamiento.'
+          },
+          {
+            q: isCA ? 'Inclou passarel·la de pagament?' : '¿Incluye pasarela de pago?',
+            a: isCA
+              ? 'Sí. Integrem les passarel·les de pagament que necessites: Stripe, Redsys, PayPal, Bizum, transferència bancària i qualsevol altra que requereixi el teu mercat. La configuració, proves i certificació van incloses en el projecte.'
+              : 'Sí. Integramos las pasarelas de pago que necesitas: Stripe, Redsys, PayPal, Bizum, transferencia bancaria y cualquier otra que requiera tu mercado. La configuración, pruebas y certificación van incluidas en el proyecto.'
+          },
+          {
+            q: isCA ? 'Podeu migrar la nostra botiga actual?' : '¿Podéis migrar nuestra tienda actual?',
+            a: isCA
+              ? 'Sí. Les migracions formen part dels nostres projectes habituals: productes, categories, clients, historial de comandes, valoracions i contingut. Planifiquem la migració per minimitzar el temps d’inactivitat i garantir la integritat de les dades.'
+              : 'Sí. Las migraciones forman parte de nuestros proyectos habituales: productos, categorías, clientes, historial de pedidos, valoraciones y contenido. Planificamos la migración para minimizar el tiempo de inactividad y garantizar la integridad de los datos.'
+          }
+        ].map((item) => (
+          <details class="group border border-cyber-border">
+            <summary class="flex items-center justify-between p-6 cursor-pointer hover:bg-cyber-dark/50 transition-colors list-none">
+              <h3 class="font-mono text-sm font-bold tracking-wider text-cyber-white pr-4">{item.q}</h3>
+              <svg class="w-4 h-4 text-cyber-orange flex-shrink-0 transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+            </summary>
+            <div class="px-6 pb-6">
+              <p class="text-sm text-cyber-text leading-relaxed">{item.a}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <PuentesSection locale={locale} />
+
+  <!-- ═══════════════ CTA FINAL ═══════════════ -->
+  <section class="py-24 border-t border-cyber-border relative">
+    <div class="mx-auto max-w-7xl px-6 text-center">
+      <div class="section-number mb-4 mx-auto w-fit">// {isCA ? 'DIAGNÒSTIC' : 'DIAGNÓSTICO'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-tight mb-4">
+        {isCA
+          ? '¿La teva botiga actual t’està limitant?'
+          : '¿Tu tienda actual te está limitando?'
+        }
+      </h2>
+      <p class="text-cyber-text max-w-lg mx-auto mb-10 font-light">
+        {isCA
+          ? 'Analitzem la teva situació actual i et presentem una proposta concreta per construir l’ecommerce que el teu negoci realment necessita.'
+          : 'Analizamos tu situación actual y te presentamos una propuesta concreta para construir el ecommerce que tu negocio realmente necesita.'
+        }
+      </p>
+      <a href={contactoUrl} class="btn-primary btn-glitch">
+        {isCA ? 'Sol·licitar diagnòstic gratuït' : 'Solicitar diagnóstico gratuito'}
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="border-t border-cyber-border py-12 mt-16">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div>
+          <a href={homeUrl} class="flex items-center gap-1 mb-3">
+            <span class="text-lg font-bold tracking-tight text-cyber-white">CIBAI</span>
+            <span class="text-lg font-bold tracking-tight text-cyber-orange">.</span>
+            <span class="text-lg font-light tracking-tight text-cyber-orange">STUDIO</span>
+          </a>
+          <p class="text-xs text-cyber-text/60 font-mono max-w-sm">{t.footer.descripcion}</p>
+        </div>
+        <div class="flex flex-col gap-2 text-xs font-mono text-cyber-text/60">
+          <span class="uppercase tracking-widest text-cyber-text/40">{t.footer.nav_label}</span>
+          <a href={homeUrl} class="hover:text-cyber-orange transition-colors">{t.footer.link_inicio}</a>
+          <a href={getLocalizedPath('/ia-automatizacion-empresas', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_servicios}</a>
+          <a href={getLocalizedPath('/casos-de-uso', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_casos_uso}</a>
+          <a href={getLocalizedPath('/studio', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_studio}</a>
+          <a href={contactoUrl} class="hover:text-cyber-orange transition-colors">{t.footer.link_contacto}</a>
+        </div>
+        <div class="flex flex-col gap-2 text-xs font-mono text-cyber-text/60">
+          <span class="uppercase tracking-widest text-cyber-text/40">{t.footer.legal_label}</span>
+          <a href={getLocalizedPath('/privacidad', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_privacidad}</a>
+          <a href={getLocalizedPath('/aviso-legal', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_aviso}</a>
+          <a href={getLocalizedPath('/cookies', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_cookies}</a>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t border-cyber-border/50 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <span class="font-mono text-[10px] text-cyber-text/40">{t.footer.copyright}</span>
+        <span class="font-mono text-[10px] text-cyber-text/40">{t.footer.made_in}</span>
+      </div>
+    </div>
+  </footer>
+
+</main>

@@ -1,0 +1,30 @@
+{
+  "name": "cibai-studio-v7",
+  "type": "module",
+  "version": "7.0.0",
+  "description": "CIBAI Studio corporate website v7 — Astro + Tailwind.",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/node": "^10.0.0",
+    "@astrojs/sitemap": "^3.7.2",
+    "@tailwindcss/vite": "^4.2.2",
+    "astro": "^6.1.4",
+    "bcryptjs": "^2.4.3",
+    "tailwindcss": "^4.2.2",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.8",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/uuid": "^10.0.0",
+    "typescript": "^5.9.3"
+  }
+}

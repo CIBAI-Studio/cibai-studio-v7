@@ -1,0 +1,97 @@
+---
+const siteUrl = 'https://cibai.studio';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  ogImage?: string;
+  ogType?: string;
+  locale?: string;
+  hreflangEs?: string;
+  hreflangCa?: string;
+  schemaMarkup?: object[];
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = `${siteUrl}/og-image.jpg`,
+  ogType = 'website',
+  locale = 'es_ES',
+  hreflangEs,
+  hreflangCa,
+  schemaMarkup = [],
+} = Astro.props;
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "CIBAI.Studio",
+  "url": siteUrl,
+  "logo": `${siteUrl}/logo.png`,
+  "description": "Estudio especializado en IA, automatización, software a medida y activos digitales para empresas.",
+  "foundingDate": "2024",
+  "founders": [
+    {
+      "@type": "Person",
+      "name": "Matías Oliver",
+      "jobTitle": "Founder & Strategy Lead"
+    }
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Barcelona",
+    "addressCountry": "ES"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "availableLanguage": ["Spanish", "Catalan"],
+    "url": `${siteUrl}/contacto`
+  },
+  "email": "hola@cibai.studio",
+  "sameAs": [
+    "https://www.linkedin.com/company/cibai-studio",
+    "https://instagram.com/cibai.studio"
+  ]
+};
+
+const allSchemas = [organizationSchema, ...schemaMarkup];
+---
+
+<!-- Primary Meta Tags -->
+<meta name="description" content={description} />
+<meta name="theme-color" content="#0a0a0a" />
+
+<!-- Canonical -->
+<link rel="canonical" href={canonical} />
+
+<!-- hreflang (i18n alternate) -->
+{hreflangEs && <link rel="alternate" hreflang="es" href={hreflangEs} />}
+{hreflangCa && <link rel="alternate" hreflang="ca" href={hreflangCa} />}
+{hreflangEs && <link rel="alternate" hreflang="x-default" href={hreflangEs} />}
+
+<!-- Open Graph -->
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:locale" content={locale} />
+<meta property="og:site_name" content="CIBAI Studio" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Title -->
+<title>{title}</title>
+
+<!-- Structured Data (JSON-LD) — Organization always included -->
+{allSchemas.map((schema) => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

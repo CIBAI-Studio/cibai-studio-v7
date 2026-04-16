@@ -1,0 +1,505 @@
+---
+import type { Locale } from '../i18n';
+import { getTranslations, getLocalizedPath } from '../i18n';
+import LanguageSelector from './LanguageSelector.astro';
+import PuentesSection from './PuentesSection.astro';
+import { loadSettings, lightenColor } from '../lib/settings';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const settings = loadSettings();
+const primaryColor = settings.visual.primaryColor;
+const secondaryColor = settings.visual.secondaryColor;
+const primaryColorLight = lightenColor(primaryColor, 30);
+
+const isCA = locale === 'ca';
+const homeUrl = getLocalizedPath('/', locale);
+const iaUrl = getLocalizedPath('/ia-automatizacion-empresas', locale);
+const contactoUrl = getLocalizedPath('/contacto', locale);
+---
+
+<!-- ═══════════════ TOP BAR (HUD) ═══════════════ -->
+<div class="fixed top-0 left-0 right-0 z-50 bg-cyber-black border-b border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-8">
+    <div class="flex items-center gap-4">
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-teal"></span>
+      <span class="font-mono text-[9px] text-cyber-text/60 uppercase tracking-widest">{t.hud.sys_online}</span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-teal/70">{t.hud.node_active}</span>
+    </div>
+    <div class="hidden sm:flex items-center gap-4">
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.ping} <span class="text-cyber-teal/70">8ms</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.uptime} <span class="text-cyber-orange/70">99.9%</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-red"></span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.rec}</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="fixed top-8 left-0 right-0 z-50 border-b border-cyber-border bg-cyber-black/90 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-16">
+    <a href={homeUrl} class="flex items-center gap-1">
+      <span class="text-lg font-bold tracking-tight text-cyber-white">CIBAI</span>
+      <span class="text-lg font-bold tracking-tight text-cyber-orange">.</span>
+      <span class="text-lg font-light tracking-tight text-cyber-orange">STUDIO</span>
+    </a>
+    <div class="flex items-center gap-6">
+      <div class="hidden md:flex items-center gap-8">
+        <a href={homeUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.inicio}</a>
+        <a href={iaUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-orange transition-colors">{t.nav.servicios}</a>
+        <a href={getLocalizedPath('/studio', locale)} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.studio}</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <LanguageSelector currentLocale={locale} />
+        <a href={contactoUrl} class="btn-primary text-xs py-2 px-5 hidden sm:inline-flex">{t.nav.proyecto}</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="main-content" class="relative min-h-[60vh] flex flex-col justify-end pt-32 pb-16 overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.03]" style={`background-image: linear-gradient(color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px); background-size: 60px 60px;`}></div>
+
+  <div class="mx-auto max-w-7xl px-6 w-full">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-8">
+      <ol class="flex items-center gap-2 font-mono text-[10px] text-cyber-text/60 uppercase tracking-widest">
+        <li><a href={homeUrl} class="hover:text-cyber-orange transition-colors">{isCA ? 'Inici' : 'Inicio'}</a></li>
+        <li class="text-cyber-border">/</li>
+        <li class="text-cyber-orange">{isCA ? 'IA i Automatització' : 'IA y Automatización'}</li>
+      </ol>
+    </nav>
+
+    <div class="section-number mb-4">// {isCA ? 'SERVEIS' : 'SERVICIOS'}</div>
+    <h1 class="text-[clamp(2.5rem,6vw,5.5rem)] font-black leading-[0.95] tracking-tight mb-6">
+      {isCA
+        ? <><span>AUTOMATITZACIÓ</span><br/><span>I IA APLICADA</span><br/><span class="text-cyber-orange glow-orange">PER A EMPRESES</span></>
+        : <><span>AUTOMATIZACIÓN</span><br/><span>E IA APLICADA</span><br/><span class="text-cyber-orange glow-orange">PARA EMPRESAS</span></>
+      }
+    </h1>
+    <p class="text-cyber-text text-lg font-light max-w-2xl leading-relaxed mb-10">
+      {isCA
+        ? 'Reduïm tasques manuals, connectem eines i dissenyem fluxos intel·ligents perquè la teva empresa guanyi eficiència real.'
+        : 'Reducimos tareas manuales, conectamos herramientas y diseñamos flujos inteligentes para que tu empresa gane eficiencia real.'
+      }
+    </p>
+    <div class="flex flex-wrap gap-4">
+      <a href={contactoUrl} class="btn-primary btn-glitch">
+        {isCA ? 'Sol·licitar diagnòstic gratuït' : 'Solicitar diagnóstico gratuito'}
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PARA QUÉ EMPRESA ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight mb-4">
+        {isCA
+          ? <><span>PER A QUIN TIPUS</span><br/><span class="text-cyber-teal glow-teal">D’EMPRESA?</span></>
+          : <><span>¿PARA QUÉ TIPO</span><br/><span class="text-cyber-teal glow-teal">DE EMPRESA?</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {[
+        {
+          num: '01',
+          title: isCA ? 'Empreses amb processos manuals repetitius' : 'Empresas con procesos manuales repetitivos',
+          desc: isCA
+            ? 'Si el teu equip dedica hores a tasques que podrien fer-se soles, tenim la solució per recuperar aquest temps.'
+            : 'Si tu equipo dedica horas a tareas que podrían hacerse solas, tenemos la solución para recuperar ese tiempo.'
+        },
+        {
+          num: '02',
+          title: isCA ? 'Equips que treballen amb eines desconnectades' : 'Equipos que trabajan con herramientas desconectadas',
+          desc: isCA
+            ? 'CRM, ERP, email, fulls de càlcul... Connectem els teus sistemes per eliminar silos d\'informació.'
+            : 'CRM, ERP, email, hojas de cálculo... Conectamos tus sistemas para eliminar silos de información.'
+        },
+        {
+          num: '03',
+          title: isCA ? 'Operatives que depenen de tasques administratives' : 'Operativas que dependen de tareas administrativas',
+          desc: isCA
+            ? 'Aprovacions, notificacions, gestió documental... Tot el que es pot automatitzar, el fem que s\'automatitzi.'
+            : 'Aprobaciones, notificaciones, gestión documental... Todo lo que se puede automatizar, lo hacemos que se automatice.'
+        },
+        {
+          num: '04',
+          title: isCA ? 'Empreses que volen escalar sense multiplicar el caos' : 'Empresas que quieren escalar sin multiplicar el caos',
+          desc: isCA
+            ? 'Escalar amb sistemes manuals multiplica els problemes. Escalar amb sistemes intel·ligents multiplica els resultats.'
+            : 'Escalar con sistemas manuales multiplica los problemas. Escalar con sistemas inteligentes multiplica los resultados.'
+        }
+      ].map((item) => (
+        <div class="card-brutal p-8">
+          <span class="text-4xl font-black text-cyber-orange/70 block mb-4">{item.num}</span>
+          <h3 class="text-xl font-bold mb-3 text-cyber-white">{item.title}</h3>
+          <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ QUÈ FEM ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'SERVEIS' : 'SERVICIOS'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>QUÈ FEM EN</span><br/><span class="text-cyber-orange glow-orange">AUTOMATITZACIÓ I IA</span></>
+          : <><span>QUÉ HACEMOS EN</span><br/><span class="text-cyber-orange glow-orange">AUTOMATIZACIÓN E IA</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="space-y-4">
+      {[
+        {
+          label: isCA ? 'ANÀLISI DE PROCESSOS' : 'ANÁLISIS DE PROCESOS',
+          title: isCA ? 'Anàlisi de processos i detecció de friccions' : 'Análisis de procesos y detección de fricciones',
+          desc: isCA
+            ? 'Mapem els teus fluxos de treball actuals, identifiquem on es perd temps i diners, i prioritzem quines automatitzacions generen més impacte.'
+            : 'Mapeamos tus flujos de trabajo actuales, identificamos dónde se pierde tiempo y dinero, y priorizamos qué automatizaciones generan más impacto.'
+        },
+        {
+          label: isCA ? 'AUTOMATITZACIÓ DE FLUXOS' : 'AUTOMATIZACIÓN DE FLUJOS',
+          title: isCA ? 'Automatització de fluxos i tasques repetitives' : 'Automatización de flujos y tareas repetitivas',
+          desc: isCA
+            ? 'Implementem automatitzacions de processos repetitius: enviaments d\'emails, actualitzacions de registres, generació de documents i molt més.'
+            : 'Implementamos automatizaciones de procesos repetitivos: envío de emails, actualización de registros, generación de documentos y mucho más.'
+        },
+        {
+          label: isCA ? 'INTEGRACIÓ DE SISTEMES' : 'INTEGRACIÓN DE SISTEMAS',
+          title: isCA ? 'Integració d\'eines i sistemes' : 'Integración de herramientas y sistemas',
+          desc: isCA
+            ? 'Connectem les teves eines (CRM, ERP, ecommerce, eines de suport) perquè la informació flueixi automàticament entre elles sense intervenció manual.'
+            : 'Conectamos tus herramientas (CRM, ERP, ecommerce, herramientas de soporte) para que la información fluya automáticamente entre ellas sin intervención manual.'
+        },
+        {
+          label: 'IA APLICADA',
+          title: isCA ? 'Processos interns assistits per IA' : 'Procesos internos asistidos por IA',
+          desc: isCA
+            ? 'Integrem capacitats d\'IA (classificació, generació de contingut, anàlisi de dades) en els teus processos interns per augmentar la velocitat i qualitat de les decisions.'
+            : 'Integramos capacidades de IA (clasificación, generación de contenido, análisis de datos) en tus procesos internos para aumentar la velocidad y calidad de las decisiones.'
+        },
+        {
+          label: isCA ? 'AUTOMATITZACIÓ DOCUMENTAL' : 'AUTOMATIZACIÓN DOCUMENTAL',
+          title: isCA ? 'Automatització documental i administrativa' : 'Automatización documental y administrativa',
+          desc: isCA
+            ? 'Generació automàtica de pressupostos, factures, informes i contractes. Extracció de dades de documents amb IA. Signatura digital integrada.'
+            : 'Generación automática de presupuestos, facturas, informes y contratos. Extracción de datos de documentos con IA. Firma digital integrada.'
+        }
+      ].map((item, i) => (
+        <div class="flex gap-6 p-6 border border-cyber-border hover:border-cyber-orange/40 transition-colors group">
+          <span class="font-mono text-[10px] text-cyber-orange uppercase tracking-widest min-w-[140px] pt-1 hidden md:block">{item.label}</span>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold mb-2 text-cyber-white group-hover:text-cyber-orange transition-colors">{item.title}</h3>
+            <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+          </div>
+          <span class="text-3xl font-black text-cyber-border group-hover:text-cyber-orange/30 transition-colors hidden lg:block">0{i + 1}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BENEFICIOS ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>BENEFICIS D’AUTOMATITZAR</span><br/><span class="text-cyber-teal glow-teal">AMB IA</span></>
+          : <><span>BENEFICIOS DE AUTOMATIZAR</span><br/><span class="text-cyber-teal glow-teal">CON IA</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {[
+        {
+          icon: '⚡',
+          title: isCA ? 'Menys tasques manuals i menys errors' : 'Menos tareas manuales y menos errores',
+          desc: isCA
+            ? 'Els sistemes automatitzats no s\'obliden, no es cansen i no cometen errors humans. El teu equip es pot centrar en el que realment importa.'
+            : 'Los sistemas automatizados no se olvidan, no se cansan y no cometen errores humanos. Tu equipo puede centrarse en lo que realmente importa.'
+        },
+        {
+          icon: '🎯',
+          title: isCA ? 'Més velocitat i control operatiu' : 'Más velocidad y control operativo',
+          desc: isCA
+            ? 'Processa en minuts el que abans trigava hores. Visibilitat en temps real de l\'estat de tots els teus processos de negoci.'
+            : 'Procesa en minutos lo que antes tardaba horas. Visibilidad en tiempo real del estado de todos tus procesos de negocio.'
+        },
+        {
+          icon: '📈',
+          title: isCA ? 'Millor ús del temps de l\'equip' : 'Mejor uso del tiempo del equipo',
+          desc: isCA
+            ? 'Les persones del teu equip aporten més valor quan no estan fent tasques rutinàries. L\'automatització allibera talent per a feines estratègiques.'
+            : 'Las personas de tu equipo aportan más valor cuando no están haciendo tareas rutinarias. La automatización libera talento para trabajos estratégicos.'
+        }
+      ].map((item) => (
+        <div class="bg-cyber-dark border border-cyber-border p-8 text-center">
+          <div class="text-4xl mb-4">{item.icon}</div>
+          <h3 class="text-xl font-bold mb-3 text-cyber-white">{item.title}</h3>
+          <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CASOS DE USO ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'CASOS D\'ÚS' : 'CASOS DE USO'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>CASOS D’ÚS MÉS FREQÜENTS</span><br/><span class="text-cyber-orange glow-orange">EN AUTOMATITZACIÓ</span></>
+          : <><span>CASOS DE USO MÁS FRECUENTES</span><br/><span class="text-cyber-orange glow-orange">EN AUTOMATIZACIÓN</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {[
+        {
+          title: isCA ? 'Automatització del seguiment comercial' : 'Automatización del seguimiento comercial',
+          tags: ['CRM', isCA ? 'SEGUIMENT' : 'FOLLOW-UP', 'EMAIL'],
+          desc: isCA
+            ? 'Seqüències automàtiques de seguiment, recordatoris per a l\'equip comercial, actualització del CRM amb cada interacció sense intervenció manual.'
+            : 'Secuencias automáticas de seguimiento, recordatorios para el equipo comercial, actualización del CRM con cada interacción sin intervención manual.'
+        },
+        {
+          title: isCA ? 'Fluxos d\'aprovació i validació documental' : 'Flujos de aprobación y validación documental',
+          tags: isCA ? ['DOCUMENTS', 'APROVACIÓ', 'SIGNATURA'] : ['DOCUMENTOS', 'APROBACIÓN', 'FIRMA'],
+          desc: isCA
+            ? 'Circuits d\'aprovació automatitzats, notificació a les persones correctes en cada fase, arxivat automàtic quan el document és aprovat.'
+            : 'Circuitos de aprobación automatizados, notificación a las personas correctas en cada fase, archivado automático cuando el documento es aprobado.'
+        },
+        {
+          title: isCA ? 'Integracions entre CRM, ERP i eines internes' : 'Integraciones entre CRM, ERP y herramientas internas',
+          tags: ['CRM', 'ERP', 'API'],
+          desc: isCA
+            ? 'Elimina la doble introducció de dades. Sincronitza clients, comandes, estoc i facturació entre tots els teus sistemes de forma automàtica.'
+            : 'Elimina la doble entrada de datos. Sincroniza clientes, pedidos, inventario y facturación entre todos tus sistemas de forma automática.'
+        },
+        {
+          title: isCA ? 'Alertes, disparadors i notificacions automàtiques' : 'Alertas, disparadores y notificaciones automáticas',
+          tags: isCA ? ['ALERTES', 'MONITORATGE', 'NOTIFICACIONS'] : ['ALERTAS', 'MONITORING', 'NOTIFICACIONES'],
+          desc: isCA
+            ? 'Notificacions automàtiques quan un client no ha rebut resposta, quan un estoc és baix, quan un KPI cau per sota del llindar establert.'
+            : 'Notificaciones automáticas cuando un cliente no ha recibido respuesta, cuando un stock es bajo, cuando un KPI cae por debajo del umbral establecido.'
+        }
+      ].map((item) => (
+        <div class="card-brutal p-8">
+          <div class="flex flex-wrap gap-2 mb-4">
+            {item.tags.map((tag: string) => (
+              <span class="font-mono text-[10px] px-2 py-1 border border-cyber-border text-cyber-text">{tag}</span>
+            ))}
+          </div>
+          <h3 class="text-lg font-bold mb-3 text-cyber-white">{item.title}</h3>
+          <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PROCESO ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'METODOLOGIA' : 'METODOLOGÍA'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>COM TREBALLEM</span><br/><span class="text-cyber-teal glow-teal">EN AUTOMATITZACIÓ</span></>
+          : <><span>CÓMO TRABAJAMOS</span><br/><span class="text-cyber-teal glow-teal">EN AUTOMATIZACIÓN</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      {[
+        {
+          num: '01',
+          title: isCA ? 'Diagnòstic inicial' : 'Diagnóstico inicial',
+          desc: isCA
+            ? 'Analitzem els teus processos, detectem friccions i prioritzem oportunitats.'
+            : 'Analizamos tus procesos, detectamos fricciones y priorizamos oportunidades.'
+        },
+        {
+          num: '02',
+          title: isCA ? 'Disseny del flux' : 'Diseño del flujo',
+          desc: isCA
+            ? 'Dissenyem l\'arquitectura de l\'automatització adaptada al teu negoci.'
+            : 'Diseñamos la arquitectura de la automatización adaptada a tu negocio.'
+        },
+        {
+          num: '03',
+          title: isCA ? 'Implementació i proves' : 'Implementación y pruebas',
+          desc: isCA
+            ? 'Desenvolupem i testem exhaustivament en entorn controlat.'
+            : 'Desarrollamos y probamos exhaustivamente en entorno controlado.'
+        },
+        {
+          num: '04',
+          title: isCA ? 'Implantació en producció' : 'Implantación en producción',
+          desc: isCA
+            ? 'Activem el sistema en el teu entorn real amb supervisió completa.'
+            : 'Activamos el sistema en tu entorno real con supervisión completa.'
+        },
+        {
+          num: '05',
+          title: isCA ? 'Optimització contínua' : 'Optimización continua',
+          desc: isCA
+            ? 'Mesurem, ajustem i millorem el sistema a mesura que el teu negoci creix.'
+            : 'Medimos, ajustamos y mejoramos el sistema a medida que tu negocio crece.'
+        }
+      ].map((step) => (
+        <div class="card-brutal p-6 group">
+          <span class="text-4xl font-black text-cyber-orange/80 block mb-4">{step.num}</span>
+          <h3 class="font-mono text-sm font-bold tracking-wider mb-3 text-cyber-white">{step.title}</h3>
+          <p class="text-xs text-cyber-text leading-relaxed">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FAQ ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// FAQ</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>PREGUNTES FREQÜENTS SOBRE</span><br/><span class="text-cyber-orange glow-orange">IA I AUTOMATITZACIÓ</span></>
+          : <><span>PREGUNTAS FRECUENTES SOBRE</span><br/><span class="text-cyber-orange glow-orange">IA Y AUTOMATIZACIÓN</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="space-y-4 max-w-3xl">
+      {[
+        {
+          q: isCA ? '¿Quant tarda un projecte típic d\'automatització?' : '¿Cuánto tarda un proyecto típico de automatización?',
+          a: isCA
+            ? 'Depèn de l\'abast. Un projecte d\'automatització d\'un procés específic pot estar operatiu en 2–4 setmanes. Projectes més amplis d\'automatització operativa completa poden requerir entre 1 i 3 mesos. En el diagnòstic inicial definim terminis concrets.'
+            : 'Depende del alcance. Un proyecto de automatización de un proceso específico puede estar operativo en 2–4 semanas. Proyectos más amplios de automatización operativa completa pueden requerir entre 1 y 3 meses. En el diagnóstico inicial definimos plazos concretos.'
+        },
+        {
+          q: isCA ? '¿Podeu integrar-vos amb les eines que ja fem servir?' : '¿Podéis integraros con las herramientas que ya usamos?',
+          a: isCA
+            ? 'Sí. Treballem amb la majoria d\'eines de mercat: Salesforce, HubSpot, Pipedrive, SAP, Microsoft 365, Google Workspace, Slack, Notion i moltes més. Si tens una API, podem connectar-la.'
+            : 'Sí. Trabajamos con la mayoría de herramientas de mercado: Salesforce, HubSpot, Pipedrive, SAP, Microsoft 365, Google Workspace, Slack, Notion y muchas más. Si tiene una API, podemos conectarla.'
+        },
+        {
+          q: isCA ? '¿Necessitem un equip tècnic intern?' : '¿Necesitamos un equipo técnico interno?',
+          a: isCA
+            ? 'No. CIBAI.Studio s\'encarrega de tot el procés de disseny, implementació i posada en marxa. Formem al teu equip en l\'ús del sistema i oferim suport posterior.'
+            : 'No. CIBAI.Studio se encarga de todo el proceso de diseño, implementación y puesta en marcha. Formamos a tu equipo en el uso del sistema y ofrecemos soporte posterior.'
+        },
+        {
+          q: isCA ? '¿Podem començar per una automatització petita?' : '¿Podemos empezar por una automatización pequeña?',
+          a: isCA
+            ? 'Absolutament. De fet, és el que recomanem. Comencem per un diagnòstic i triem el procés que genera l\'impacte més alt amb el menor esforç. Això valida l\'enfocament i genera confiança.'
+            : 'Absolutamente. De hecho, es lo que recomendamos. Empezamos por un diagnóstico y elegimos el proceso que genera el mayor impacto con el menor esfuerzo. Eso valida el enfoque y genera confianza.'
+        }
+      ].map((item, i) => (
+        <details class="group border border-cyber-border">
+          <summary class="flex items-center justify-between p-6 cursor-pointer hover:bg-cyber-dark/50 transition-colors list-none">
+            <h3 class="font-mono text-sm font-bold tracking-wider text-cyber-white pr-4">{item.q}</h3>
+            <svg class="w-4 h-4 text-cyber-orange flex-shrink-0 transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-6">
+            <p class="text-sm text-cyber-text leading-relaxed">{item.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<PuentesSection locale={locale} />
+
+<!-- ═══════════════ CTA ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6 text-center">
+    <div class="section-number mb-4 mx-auto w-fit">// {isCA ? 'DIAGNÒSTIC' : 'DIAGNÓSTICO'}</div>
+    <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-tight mb-4">
+      {isCA
+        ? '¿Vols analitzar quins processos de la teva empresa poden automatitzar-se?'
+        : '¿Quieres analizar qué procesos de tu empresa pueden automatizarse?'
+      }
+    </h2>
+    <p class="text-cyber-text max-w-lg mx-auto mb-10 font-light">
+      {isCA
+        ? 'El punt de partida és gratuït: analitzem la teva situació i et diem exactament on té sentit aplicar IA i automatització.'
+        : 'El punto de partida es gratuito: analizamos tu situación y te decimos exactamente dónde tiene sentido aplicar IA y automatización.'
+      }
+    </p>
+    <a href={contactoUrl} class="btn-primary btn-glitch">
+      {isCA ? 'Sol·licitar diagnòstic gratuït' : 'Solicitar diagnóstico gratuito'}
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="border-t border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div class="md:col-span-1">
+        <div class="flex items-center gap-1 mb-4">
+          <span class="text-lg font-bold text-cyber-white">CIBAI</span>
+          <span class="text-lg font-bold text-cyber-orange">.</span>
+          <span class="text-lg font-light text-cyber-orange">STUDIO</span>
+        </div>
+        <p class="text-sm text-cyber-text max-w-sm leading-relaxed mb-4">
+          {t.footer.descripcion}
+        </p>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-4">{t.footer.nav_label}</div>
+        <div class="space-y-3">
+          <a href={homeUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_inicio}</a>
+          <a href={iaUrl} class="block text-sm text-cyber-orange">{t.nav.servicios}</a>
+          <a href={getLocalizedPath('/studio', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.nav.studio}</a>
+          <a href={contactoUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{isCA ? 'Contacte' : 'Contacto'}</a>
+        </div>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-4">{t.footer.legal_label}</div>
+        <div class="space-y-3">
+          <a href={getLocalizedPath('/privacidad', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_privacidad}</a>
+          <a href={getLocalizedPath('/aviso-legal', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_aviso}</a>
+          <a href={getLocalizedPath('/cookies', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_cookies}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-cyber-border">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-2">
+      <span class="font-mono text-[10px] text-cyber-text">{t.footer.copyright}</span>
+      <span class="font-mono text-[10px] text-cyber-text">{t.footer.made_in}</span>
+    </div>
+  </div>
+</footer>

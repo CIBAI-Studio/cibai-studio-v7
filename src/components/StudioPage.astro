@@ -1,0 +1,337 @@
+---
+import type { Locale } from '../i18n';
+import { getTranslations, getLocalizedPath } from '../i18n';
+import LanguageSelector from './LanguageSelector.astro';
+import { loadSettings } from '../lib/settings';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const settings = loadSettings();
+
+const isCA = locale === 'ca';
+const homeUrl = getLocalizedPath('/', locale);
+const studioUrl = getLocalizedPath('/studio', locale);
+const contactoUrl = getLocalizedPath('/contacto', locale);
+const iaUrl = getLocalizedPath('/ia-automatizacion-empresas', locale);
+---
+
+<!-- ═══════════════ TOP BAR (HUD) ═══════════════ -->
+<div class="fixed top-0 left-0 right-0 z-50 bg-cyber-black border-b border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-8">
+    <div class="flex items-center gap-4">
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-teal"></span>
+      <span class="font-mono text-[9px] text-cyber-text/60 uppercase tracking-widest">{t.hud.sys_online}</span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-teal/70">{t.hud.node_active}</span>
+    </div>
+    <div class="hidden sm:flex items-center gap-4">
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.ping} <span class="text-cyber-teal/70">8ms</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.uptime} <span class="text-cyber-orange/70">99.9%</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="fixed top-8 left-0 right-0 z-50 border-b border-cyber-border bg-cyber-black/90 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-16">
+    <a href={homeUrl} class="flex items-center gap-1">
+      <span class="text-lg font-bold tracking-tight text-cyber-white">CIBAI</span>
+      <span class="text-lg font-bold tracking-tight text-cyber-orange">.</span>
+      <span class="text-lg font-light tracking-tight text-cyber-orange">STUDIO</span>
+    </a>
+    <div class="flex items-center gap-6">
+      <div class="hidden md:flex items-center gap-8">
+        <a href={homeUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.inicio}</a>
+        <a href={iaUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.servicios}</a>
+        <a href={studioUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-orange transition-colors">{t.nav.studio}</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <LanguageSelector currentLocale={locale} />
+        <a href={contactoUrl} class="btn-primary text-xs py-2 px-5 hidden sm:inline-flex">{t.nav.proyecto}</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="main-content" class="relative min-h-[60vh] flex flex-col justify-end pt-32 pb-16 overflow-hidden border-b border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 w-full">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-8">
+      <ol class="flex items-center gap-2 font-mono text-[10px] text-cyber-text/60 uppercase tracking-widest">
+        <li><a href={homeUrl} class="hover:text-cyber-orange transition-colors">{isCA ? 'Inici' : 'Inicio'}</a></li>
+        <li class="text-cyber-border">/</li>
+        <li class="text-cyber-orange">Studio</li>
+      </ol>
+    </nav>
+
+    <div class="section-number mb-4">// STUDIO</div>
+    <h1 class="text-[clamp(2.5rem,6vw,5.5rem)] font-black leading-[0.95] tracking-tight mb-6">
+      {isCA
+        ? <><span>UN STUDIO</span><br/><span>ORIENTAT A CONSTRUIR</span><br/><span class="text-cyber-orange glow-orange">SOLUCIONS QUE FUNCIONEN</span></>
+        : <><span>UN STUDIO</span><br/><span>ORIENTADO A CONSTRUIR</span><br/><span class="text-cyber-orange glow-orange">SOLUCIONES QUE FUNCIONAN</span></>
+      }
+    </h1>
+    <p class="text-cyber-text text-lg font-light max-w-2xl leading-relaxed">
+      {t.studio.subtitle}
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ FILOSOFÍA ═══════════════ -->
+<section class="py-24 relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-20">
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-6">{t.studio.philosophy_label}</div>
+        <blockquote class="text-2xl md:text-3xl font-bold leading-snug mb-8 text-cyber-white">
+          &ldquo;{t.studio.blockquote}&rdquo;
+        </blockquote>
+        <p class="text-sm text-cyber-text leading-relaxed mb-4">
+          {t.studio.description}
+        </p>
+        <p class="text-sm text-cyber-text leading-relaxed">
+          {isCA
+            ? 'CIBAI.Studio és un estudi especialitzat en IA aplicada, automatització, software a mida i webs d\'alt impacte per a empreses. No som una agència genèrica: som un equip tècnic orientat a resultats de negoci reals.'
+            : 'CIBAI.Studio es un estudio especializado en IA aplicada, automatización, software a medida y webs de alto impacto para empresas. No somos una agencia genérica: somos un equipo técnico orientado a resultados de negocio reales.'
+          }
+        </p>
+
+        <div class="grid grid-cols-3 gap-4 mt-10 pt-8 border-t border-cyber-border">
+          <div>
+            <span class="text-3xl font-black">{t.studio.stat1_value}</span><span class="text-cyber-orange text-xl font-bold">{t.studio.stat1_suffix}</span>
+            <div class="font-mono text-[9px] text-cyber-text uppercase tracking-widest mt-1">{t.studio.stat1_label}</div>
+          </div>
+          <div>
+            <span class="text-3xl font-black">{t.studio.stat2_value}</span><span class="text-cyber-orange text-xl font-bold">{t.studio.stat2_suffix}</span>
+            <div class="font-mono text-[9px] text-cyber-text uppercase tracking-widest mt-1">{t.studio.stat2_label}</div>
+          </div>
+          <div>
+            <span class="text-3xl font-black">{t.studio.stat3_value}</span><span class="text-cyber-orange text-xl font-bold">{t.studio.stat3_suffix}</span>
+            <div class="font-mono text-[9px] text-cyber-text uppercase tracking-widest mt-1">{t.studio.stat3_label}</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-6">{t.studio.values_label}</div>
+        <div class="space-y-8">
+          {t.studio.values.map((value: any) => (
+            <div class="flex gap-6 items-start">
+              <span class="text-5xl font-black text-cyber-orange/70 leading-none flex-shrink-0">{value.num}</span>
+              <div>
+                <h3 class="text-xl font-black tracking-tight mb-2">{value.title}</h3>
+                <p class="text-sm text-cyber-text leading-relaxed">{value.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FUNDADOR ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'EQUIP' : 'EQUIPO'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>EL STUDIO</span><br/><span class="text-cyber-teal glow-teal">DARRERE CADA SOLUCIÓ</span></>
+          : <><span>EL STUDIO</span><br/><span class="text-cyber-teal glow-teal">DETRÁS DE CADA SOLUCIÓN</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      <div class="card-brutal p-10">
+        <div class="flex items-start gap-6 mb-8">
+          <div class="w-16 h-16 bg-cyber-orange/10 border border-cyber-orange/30 flex items-center justify-center flex-shrink-0">
+            <span class="text-2xl font-black text-cyber-orange">MO</span>
+          </div>
+          <div>
+            <h3 class="text-2xl font-black text-cyber-white mb-1">Matías Oliver</h3>
+            <p class="font-mono text-xs text-cyber-orange uppercase tracking-widest">Founder & Strategy Lead</p>
+          </div>
+        </div>
+        <p class="text-sm text-cyber-text leading-relaxed mb-6">
+          {isCA
+            ? 'Especialitzat en IA aplicada, automatització i estratègia orientada a negoci. Lidera la visió de CIBAI.Studio des del primer dia. Combina pensament estratègic amb execució tècnica per a construir solucions que realment funcionen.'
+            : 'Especializado en IA aplicada, automatización y estrategia orientada a negocio. Lidera la visión de CIBAI.Studio desde el primer día. Combina pensamiento estratégico con ejecución técnica para construir soluciones que realmente funcionan.'
+          }
+        </p>
+        <div class="flex flex-wrap gap-2">
+          {['IA Aplicada', 'Automatización', 'Estrategia', 'Full-Stack'].map((tag) => (
+            <span class="font-mono text-[10px] px-2 py-1 border border-cyber-border text-cyber-text">{tag}</span>
+          ))}
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div class="p-6 border border-cyber-border">
+          <h3 class="font-mono text-sm font-bold tracking-wider mb-3 text-cyber-white uppercase">
+            {isCA ? 'Especialitats tècniques' : 'Especialidades técnicas'}
+          </h3>
+          <div class="grid grid-cols-2 gap-3">
+            {[
+              'IA / LLMs / RAG',
+              'Automatización (n8n, Make)',
+              'Next.js / React / Astro',
+              'Node.js / Python',
+              'Supabase / PostgreSQL',
+              'Diseño UI/UX'
+            ].map((skill) => (
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-cyber-orange flex-shrink-0"></span>
+                <span class="text-xs text-cyber-text">{skill}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="p-6 border border-cyber-border">
+          <h3 class="font-mono text-sm font-bold tracking-wider mb-3 text-cyber-white uppercase">
+            {isCA ? 'Àrees d\'impacte' : 'Áreas de impacto'}
+          </h3>
+          <div class="space-y-2">
+            {[
+              isCA ? 'IA i automatització per a pimes' : 'IA y automatización para pymes',
+              isCA ? 'Webs corporatives i landingpages premium' : 'Webs corporativas y landing pages premium',
+              isCA ? 'Software a mida i webapps' : 'Software a medida y webapps',
+              isCA ? 'Integracions i APIs' : 'Integraciones y APIs'
+            ].map((area) => (
+              <div class="flex items-center gap-2">
+                <span class="font-mono text-[10px] text-cyber-teal">→</span>
+                <span class="text-xs text-cyber-text">{area}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ POR QUÉ CIBAI ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'DIFERENCIAL' : 'DIFERENCIAL'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>PER QUÈ</span><br/><span class="text-cyber-orange glow-orange">CIBAI.STUDIO</span></>
+          : <><span>POR QUÉ</span><br/><span class="text-cyber-orange glow-orange">CIBAI.STUDIO</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {[
+        {
+          label: isCA ? 'ESPECIALITZACIÓ REAL' : 'ESPECIALIZACIÓN REAL',
+          title: isCA ? 'No som una agència genèrica' : 'No somos una agencia genérica',
+          desc: isCA
+            ? 'CIBAI.Studio es centra en IA, automatització i software per a empreses. No fem tot per a tothom: fem molt bé el que fem.'
+            : 'CIBAI.Studio se enfoca en IA, automatización y software para empresas. No hacemos todo para todos: hacemos muy bien lo que hacemos.'
+        },
+        {
+          label: isCA ? 'EXECUCIÓ COMPLETA' : 'EJECUCIÓN COMPLETA',
+          title: isCA ? 'Del diagnòstic al deploy' : 'Del diagnóstico al deploy',
+          desc: isCA
+            ? 'No fem només consultoria. Dissenyem, construïm, implantam i donem suport. Tot el cicle de vida del projecte, sense intermediaris.'
+            : 'No hacemos solo consultoría. Diseñamos, construimos, implantamos y damos soporte. Todo el ciclo de vida del proyecto, sin intermediarios.'
+        },
+        {
+          label: isCA ? 'RESULTATS MESURABLES' : 'RESULTADOS MEDIBLES',
+          title: isCA ? 'Orientats a impacte de negoci' : 'Orientados a impacto de negocio',
+          desc: isCA
+            ? 'Cada projecte té KPIs clars. No lliurem codi: lliurem resultats. Eficiència guanyada, temps recuperat, conversions millorades.'
+            : 'Cada proyecto tiene KPIs claros. No entregamos código: entregamos resultados. Eficiencia ganada, tiempo recuperado, conversiones mejoradas.'
+        },
+        {
+          label: isCA ? 'COMUNICACIÓ DIRECTA' : 'COMUNICACIÓN DIRECTA',
+          title: isCA ? 'Sense burocracia ni intermediaris' : 'Sin burocracia ni intermediarios',
+          desc: isCA
+            ? 'Treballes directament amb les persones que fan el projecte. Sense gestors de comptes, sense traducció de requeriments. Agilitat real.'
+            : 'Trabajas directamente con las personas que hacen el proyecto. Sin gestores de cuentas, sin traducción de requerimientos. Agilidad real.'
+        }
+      ].map((item) => (
+        <div class="card-brutal p-8">
+          <div class="font-mono text-[10px] text-cyber-teal uppercase tracking-widest mb-4">{item.label}</div>
+          <h3 class="text-xl font-bold mb-3 text-cyber-white">{item.title}</h3>
+          <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CTA ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6 text-center">
+    <div class="section-number mb-4 mx-auto w-fit">// {isCA ? 'CONTACTE' : 'CONTACTO'}</div>
+    <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-tight mb-4">
+      {isCA
+        ? '¿Vols parlar amb el Studio?'
+        : '¿Quieres hablar con el Studio?'
+      }
+    </h2>
+    <p class="text-cyber-text max-w-lg mx-auto mb-10 font-light">
+      {isCA
+        ? 'Explica\'ns el teu projecte o el teu repte. Et diem honestament si podem ajudar-te i com.'
+        : 'Cuéntanos tu proyecto o tu reto. Te decimos honestamente si podemos ayudarte y cómo.'
+      }
+    </p>
+    <a href={contactoUrl} class="btn-primary btn-glitch">
+      {isCA ? 'Parlar amb el Studio' : 'Hablar con el Studio'}
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="border-t border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div class="md:col-span-1">
+        <div class="flex items-center gap-1 mb-4">
+          <span class="text-lg font-bold text-cyber-white">CIBAI</span>
+          <span class="text-lg font-bold text-cyber-orange">.</span>
+          <span class="text-lg font-light text-cyber-orange">STUDIO</span>
+        </div>
+        <p class="text-sm text-cyber-text max-w-sm leading-relaxed mb-4">
+          {t.footer.descripcion}
+        </p>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-4">{t.footer.nav_label}</div>
+        <div class="space-y-3">
+          <a href={homeUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_inicio}</a>
+          <a href={iaUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.nav.servicios}</a>
+          <a href={studioUrl} class="block text-sm text-cyber-orange">Studio</a>
+          <a href={contactoUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{isCA ? 'Contacte' : 'Contacto'}</a>
+        </div>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-4">{t.footer.legal_label}</div>
+        <div class="space-y-3">
+          <a href={getLocalizedPath('/privacidad', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_privacidad}</a>
+          <a href={getLocalizedPath('/aviso-legal', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_aviso}</a>
+          <a href={getLocalizedPath('/cookies', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_cookies}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-cyber-border">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-2">
+      <span class="font-mono text-[10px] text-cyber-text">{t.footer.copyright}</span>
+      <span class="font-mono text-[10px] text-cyber-text">{t.footer.made_in}</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,181 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import '../../styles/global.css';
+import { getAuthUser } from '../../lib/auth';
+import { loadSettings, saveSettings } from '../../lib/settings';
+
+const user = getAuthUser(Astro.cookies);
+if (!user) return Astro.redirect('/admin/login');
+
+const settings = loadSettings();
+let successMessage = '';
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData();
+  const primaryColor = (formData.get('primaryColor') as string || '').trim();
+  const secondaryColor = (formData.get('secondaryColor') as string || '').trim();
+
+  const customCSS = (formData.get('customCSS') as string || '');
+
+  const hexRegex = /^#[0-9A-Fa-f]{6}$/;
+  if (hexRegex.test(primaryColor) && hexRegex.test(secondaryColor)) {
+    settings.visual.primaryColor = primaryColor.toUpperCase();
+    settings.visual.secondaryColor = secondaryColor.toUpperCase();
+    settings.visual.customCSS = customCSS;
+    saveSettings(settings);
+    successMessage = 'Visual guardado correctamente. Los cambios se verán en la web pública.';
+  }
+}
+---
+
+<AdminLayout title="Visual" userName={user.name}>
+  <div class="mb-8">
+    <h1 class="text-2xl font-black tracking-tight mb-2">Visual</h1>
+    <p class="text-sm text-cyber-text">Personaliza los colores principales del sitio web.</p>
+  </div>
+
+  {successMessage && (
+    <div class="mb-6 px-4 py-3 border border-cyber-teal/30 bg-cyber-teal/5 text-cyber-teal font-mono text-xs">
+      {successMessage}
+    </div>
+  )}
+
+  <form method="POST" class="max-w-xl">
+    <div class="card-brutal p-6 mb-6">
+      <h2 class="font-mono text-xs text-cyber-orange uppercase tracking-widest mb-6">Colores del sitio</h2>
+
+      <div class="mb-6">
+        <label for="primaryColor" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">
+          Color primario (actualmente naranja)
+        </label>
+        <div class="flex items-center gap-4">
+          <input
+            type="color"
+            id="primaryColorPicker"
+            value={settings.visual.primaryColor}
+            class="w-12 h-12 border border-cyber-border bg-cyber-black cursor-pointer"
+          />
+          <input
+            type="text"
+            id="primaryColor"
+            name="primaryColor"
+            value={settings.visual.primaryColor}
+            pattern="#[0-9A-Fa-f]{6}"
+            maxlength="7"
+            class="flex-1 bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors"
+            placeholder="#FF4D00"
+          />
+          <div class="w-10 h-10 border border-cyber-border" id="primaryPreview" style={`background-color: ${settings.visual.primaryColor}`}></div>
+        </div>
+        <span class="font-mono text-[9px] text-cyber-text/50 mt-1 block">Este color se usa en botones, acentos, números de sección, bordes hover, etc.</span>
+      </div>
+
+      <div class="mb-4">
+        <label for="secondaryColor" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">
+          Color secundario (actualmente cyan/verde)
+        </label>
+        <div class="flex items-center gap-4">
+          <input
+            type="color"
+            id="secondaryColorPicker"
+            value={settings.visual.secondaryColor}
+            class="w-12 h-12 border border-cyber-border bg-cyber-black cursor-pointer"
+          />
+          <input
+            type="text"
+            id="secondaryColor"
+            name="secondaryColor"
+            value={settings.visual.secondaryColor}
+            pattern="#[0-9A-Fa-f]{6}"
+            maxlength="7"
+            class="flex-1 bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors"
+            placeholder="#00FFB2"
+          />
+          <div class="w-10 h-10 border border-cyber-border" id="secondaryPreview" style={`background-color: ${settings.visual.secondaryColor}`}></div>
+        </div>
+        <span class="font-mono text-[9px] text-cyber-text/50 mt-1 block">Este color se usa en estados activos, highlights, indicadores de status, etc.</span>
+      </div>
+    </div>
+
+    <div class="card-brutal p-6 mb-6">
+      <h2 class="font-mono text-xs text-cyber-text uppercase tracking-widest mb-4">Vista previa</h2>
+      <div class="flex items-center gap-4 flex-wrap">
+        <div class="px-4 py-2 font-mono text-xs font-bold uppercase" id="previewBtnPrimary" style={`background-color: ${settings.visual.primaryColor}; color: #0a0a0a;`}>
+          Botón primario
+        </div>
+        <div class="px-4 py-2 font-mono text-xs border" id="previewTextPrimary" style={`color: ${settings.visual.primaryColor}; border-color: ${settings.visual.primaryColor};`}>
+          Texto primario
+        </div>
+        <div class="px-4 py-2 font-mono text-xs font-bold" id="previewTextSecondary" style={`color: ${settings.visual.secondaryColor};`}>
+          Texto secundario
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full" id="previewDotSecondary" style={`background-color: ${settings.visual.secondaryColor};`}></span>
+          <span class="font-mono text-[10px] text-cyber-text">STATUS: ONLINE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-brutal p-6 mb-6">
+      <h2 class="font-mono text-xs text-cyber-orange uppercase tracking-widest mb-4">CSS Personalizado</h2>
+      <p class="text-[10px] text-cyber-text font-mono mb-3">Este CSS se cargará después de los estilos predeterminados y prevalecerá sobre ellos.</p>
+      <textarea
+        name="customCSS"
+        rows="12"
+        class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors resize-y"
+        placeholder="/* Ejemplo: */&#10;.btn-primary { border-radius: 4px; }&#10;h1 { color: #FF0000; }"
+        spellcheck="false"
+      >{settings.visual.customCSS}</textarea>
+    </div>
+
+    <button type="submit" class="btn-primary text-xs py-3 px-6">
+      Guardar visual
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    </button>
+  </form>
+
+  <script>
+    // Sync color picker with text input and preview
+    function setupColorSync(pickerId: string, inputId: string, previewIds: { bg?: string[], color?: string[], border?: string[] }) {
+      const picker = document.getElementById(pickerId) as HTMLInputElement;
+      const input = document.getElementById(inputId) as HTMLInputElement;
+      if (!picker || !input) return;
+
+      const updatePreviews = (hex: string) => {
+        if (previewIds.bg) previewIds.bg.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.style.backgroundColor = hex;
+        });
+        if (previewIds.color) previewIds.color.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.style.color = hex;
+        });
+        if (previewIds.border) previewIds.border.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.style.borderColor = hex;
+        });
+      };
+
+      picker.addEventListener('input', () => {
+        input.value = picker.value.toUpperCase();
+        updatePreviews(picker.value);
+      });
+      input.addEventListener('input', () => {
+        if (/^#[0-9A-Fa-f]{6}$/.test(input.value)) {
+          picker.value = input.value;
+          updatePreviews(input.value);
+        }
+      });
+    }
+
+    setupColorSync('primaryColorPicker', 'primaryColor', {
+      bg: ['primaryPreview', 'previewBtnPrimary'],
+      color: ['previewTextPrimary'],
+      border: ['previewTextPrimary'],
+    });
+    setupColorSync('secondaryColorPicker', 'secondaryColor', {
+      bg: ['secondaryPreview', 'previewDotSecondary'],
+      color: ['previewTextSecondary'],
+    });
+  </script>
+</AdminLayout>

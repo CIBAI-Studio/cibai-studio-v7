@@ -1,0 +1,221 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import '../../styles/global.css';
+import { getAuthUser } from '../../lib/auth';
+import { loadTranslations, saveTranslations, sectionLabels, type SectionKey } from '../../lib/translations';
+import { locales, getLocaleLabels } from '../../i18n';
+
+const user = getAuthUser(Astro.cookies);
+if (!user) return Astro.redirect('/admin/login');
+
+const localeLabels = getLocaleLabels();
+const selectedLocale = (Astro.url.searchParams.get('locale') || 'es') as string;
+const selectedSection = (Astro.url.searchParams.get('section') || 'hero') as SectionKey;
+
+let successMessage = '';
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData();
+  const locale = formData.get('locale') as string;
+  const section = formData.get('section') as SectionKey;
+  const translations = loadTranslations(locale);
+  const sectionData = translations[section];
+
+  // Update simple string fields
+  for (const [key, value] of formData.entries()) {
+    if (key.startsWith('field_')) {
+      const fieldPath = key.replace('field_', '').split('.');
+      let target = sectionData;
+      for (let i = 0; i < fieldPath.length - 1; i++) {
+        target = target[fieldPath[i]];
+      }
+      target[fieldPath[fieldPath.length - 1]] = value;
+    }
+    // Handle array item fields
+    if (key.startsWith('array_')) {
+      const parts = key.replace('array_', '').split('__');
+      const arrayName = parts[0];
+      const index = parseInt(parts[1]);
+      const field = parts[2];
+      if (!sectionData[arrayName]) continue;
+      if (!sectionData[arrayName][index]) continue;
+      sectionData[arrayName][index][field] = value;
+    }
+  }
+
+  translations[section] = sectionData;
+  saveTranslations(locale, translations);
+  successMessage = `Traducciones de "${sectionLabels[section]}" guardadas correctamente para ${localeLabels[locale as keyof typeof localeLabels] || locale}.`;
+}
+
+const translations = loadTranslations(selectedLocale);
+const sectionData = translations[selectedSection] || {};
+
+function getStringFields(obj: any, prefix = ''): Array<{key: string, value: string, label: string}> {
+  const fields: Array<{key: string, value: string, label: string}> = [];
+  for (const [key, value] of Object.entries(obj)) {
+    const fullKey = prefix ? `${prefix}.${key}` : key;
+    if (typeof value === 'string') {
+      fields.push({ key: fullKey, value: value as string, label: key });
+    } else if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
+      fields.push(...getStringFields(value, fullKey));
+    }
+  }
+  return fields;
+}
+
+function getArrayFields(obj: any): Array<{name: string, items: any[]}> {
+  const arrays: Array<{name: string, items: any[]}> = [];
+  for (const [key, value] of Object.entries(obj)) {
+    if (Array.isArray(value)) {
+      arrays.push({ name: key, items: value });
+    }
+  }
+  return arrays;
+}
+
+const stringFields = getStringFields(sectionData);
+const arrayFields = getArrayFields(sectionData);
+---
+
+<AdminLayout title="Traducciones" userName={user.name}>
+  <div class="mb-8">
+    <h1 class="text-2xl font-black tracking-tight mb-2">Gestión de Traducciones</h1>
+    <p class="text-sm text-cyber-text">Edita los textos del sitio web agrupados por sección.</p>
+  </div>
+
+  {successMessage && (
+    <div class="mb-6 p-4 border border-cyber-teal/50 bg-cyber-teal/10 font-mono text-xs text-cyber-teal">
+      {successMessage}
+    </div>
+  )}
+
+  <!-- Locale & Section selectors -->
+  <div class="flex flex-wrap gap-4 mb-8">
+    <div class="flex gap-2">
+      {locales.map((locale) => (
+        <a
+          href={`/admin?locale=${locale}&section=${selectedSection}`}
+          class:list={[
+            'px-4 py-2 font-mono text-xs uppercase tracking-widest border transition-colors',
+            locale === selectedLocale
+              ? 'border-cyber-orange bg-cyber-orange/10 text-cyber-orange'
+              : 'border-cyber-border text-cyber-text hover:border-cyber-white hover:text-cyber-white',
+          ]}
+        >
+          {localeLabels[locale]}
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-6">
+    <!-- Section nav -->
+    <div class="space-y-1">
+      {Object.entries(sectionLabels).map(([key, label]) => (
+        <a
+          href={`/admin?locale=${selectedLocale}&section=${key}`}
+          class:list={[
+            'block px-4 py-2.5 font-mono text-[11px] uppercase tracking-widest border-l-2 transition-colors',
+            key === selectedSection
+              ? 'border-cyber-orange text-cyber-orange bg-cyber-orange/5'
+              : 'border-transparent text-cyber-text hover:text-cyber-white hover:border-cyber-border',
+          ]}
+        >
+          {label}
+        </a>
+      ))}
+    </div>
+
+    <!-- Translation fields -->
+    <div class="card-brutal p-6">
+      <form method="POST">
+        <input type="hidden" name="locale" value={selectedLocale} />
+        <input type="hidden" name="section" value={selectedSection} />
+
+        <h2 class="text-lg font-bold mb-6 flex items-center gap-3">
+          <span class="text-cyber-orange">{sectionLabels[selectedSection]}</span>
+          <span class="font-mono text-[10px] text-cyber-text uppercase">{localeLabels[selectedLocale as keyof typeof localeLabels]}</span>
+        </h2>
+
+        <!-- Simple string fields -->
+        {stringFields.length > 0 && (
+          <div class="space-y-4 mb-8">
+            <h3 class="font-mono text-[10px] text-cyber-text uppercase tracking-widest border-b border-cyber-border pb-2">Campos de texto</h3>
+            {stringFields.map((field) => (
+              <div>
+                <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1.5">
+                  {field.label}
+                  <span class="text-cyber-border ml-2 normal-case">{field.key}</span>
+                </label>
+                {field.value.length > 80 ? (
+                  <textarea
+                    name={`field_${field.key}`}
+                    rows="3"
+                    class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors resize-y"
+                  >{field.value}</textarea>
+                ) : (
+                  <input
+                    type="text"
+                    name={`field_${field.key}`}
+                    value={field.value}
+                    class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors"
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        <!-- Array fields (services, steps, etc.) -->
+        {arrayFields.map((arr) => (
+          <div class="mb-8">
+            <h3 class="font-mono text-[10px] text-cyber-text uppercase tracking-widest border-b border-cyber-border pb-2 mb-4">
+              {arr.name} ({arr.items.length} elementos)
+            </h3>
+            {arr.items.map((item: any, index: number) => (
+              <div class="mb-6 p-4 border border-cyber-border/50 bg-cyber-dark/50">
+                <div class="font-mono text-[9px] text-cyber-orange uppercase tracking-widest mb-3">
+                  {arr.name}[{index}] {item.title || item.label || ''}
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {Object.entries(item).map(([field, value]) => {
+                    if (Array.isArray(value)) return null;
+                    return (
+                      <div>
+                        <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">
+                          {field}
+                        </label>
+                        {typeof value === 'string' && value.length > 60 ? (
+                          <textarea
+                            name={`array_${arr.name}__${index}__${field}`}
+                            rows="2"
+                            class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors resize-y"
+                          >{value}</textarea>
+                        ) : (
+                          <input
+                            type="text"
+                            name={`array_${arr.name}__${index}__${field}`}
+                            value={String(value)}
+                            class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors"
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+
+        <div class="flex justify-end pt-4 border-t border-cyber-border">
+          <button type="submit" class="btn-primary text-xs">
+            Guardar cambios
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</AdminLayout>

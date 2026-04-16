@@ -1,0 +1,98 @@
+---
+import Layout from '../layouts/Layout.astro';
+import EcommerceMedidaPage from '../components/EcommerceMedidaPage.astro';
+import '../styles/global.css';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Ecommerce a Medida para Empresas",
+  "description": "Creamos ecommerce sólidos, escalables y orientados a conversión. Diseño UX, integración y automatización para vender mejor y operar con más control.",
+  "provider": {
+    "@type": "Organization",
+    "name": "CIBAI.Studio",
+    "url": "https://cibai.studio"
+  },
+  "serviceType": "Desarrollo de ecommerce a medida",
+  "areaServed": {
+    "@type": "Country",
+    "name": "España"
+  },
+  "url": "https://cibai.studio/ecommerce-a-medida",
+  "offers": {
+    "@type": "Offer",
+    "description": "Diagnóstico inicial gratuito para analizar tu situación de ecommerce actual",
+    "url": "https://cibai.studio/contacto"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://cibai.studio/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Ecommerce a Medida",
+      "item": "https://cibai.studio/ecommerce-a-medida"
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Qué plataforma usáis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depende de los requisitos del proyecto. Trabajamos con WooCommerce, Shopify (incluyendo Shopify Plus), Medusa.js para arquitecturas headless, y soluciones completamente a medida cuando ninguna plataforma estándar se adapta bien. Te asesoramos sobre cuál encaja mejor con tu situación."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Podemos gestionar el catálogo nosotros mismos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, siempre. Todos los proyectos incluyen un panel de administración adaptado para que tu equipo pueda gestionar productos, stock, pedidos y contenido sin depender de nosotros para el día a día. Formamos a tu equipo en el lanzamiento."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Incluye pasarela de pago?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Integramos las pasarelas de pago que necesitas: Stripe, Redsys, PayPal, Bizum, transferencia bancaria y cualquier otra que requiera tu mercado. La configuración, pruebas y certificación van incluidas en el proyecto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Podéis migrar nuestra tienda actual?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Las migraciones forman parte de nuestros proyectos habituales: productos, categorías, clientes, historial de pedidos, valoraciones y contenido. Planificamos la migración para minimizar el tiempo de inactividad y garantizar la integridad de los datos."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Ecommerce a Medida para Empresas | CIBAI.Studio"
+  description="Creamos ecommerce sólidos, escalables y orientados a conversión. Diseño UX, integración y automatización para vender mejor y operar con más control."
+  locale="es"
+  canonicalPath="/ecommerce-a-medida"
+  hreflangEs="https://cibai.studio/ecommerce-a-medida"
+  hreflangCa="https://cibai.studio/ca/ecommerce-a-medida"
+  schemaMarkup={[serviceSchema, breadcrumbSchema, faqSchema]}
+>
+  <EcommerceMedidaPage locale="es" />
+</Layout>

@@ -1,0 +1,98 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import EcommerceMedidaPage from '../../components/EcommerceMedidaPage.astro';
+import '../../styles/global.css';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Ecommerce a Mida per a Empreses",
+  "description": "Creem ecommerce sòlids, escalables i orientats a conversió. Disseny UX, integració i automatització per vendre millor i operar amb més control.",
+  "provider": {
+    "@type": "Organization",
+    "name": "CIBAI.Studio",
+    "url": "https://cibai.studio"
+  },
+  "serviceType": "Desenvolupament d'ecommerce a mida",
+  "areaServed": {
+    "@type": "Country",
+    "name": "España"
+  },
+  "url": "https://cibai.studio/ca/ecommerce-a-medida",
+  "offers": {
+    "@type": "Offer",
+    "description": "Diagnòstic inicial gratuït per analitzar la teva situació d'ecommerce actual",
+    "url": "https://cibai.studio/ca/contacto"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inici",
+      "item": "https://cibai.studio/ca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Ecommerce a Mida",
+      "item": "https://cibai.studio/ca/ecommerce-a-medida"
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quina plataforma feu servir?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depenem dels requisits del projecte. Treballem amb WooCommerce, Shopify (incloent Shopify Plus), Medusa.js per a arquitectures headless, i solucions completament a mida quan cap plataforma estàndard s'adapta bé. T'assessorem sobre quin encaixa millor amb la teva situació."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Podem gestionar el catàleg nosaltres mateixos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, sempre. Tots els projectes inclouen un panell d'administració adaptat perquè el teu equip pugui gestionar productes, estoc, comandes i contingut sense dependre de nosaltres per al dia a dia. Formem al teu equip al llançament."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Inclou passarel·la de pagament?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Integrem les passarel·les de pagament que necessites: Stripe, Redsys, PayPal, Bizum, transferència bancària i qualsevol altra que requereixi el teu mercat. La configuració, proves i certificació van incloses en el projecte."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Podeu migrar la nostra botiga actual?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Les migracions formen part dels nostres projectes habituals: productes, categories, clients, historial de comandes, valoracions i contingut. Planifiquem la migració per minimitzar el temps d'inactivitat i garantir la integritat de les dades."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Ecommerce a Mida per a Empreses | CIBAI.Studio"
+  description="Creem ecommerce sòlids, escalables i orientats a conversió. Disseny UX, integració i automatització per vendre millor i operar amb més control."
+  locale="ca"
+  canonicalPath="/ca/ecommerce-a-medida"
+  hreflangEs="https://cibai.studio/ecommerce-a-medida"
+  hreflangCa="https://cibai.studio/ca/ecommerce-a-medida"
+  schemaMarkup={[serviceSchema, breadcrumbSchema, faqSchema]}
+>
+  <EcommerceMedidaPage locale="ca" />
+</Layout>

@@ -1,0 +1,63 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import '../../styles/global.css';
+import { getAuthUser } from '../../lib/auth';
+import { loadSettings, saveSettings } from '../../lib/settings';
+
+const user = getAuthUser(Astro.cookies);
+if (!user) return Astro.redirect('/admin/login');
+
+const settings = loadSettings();
+let successMessage = '';
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData();
+  const heroSlideDuration = parseFloat(formData.get('heroSlideDuration') as string);
+  if (!isNaN(heroSlideDuration) && heroSlideDuration >= 1 && heroSlideDuration <= 60) {
+    settings.parameters.heroSlideDuration = heroSlideDuration;
+    saveSettings(settings);
+    successMessage = 'Parámetros guardados correctamente.';
+  }
+}
+---
+
+<AdminLayout title="Parámetros" userName={user.name}>
+  <div class="mb-8">
+    <h1 class="text-2xl font-black tracking-tight mb-2">Parámetros</h1>
+    <p class="text-sm text-cyber-text">Configuración general del sitio web.</p>
+  </div>
+
+  {successMessage && (
+    <div class="mb-6 px-4 py-3 border border-cyber-teal/30 bg-cyber-teal/5 text-cyber-teal font-mono text-xs">
+      {successMessage}
+    </div>
+  )}
+
+  <form method="POST" class="max-w-xl">
+    <div class="card-brutal p-6 mb-6">
+      <h2 class="font-mono text-xs text-cyber-orange uppercase tracking-widest mb-6">Hero / Slider</h2>
+
+      <div class="mb-4">
+        <label for="heroSlideDuration" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">
+          Duración entre slides (segundos)
+        </label>
+        <input
+          type="number"
+          id="heroSlideDuration"
+          name="heroSlideDuration"
+          min="1"
+          max="60"
+          step="0.5"
+          value={settings.parameters.heroSlideDuration}
+          class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors"
+        />
+        <span class="font-mono text-[9px] text-cyber-text/50 mt-1 block">Mínimo 1s, máximo 60s. Valor actual: {settings.parameters.heroSlideDuration}s</span>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-primary text-xs py-3 px-6">
+      Guardar parámetros
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    </button>
+  </form>
+</AdminLayout>

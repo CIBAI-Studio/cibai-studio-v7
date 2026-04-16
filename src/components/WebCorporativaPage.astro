@@ -1,0 +1,462 @@
+---
+import type { Locale } from '../i18n';
+import { getTranslations, getLocalizedPath } from '../i18n';
+import LanguageSelector from './LanguageSelector.astro';
+import PuentesSection from './PuentesSection.astro';
+import { loadSettings, lightenColor } from '../lib/settings';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const settings = loadSettings();
+const primaryColor = settings.visual.primaryColor;
+const secondaryColor = settings.visual.secondaryColor;
+const primaryColorLight = lightenColor(primaryColor, 30);
+
+const isCA = locale === 'ca';
+const homeUrl = getLocalizedPath('/', locale);
+const contactoUrl = getLocalizedPath('/contacto', locale);
+---
+
+<!-- ═══════════════ TOP BAR (HUD) ═══════════════ -->
+<div class="fixed top-0 left-0 right-0 z-50 bg-cyber-black border-b border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-8">
+    <div class="flex items-center gap-4">
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-teal"></span>
+      <span class="font-mono text-[9px] text-cyber-text/60 uppercase tracking-widest">{t.hud.sys_online}</span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-teal/70">{t.hud.node_active}</span>
+    </div>
+    <div class="hidden sm:flex items-center gap-4">
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.ping} <span class="text-cyber-teal/70">8ms</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.uptime} <span class="text-cyber-orange/70">99.9%</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-red"></span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.rec}</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="fixed top-8 left-0 right-0 z-50 border-b border-cyber-border bg-cyber-black/90 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-16">
+    <a href={homeUrl} class="flex items-center gap-1">
+      <span class="text-lg font-bold tracking-tight text-cyber-white">CIBAI</span>
+      <span class="text-lg font-bold tracking-tight text-cyber-orange">.</span>
+      <span class="text-lg font-light tracking-tight text-cyber-orange">STUDIO</span>
+    </a>
+    <div class="flex items-center gap-6">
+      <div class="hidden md:flex items-center gap-8">
+        <a href={homeUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.inicio}</a>
+        <a href={getLocalizedPath('/ia-automatizacion-empresas', locale)} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.servicios}</a>
+        <a href={getLocalizedPath('/studio', locale)} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.studio}</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <LanguageSelector currentLocale={locale} />
+        <a href={contactoUrl} class="btn-primary text-xs py-2 px-5 hidden sm:inline-flex">{t.nav.proyecto}</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<main class="min-h-screen bg-cyber-black text-cyber-white pt-24">
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="main-content" class="relative min-h-[60vh] flex flex-col justify-end pt-32 pb-16 overflow-hidden">
+  <div class="absolute inset-0 opacity-[0.03]" style={`background-image: linear-gradient(color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px); background-size: 60px 60px;`}></div>
+
+  <div class="mx-auto max-w-7xl px-6 w-full">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-8">
+      <ol class="flex items-center gap-2 font-mono text-[10px] text-cyber-text/60 uppercase tracking-widest">
+        <li><a href={homeUrl} class="hover:text-cyber-orange transition-colors">{isCA ? 'Inici' : 'Inicio'}</a></li>
+        <li class="text-cyber-border">/</li>
+        <li class="text-cyber-orange">{isCA ? 'Web Corporativa' : 'Web Corporativa'}</li>
+      </ol>
+    </nav>
+
+    <div class="section-number mb-4">// {isCA ? 'SERVEIS' : 'SERVICIOS'}</div>
+    <h1 class="text-[clamp(2.5rem,6vw,5.5rem)] font-black leading-[0.95] tracking-tight mb-6">
+      {isCA
+        ? <><span>WEB CORPORATIVA</span><br/><span>QUE POSICIONA</span><br/><span class="text-cyber-orange glow-orange">I CONVERTEIX</span></>
+        : <><span>WEB CORPORATIVA</span><br/><span>QUE POSICIONA</span><br/><span class="text-cyber-orange glow-orange">Y CONVIERTE</span></>
+      }
+    </h1>
+    <p class="text-cyber-text text-lg font-light max-w-2xl leading-relaxed mb-10">
+      {isCA
+        ? 'Dissenyem webs que comuniquen la teva proposta de valor, generen confiança i converteixen visites en oportunitats reals de negoci. Sense plantilles. Sense friccions.'
+        : 'Diseñamos webs que comunican tu propuesta de valor, generan confianza y convierten visitas en oportunidades reales de negocio. Sin plantillas. Sin fricciones.'
+      }
+    </p>
+    <div class="flex flex-wrap gap-4">
+      <a href={contactoUrl} class="btn-primary btn-glitch">
+        {isCA ? 'Sol·licitar proposta' : 'Solicitar propuesta'}
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PARA QUÉ EMPRESA ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight mb-4">
+        {isCA
+          ? <><span>PER A QUINA</span><br/><span class="text-cyber-teal glow-teal">EMPRESA?</span></>
+          : <><span>¿PARA QUÉ</span><br/><span class="text-cyber-teal glow-teal">EMPRESA?</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {[
+        {
+          num: '01',
+          title: isCA ? 'Empreses amb web desactualitzada que no reflecteix el seu valor real' : 'Empresas con web desactualizada que no refleja su valor real',
+          desc: isCA
+            ? 'Tens una empresa puntera però la teva web sembla de fa 10 anys. Canviem la percepció del teu negoci des del primer clic.'
+            : 'Tienes una empresa puntera pero tu web parece de hace 10 años. Cambiamos la percepción de tu negocio desde el primer clic.'
+        },
+        {
+          num: '02',
+          title: isCA ? 'Negocis B2B que necessiten convertir el seu trànsit en leads' : 'Negocios B2B que necesitan convertir su tráfico en leads',
+          desc: isCA
+            ? 'Tens visites però no generes oportunitats de negoci. Dissenyem arquitectures de conversió que acompanyen el visitant fins a l’acció.'
+            : 'Tienes visitas pero no generas oportunidades de negocio. Diseñamos arquitecturas de conversión que acompañan al visitante hasta la acción.'
+        },
+        {
+          num: '03',
+          title: isCA ? 'Startups i empreses en creixement que necessiten projectar imatge premium' : 'Startups y empresas en crecimiento que necesitan proyectar imagen premium',
+          desc: isCA
+            ? 'En el moment de captar inversió, clients o talent, la percepció visual ho és tot. Et donem la imatge que et mereix el teu negoci.'
+            : 'En el momento de captar inversión, clientes o talento, la percepción visual lo es todo. Te damos la imagen que merece tu negocio.'
+        },
+        {
+          num: '04',
+          title: isCA ? 'Empreses que van a sortir al mercat amb una proposta clara' : 'Empresas que van a salir al mercado con una propuesta clara',
+          desc: isCA
+            ? 'Llançament de producte, nova línia de negoci o entrada a un nou mercat. Construïm la plataforma digital que suporta la teva sortida.'
+            : 'Lanzamiento de producto, nueva línea de negocio o entrada a un nuevo mercado. Construimos la plataforma digital que soporta tu salida.'
+        }
+      ].map((item) => (
+        <div class="card-brutal p-8">
+          <span class="text-4xl font-black text-cyber-orange/70 block mb-4">{item.num}</span>
+          <h3 class="text-xl font-bold mb-3 text-cyber-white">{item.title}</h3>
+          <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ QUÉ HACEMOS ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'SERVEIS' : 'SERVICIOS'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>QUÈ FEM EN</span><br/><span class="text-cyber-orange glow-orange">WEB CORPORATIVA</span></>
+          : <><span>QUÉ HACEMOS EN</span><br/><span class="text-cyber-orange glow-orange">WEB CORPORATIVA</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="space-y-4">
+      {[
+        {
+          label: isCA ? 'DISSENY UX/UI' : 'DISEÑO UX/UI',
+          title: isCA ? 'Disseny UX/UI orientat a conversió' : 'Diseño UX/UI orientado a conversión',
+          desc: isCA
+            ? 'Arquitectura d’informació estratègica, wireframes de baixa i alta fidelitat, i disseny visual que comunica qualitat i genera confiança. Cada decisió de disseny té un motiu de negoci darrere.'
+            : 'Arquitectura de información estratégica, wireframes de baja y alta fidelidad, y diseño visual que comunica calidad y genera confianza. Cada decisión de diseño tiene un motivo de negocio detrás.'
+        },
+        {
+          label: isCA ? 'COPY I POSICIONAMENT' : 'COPY Y POSICIONAMIENTO',
+          title: isCA ? 'Copy neuromarketing i posicionament B2B' : 'Copy neuromarketing y posicionamiento B2B',
+          desc: isCA
+            ? 'Textos optimitzats per a B2B que parlen directament als punts de dolor del teu client. Estructura SEO integrada des del primer moment: H1, H2, meta i semàntica de paraules clau.'
+            : 'Textos optimizados para B2B que hablan directamente a los puntos de dolor de tu cliente. Estructura SEO integrada desde el primer momento: H1, H2, metas y semántica de palabras clave.'
+        },
+        {
+          label: isCA ? 'DESENVOLUPAMENT FRONT' : 'DESARROLLO FRONT',
+          title: isCA ? 'Desenvolupament frontend amb Next.js o Astro' : 'Desarrollo frontend con Next.js o Astro',
+          desc: isCA
+            ? 'Codi net, ràpid i mantenible. Performance màxima en Core Web Vitals, responsive complet, accessible i optimitzat per a buscadors. Tecnologia escalable per a les necessitats del teu negoci.'
+            : 'Código limpio, rápido y mantenible. Performance máxima en Core Web Vitals, responsive completo, accesible y optimizado para buscadores. Tecnología escalable para las necesidades de tu negocio.'
+        },
+        {
+          label: 'SEO ON-PAGE',
+          title: isCA ? 'SEO on-page tècnic complet' : 'SEO on-page técnico completo',
+          desc: isCA
+            ? 'Metadades optimitzades, Schema Markup estructurat, hreflang per a multiidioma, sitemap XML, robots.txt i velocitat de càrrega per sota dels 2 segons. Tot el que Google necessita per posicionar-te.'
+            : 'Metadatos optimizados, Schema Markup estructurado, hreflang para multiidioma, sitemap XML, robots.txt y velocidad de carga por debajo de los 2 segundos. Todo lo que Google necesita para posicionarte.'
+        },
+        {
+          label: isCA ? 'ANALÍTICA' : 'ANALÍTICA',
+          title: isCA ? 'Analítica i mesura des del dia 1' : 'Analítica y medición desde el día 1',
+          desc: isCA
+            ? 'Integració de GA4, Google Search Console, heatmaps i tracking d’events personalitzats. Saps exactament quines pàgines converteixen, on abandona l’usuari i quines accions generen resultats.'
+            : 'Integración de GA4, Google Search Console, heatmaps y tracking de eventos personalizados. Sabes exactamente qué páginas convierten, dónde abandona el usuario y qué acciones generan resultados.'
+        }
+      ].map((item, i) => (
+        <details class="group border border-cyber-border">
+          <summary class="flex items-center justify-between p-6 cursor-pointer hover:bg-cyber-dark/50 transition-colors list-none">
+            <div class="flex items-center gap-6 flex-1">
+              <span class="font-mono text-[10px] text-cyber-orange uppercase tracking-widest min-w-[140px] hidden md:block">{item.label}</span>
+              <h3 class="font-mono text-sm font-bold tracking-wider text-cyber-white pr-4">{item.title}</h3>
+            </div>
+            <svg class="w-4 h-4 text-cyber-orange flex-shrink-0 transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-6">
+            <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CASOS DE USO ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'CASOS D’ÚS' : 'CASOS DE USO'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>CASOS D’ÚS EN</span><br/><span class="text-cyber-orange glow-orange">WEB CORPORATIVA</span></>
+          : <><span>CASOS DE USO EN</span><br/><span class="text-cyber-orange glow-orange">WEB CORPORATIVA</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {[
+        {
+          title: isCA ? 'Web d’empresa de serveis professionals: de genèrica a premium' : 'Web de empresa de servicios profesionales: de genérica a premium',
+          tags: isCA ? ['SERVEIS', 'REDISSENY', 'B2B'] : ['SERVICIOS', 'REDISEÑO', 'B2B'],
+          desc: isCA
+            ? 'Consultoria, assessoria, enginyeria o arquitectura. Transformem webs genèriques en referents visuals del sector que atrauen clients de major valor.'
+            : 'Consultoría, asesoría, ingeniería o arquitectura. Transformamos webs genéricas en referentes visuales del sector que atraen clientes de mayor valor.'
+        },
+        {
+          title: isCA ? 'Web llançament startup: de zero a posicionada en 4 setmanes' : 'Web lanzamiento startup: de cero a posicionada en 4 semanas',
+          tags: isCA ? ['STARTUP', 'LLANÇAMENT', 'RAPID'] : ['STARTUP', 'LANZAMIENTO', 'RAPID'],
+          desc: isCA
+            ? 'Des de l’estratègia de posicionament fins al llançament. Web que comunica la proposta diferencial, capta leads i escala amb el producte.'
+            : 'Desde la estrategia de posicionamiento hasta el lanzamiento. Web que comunica la propuesta diferencial, capta leads y escala con el producto.'
+        },
+        {
+          title: isCA ? 'Redisseny web industrial: més leads amb el mateix trànsit' : 'Rediseño web industrial: más leads con mismo tráfico',
+          tags: isCA ? ['INDUSTRIAL', 'CONVERSIÓ', 'LEADS'] : ['INDUSTRIAL', 'CONVERSIÓN', 'LEADS'],
+          desc: isCA
+            ? 'Empresa industrial o manufacturera amb trànsit però sense conversions. Redisseny centrat en el cicle de venda B2B i en la generació de sol·licituds qualificades.'
+            : 'Empresa industrial o manufacturera con tráfico pero sin conversiones. Rediseño centrado en el ciclo de venta B2B y en la generación de solicitudes cualificadas.'
+        },
+        {
+          title: isCA ? 'Web agència boutique: diferenciació visual i posicionament' : 'Web agencia boutique: diferenciación visual y posicionamiento',
+          tags: isCA ? ['AGÈNCIA', 'MARCA', 'PREMIUM'] : ['AGENCIA', 'MARCA', 'PREMIUM'],
+          desc: isCA
+            ? 'Quan el teu producte és la qualitat i el criteri, la web ha de ser la primera demostració d’aquest. Disseny que separa l’agència premium de la resta.'
+            : 'Cuando tu producto es la calidad y el criterio, la web tiene que ser la primera demostración de eso. Diseño que separa la agencia premium del resto.'
+        }
+      ].map((item) => (
+        <div class="card-brutal p-8">
+          <div class="flex flex-wrap gap-2 mb-4">
+            {item.tags.map((tag: string) => (
+              <span class="font-mono text-[10px] px-2 py-1 border border-cyber-border text-cyber-text">{tag}</span>
+            ))}
+          </div>
+          <h3 class="text-lg font-bold mb-3 text-cyber-white">{item.title}</h3>
+          <p class="text-sm text-cyber-text leading-relaxed">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CÓMO TRABAJAMOS ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'METODOLOGIA' : 'METODOLOGÍA'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>COM TREBALLEM</span><br/><span class="text-cyber-teal glow-teal">EN WEB CORPORATIVA</span></>
+          : <><span>CÓMO TRABAJAMOS</span><br/><span class="text-cyber-teal glow-teal">EN WEB CORPORATIVA</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      {[
+        {
+          num: '01',
+          title: isCA ? 'Briefing' : 'Briefing',
+          desc: isCA
+            ? 'Entenem el teu negoci, els teus clients, la competència i els objectius de la web.'
+            : 'Entendemos tu negocio, tus clientes, la competencia y los objetivos de la web.'
+        },
+        {
+          num: '02',
+          title: isCA ? 'Estratègia i UX' : 'Estrategia y UX',
+          desc: isCA
+            ? 'Definim l’arquitectura d’informació, els fluxos de l’usuari i l’estratègia de contingut.'
+            : 'Definimos la arquitectura de información, los flujos de usuario y la estrategia de contenido.'
+        },
+        {
+          num: '03',
+          title: isCA ? 'Disseny' : 'Diseño',
+          desc: isCA
+            ? 'Disseny visual complet: identitat, components, pàgines i sistema de disseny documentat.'
+            : 'Diseño visual completo: identidad, componentes, páginas y sistema de diseño documentado.'
+        },
+        {
+          num: '04',
+          title: isCA ? 'Desenvolupament' : 'Desarrollo',
+          desc: isCA
+            ? 'Implementació front amb codi net, SEO tècnic, integració d’eines i QA exhaustiu.'
+            : 'Implementación front con código limpio, SEO técnico, integración de herramientas y QA exhaustivo.'
+        },
+        {
+          num: '05',
+          title: isCA ? 'Llançament' : 'Lanzamiento',
+          desc: isCA
+            ? 'Posada en producció, configuració d’analítica i formació a l’equip per gestionar el contingut.'
+            : 'Puesta en producción, configuración de analítica y formación al equipo para gestionar el contenido.'
+        }
+      ].map((step) => (
+        <div class="card-brutal p-6 group">
+          <span class="text-4xl font-black text-cyber-orange/80 block mb-4">{step.num}</span>
+          <h3 class="font-mono text-sm font-bold tracking-wider mb-3 text-cyber-white">{step.title}</h3>
+          <p class="text-xs text-cyber-text leading-relaxed">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FAQ ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// FAQ</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>PREGUNTES FREQÜENTS SOBRE</span><br/><span class="text-cyber-orange glow-orange">WEB CORPORATIVA</span></>
+          : <><span>PREGUNTAS FRECUENTES SOBRE</span><br/><span class="text-cyber-orange glow-orange">WEB CORPORATIVA</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="space-y-4 max-w-3xl">
+      {[
+        {
+          q: isCA ? '¿Quant tarda una web corporativa?' : '¿Cuánto tarda una web corporativa?',
+          a: isCA
+            ? 'Un projecte de web corporativa estàndard es lliura en 4–6 setmanes des de l’inici del briefing fins al llançament. Projectes més complexos amb integracions avançades o moltes seccions poden requerir 8–10 setmanes. En la primera reunió definim el termini exacte.'
+            : 'Un proyecto de web corporativa estándar se entrega en 4–6 semanas desde el inicio del briefing hasta el lanzamiento. Proyectos más complejos con integraciones avanzadas o muchas secciones pueden requerir 8–10 semanas. En la primera reunión definimos el plazo exacto.'
+        },
+        {
+          q: isCA ? '¿Quina tecnologia useu?' : '¿Qué tecnología usáis?',
+          a: isCA
+            ? 'Treballem principalment amb Next.js i Astro per al frontend, en funció de les necessitats del projecte. Per a contingut, integrem CMS headless com Sanity, Contentful o Strapi. Tot el codi és propietat del client i completament transferible.'
+            : 'Trabajamos principalmente con Next.js y Astro para el frontend, en función de las necesidades del proyecto. Para contenido, integramos CMS headless como Sanity, Contentful o Strapi. Todo el código es propiedad del cliente y completamente transferible.'
+        },
+        {
+          q: isCA ? '¿Inclou el copy (textos)?' : '¿Incluye el copy (textos)?',
+          a: isCA
+            ? 'Sí, en els nostres projectes complets el copy estratègic i SEO forma part de l’abast. Treballem amb redactors especialitzats en B2B per crear textos que posicionin i converteixin. Si prefereixes aportar el teu propi copy, ho adaptem al disseny.'
+            : 'Sí, en nuestros proyectos completos el copy estratégico y SEO forma parte del alcance. Trabajamos con redactores especializados en B2B para crear textos que posicionen y conviertan. Si prefieres aportar tu propio copy, lo adaptamos al diseño.'
+        },
+        {
+          q: isCA ? '¿Què passa després del llançament?' : '¿Qué pasa después del lanzamiento?',
+          a: isCA
+            ? 'Oferim un mes de suport post-llançament inclòs. Posteriorment, teniu l’opció de contractar un pla de manteniment mensual o gestionar la web de forma autònoma. Formes al teu equip per poder actualitzar continguts sense dependència tècnica.'
+            : 'Ofrecemos un mes de soporte post-lanzamiento incluido. Posteriormente, tenéis la opción de contratar un plan de mantenimiento mensual o gestionar la web de forma autónoma. Formamos a tu equipo para poder actualizar contenidos sin dependencia técnica.'
+        }
+      ].map((item) => (
+        <details class="group border border-cyber-border">
+          <summary class="flex items-center justify-between p-6 cursor-pointer hover:bg-cyber-dark/50 transition-colors list-none">
+            <h3 class="font-mono text-sm font-bold tracking-wider text-cyber-white pr-4">{item.q}</h3>
+            <svg class="w-4 h-4 text-cyber-orange flex-shrink-0 transition-transform group-open:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+          </summary>
+          <div class="px-6 pb-6">
+            <p class="text-sm text-cyber-text leading-relaxed">{item.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<PuentesSection locale={locale} />
+
+<!-- ═══════════════ CTA FINAL ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6 text-center">
+    <div class="section-number mb-4 mx-auto w-fit">// {isCA ? 'PROPOSTA' : 'PROPUESTA'}</div>
+    <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-tight mb-4">
+      {isCA
+        ? '¿Llesta la teva empresa per a una web que converteixi de veritat?'
+        : '¿Lista tu empresa para una web que convierta de verdad?'
+      }
+    </h2>
+    <p class="text-cyber-text max-w-lg mx-auto mb-10 font-light">
+      {isCA
+        ? 'Parla amb nosaltres i en 48 hores tens una proposta personalitzada per al teu projecte web.'
+        : 'Habla con nosotros y en 48 horas tienes una propuesta personalizada para tu proyecto web.'
+      }
+    </p>
+    <a href={contactoUrl} class="btn-primary btn-glitch">
+      {isCA ? 'Sol·licitar proposta' : 'Solicitar propuesta'}
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="border-t border-cyber-border py-12 mt-16">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      <div>
+        <a href={homeUrl} class="flex items-center gap-1 mb-3">
+          <span class="text-lg font-bold tracking-tight text-cyber-white">CIBAI</span>
+          <span class="text-lg font-bold tracking-tight text-cyber-orange">.</span>
+          <span class="text-lg font-light tracking-tight text-cyber-orange">STUDIO</span>
+        </a>
+        <p class="text-xs text-cyber-text/60 font-mono max-w-sm">{t.footer.descripcion}</p>
+      </div>
+      <div class="flex flex-col gap-2 text-xs font-mono text-cyber-text/60">
+        <span class="uppercase tracking-widest text-cyber-text/40">{t.footer.nav_label}</span>
+        <a href={homeUrl} class="hover:text-cyber-orange transition-colors">{t.footer.link_inicio}</a>
+        <a href={getLocalizedPath('/ia-automatizacion-empresas', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_servicios}</a>
+        <a href={getLocalizedPath('/casos-de-uso', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_casos_uso}</a>
+        <a href={getLocalizedPath('/studio', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_studio}</a>
+        <a href={contactoUrl} class="hover:text-cyber-orange transition-colors">{t.footer.link_contacto}</a>
+      </div>
+      <div class="flex flex-col gap-2 text-xs font-mono text-cyber-text/60">
+        <span class="uppercase tracking-widest text-cyber-text/40">{t.footer.legal_label}</span>
+        <a href={getLocalizedPath('/privacidad', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_privacidad}</a>
+        <a href={getLocalizedPath('/aviso-legal', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_aviso}</a>
+        <a href={getLocalizedPath('/cookies', locale)} class="hover:text-cyber-orange transition-colors">{t.footer.link_cookies}</a>
+      </div>
+    </div>
+    <div class="mt-8 pt-8 border-t border-cyber-border/50 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <span class="font-mono text-[10px] text-cyber-text/40">{t.footer.copyright}</span>
+      <span class="font-mono text-[10px] text-cyber-text/40">{t.footer.made_in}</span>
+    </div>
+  </div>
+</footer>
+
+</main>

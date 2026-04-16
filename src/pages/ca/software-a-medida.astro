@@ -1,0 +1,104 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SoftwareMedidaPage from '../../components/SoftwareMedidaPage.astro';
+import '../../styles/global.css';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Software a Mida per a Empreses",
+  "description": "Desenvolupem eines internes, panells de gestió, ERPs i aplicacions adaptades als processos reals de la teva empresa. Sense plantilles genèriques.",
+  "provider": {
+    "@type": "Organization",
+    "name": "CIBAI.Studio",
+    "url": "https://cibai.studio"
+  },
+  "serviceType": "Desenvolupament de software a mida per a empreses",
+  "areaServed": {
+    "@type": "Country",
+    "name": "España"
+  },
+  "url": "https://cibai.studio/ca/software-a-medida",
+  "offers": {
+    "@type": "Offer",
+    "description": "Diagnòstic inicial gratuït per definir l'abast i pressupost del software a mida",
+    "url": "https://cibai.studio/ca/contacto"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inici",
+      "item": "https://cibai.studio/ca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Solucions",
+      "item": "https://cibai.studio/ca/soluciones-ia-empresas"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Software a Mida",
+      "item": "https://cibai.studio/ca/software-a-medida"
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quant tarda un projecte de software a mida?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depèn de la complexitat. Una eina interna o panell de gestió pot estar llest en 4–8 setmanes. Projectes més complexos amb múltiples integracions o lògiques avançades poden requerir de 2 a 6 mesos. Al diagnòstic inicial definim terminis i fites concretes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Amb quines tecnologies treballeu?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Triem la tecnologia adequada per a cada projecte. Treballem habitualment amb React, Next.js, Node.js, Python, PostgreSQL i diverses eines cloud. L'objectiu no és imposar una tecnologia, sinó triar la que millor resol el teu problema amb el menor cost de manteniment futur."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Oferiu manteniment i suport post-llançament?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Oferim plans de manteniment i suport adaptat a les necessitats de cada client: des de suport puntual per incidències fins a contractes de manteniment mensual que inclouen millores contínues, monitoratge i actualitzacions de seguretat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Podeu integrar el software amb els nostres sistemes actuals?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutament. La integració amb sistemes existents és una de les nostres especialitats. Treballem amb APIs REST, webhooks, connexions directes a bases de dades i connectors específics per a les principals plataformes (Salesforce, SAP, Holded, WooCommerce, Shopify, entre d'altres)."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Software a Mida per a Empreses | CIBAI.Studio"
+  description="Desenvolupem eines internes, panells de gestió, ERPs i aplicacions adaptades als teus processos reals. Software a mida per a empreses que necessiten eines adaptades a la seva realitat."
+  locale="ca"
+  canonicalPath="/ca/software-a-medida"
+  hreflangEs="https://cibai.studio/software-a-medida"
+  hreflangCa="https://cibai.studio/ca/software-a-medida"
+  schemaMarkup={[serviceSchema, breadcrumbSchema, faqSchema]}
+>
+  <SoftwareMedidaPage locale="ca" />
+</Layout>

@@ -1,0 +1,104 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SoftwareMedidaPage from '../components/SoftwareMedidaPage.astro';
+import '../styles/global.css';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Software a Medida para Empresas",
+  "description": "Desarrollo de herramientas internas, paneles de gestión, ERPs y aplicaciones adaptadas a los procesos reales de tu empresa. Sin plantillas genéricas.",
+  "provider": {
+    "@type": "Organization",
+    "name": "CIBAI.Studio",
+    "url": "https://cibai.studio"
+  },
+  "serviceType": "Desarrollo de software a medida para empresas",
+  "areaServed": {
+    "@type": "Country",
+    "name": "España"
+  },
+  "url": "https://cibai.studio/software-a-medida",
+  "offers": {
+    "@type": "Offer",
+    "description": "Diagnóstico inicial gratuito para definir el alcance y presupuesto del software a medida",
+    "url": "https://cibai.studio/contacto"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://cibai.studio/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Soluciones",
+      "item": "https://cibai.studio/soluciones-ia-empresas"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Software a Medida",
+      "item": "https://cibai.studio/software-a-medida"
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tarda un proyecto de software a medida?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depende de la complejidad. Una herramienta interna o panel de gestión puede estar listo en 4–8 semanas. Proyectos más complejos con múltiples integraciones o lógicas avanzadas pueden requerir de 2 a 6 meses. En el diagnóstico inicial definimos plazos e hitos concretos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Con qué tecnologías trabajáis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Elegimos la tecnología adecuada para cada proyecto. Trabajamos habitualmente con React, Next.js, Node.js, Python, PostgreSQL y diversas herramientas cloud. El objetivo no es imponer una tecnología, sino elegir la que mejor resuelve tu problema con el menor coste de mantenimiento futuro."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Ofrecéis mantenimiento y soporte post-lanzamiento?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Ofrecemos planes de mantenimiento y soporte adaptados a las necesidades de cada cliente: desde soporte puntual por incidencias hasta contratos de mantenimiento mensual que incluyen mejoras continuas, monitoreo y actualizaciones de seguridad."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Podéis integrar el software con nuestros sistemas actuales?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutamente. La integración con sistemas existentes es una de nuestras especialidades. Trabajamos con APIs REST, webhooks, conexiones directas a bases de datos y conectores específicos para las principales plataformas (Salesforce, SAP, Holded, WooCommerce, Shopify, entre otros)."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Software a Medida para Empresas | CIBAI.Studio"
+  description="Desarrollamos herramientas internas, paneles de gestión, ERPs y aplicaciones adaptadas a tus procesos reales. Software a medida para empresas que necesitan herramientas adaptadas a su realidad."
+  locale="es"
+  canonicalPath="/software-a-medida"
+  hreflangEs="https://cibai.studio/software-a-medida"
+  hreflangCa="https://cibai.studio/ca/software-a-medida"
+  schemaMarkup={[serviceSchema, breadcrumbSchema, faqSchema]}
+>
+  <SoftwareMedidaPage locale="es" />
+</Layout>

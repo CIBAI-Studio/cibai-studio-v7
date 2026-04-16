@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ContactoPage from '../../components/ContactoPage.astro';
+import '../../styles/global.css';
+
+const contactPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contacte — CIBAI.Studio",
+  "url": "https://cibai.studio/ca/contacto",
+  "description": "Sol·licita un diagnòstic inicial per identificar oportunitats d'IA, automatització i software a la teva empresa.",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "CIBAI.Studio",
+    "url": "https://cibai.studio"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inici",
+      "item": "https://cibai.studio/ca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Contacte",
+      "item": "https://cibai.studio/ca/contacto"
+    }
+  ]
+};
+---
+
+<Layout
+  title="Contacte | Sol·licita Diagnòstic IA — CIBAI.Studio"
+  description="Explica'ns què vol millorar o construir la teva empresa. Diagnòstic inicial gratuït per detectar oportunitats en IA, automatització i software a mida."
+  locale="ca"
+  canonicalPath="/ca/contacto"
+  hreflangEs="https://cibai.studio/contacto"
+  hreflangCa="https://cibai.studio/ca/contacto"
+  schemaMarkup={[contactPageSchema, breadcrumbSchema]}
+>
+  <ContactoPage locale="ca" />
+</Layout>

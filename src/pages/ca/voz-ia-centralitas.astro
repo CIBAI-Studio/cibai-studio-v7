@@ -1,0 +1,98 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import VozIACentralitasPage from '../../components/VozIACentralitasPage.astro';
+import '../../styles/global.css';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Veu IA i Centraletes Intel·ligents per a Empreses",
+  "description": "Automatitzem l'atenció telefònica, l'enrutament de trucades i la recepció virtual amb IA perquè la teva empresa atengui més i millor sense augmentar l'equip.",
+  "provider": {
+    "@type": "Organization",
+    "name": "CIBAI.Studio",
+    "url": "https://cibai.studio"
+  },
+  "serviceType": "Automatització de l'atenció telefònica amb IA i veu",
+  "areaServed": {
+    "@type": "Country",
+    "name": "España"
+  },
+  "url": "https://cibai.studio/ca/voz-ia-centralitas",
+  "offers": {
+    "@type": "Offer",
+    "description": "Diagnòstic inicial gratuït per identificar oportunitats d'automatització telefònica",
+    "url": "https://cibai.studio/ca/contacto"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inici",
+      "item": "https://cibai.studio/ca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Veu IA i Centraletes",
+      "item": "https://cibai.studio/ca/voz-ia-centralitas"
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Amb quines centraletes és compatible?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Treballem amb les principals plataformes de telefonia IP i centraletes cloud: Twilio, Vonage, 3CX, Asterisk, RingCentral i d'altres. Si tens una infraestructura existent, analitzem com integrar l'agent de veu sense haver de canviar-la."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Sona natural o robòtic?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Els agents de veu actuals amb models de síntesi de veu moderns sonen molt naturals. Treballem amb veus configurables que s'adapten al to de marca: formal, proper, professional. En les proves prèvies al llançament valorem conjuntament la qualitat de la veu."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quant temps d'implementació?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un agent de veu bàsic per gestionar consultes freqüents pot estar operatiu en 2-3 setmanes. Projectes més complexos amb integracions de CRM, múltiples fluxos i derivació intel·ligent requereixen entre 4 i 8 setmanes. Ho definim amb precisió al diagnòstic inicial."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Què passa quan l'agent no sap respondre?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El sistema gestiona els casos de no-coneixement amb transparència: informa l'usuari que derivarà la trucada a una persona, recull les dades del contacte per a un seguiment posterior, o agenda una trucada de retorn. Cap trucada s'abandona sense resposta."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="Veu IA i Centraletes Intel·ligents per a Empreses | CIBAI"
+  description="Automatitza l'atenció telefònica, millora l'enrutament i redueix la càrrega amb veu IA i centraletes intel·ligents. Solució a mida per a empreses. Més info."
+  locale="ca"
+  canonicalPath="/ca/voz-ia-centralitas"
+  hreflangEs="https://cibai.studio/voz-ia-centralitas"
+  hreflangCa="https://cibai.studio/ca/voz-ia-centralitas"
+  schemaMarkup={[serviceSchema, breadcrumbSchema, faqSchema]}
+>
+  <VozIACentralitasPage locale="ca" />
+</Layout>

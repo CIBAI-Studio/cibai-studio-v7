@@ -1,0 +1,87 @@
+---
+import type { Locale } from '../i18n';
+import { getTranslations } from '../i18n';
+import { loadSettings, lightenColor } from '../lib/settings';
+import SEOHead from '../components/SEOHead.astro';
+
+const siteUrl = 'https://cibai.studio';
+
+interface Props {
+  title: string;
+  description: string;
+  locale?: Locale;
+  /** Full path like "/studio" or "/ca/contacto". Defaults to Astro.url.pathname. */
+  canonicalPath?: string;
+  hreflangEs?: string;
+  hreflangCa?: string;
+  schemaMarkup?: object[];
+}
+
+const {
+  title,
+  description,
+  locale = 'es',
+  canonicalPath,
+  hreflangEs,
+  hreflangCa,
+  schemaMarkup = [],
+} = Astro.props;
+
+const t = getTranslations(locale);
+const resolvedPath = canonicalPath ?? Astro.url.pathname;
+const canonical = resolvedPath.startsWith('http') ? resolvedPath : `${siteUrl}${resolvedPath}`;
+const ogLocale = locale === 'ca' ? 'ca_ES' : 'es_ES';
+const settings = loadSettings();
+const primaryColor = settings.visual.primaryColor;
+const primaryColorLight = lightenColor(primaryColor, 30);
+const secondaryColor = settings.visual.secondaryColor;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <SEOHead
+      title={title}
+      description={description}
+      canonical={canonical}
+      locale={ogLocale}
+      hreflangEs={hreflangEs}
+      hreflangCa={hreflangCa}
+      schemaMarkup={schemaMarkup}
+    />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Dynamic overrides from admin settings -->
+    <style set:html={`
+      :root {
+        --color-cyber-orange: ${primaryColor};
+        --color-cyber-orange-light: ${primaryColorLight};
+        --color-cyber-teal: ${secondaryColor};
+      }
+      /* Typography overrides */
+      h1 { font-family: ${settings.typography.h1.fontFamily}; font-size: ${settings.typography.h1.fontSize}; font-weight: ${settings.typography.h1.fontWeight}; line-height: ${settings.typography.h1.lineHeight}; letter-spacing: ${settings.typography.h1.letterSpacing}; }
+      h2 { font-family: ${settings.typography.h2.fontFamily}; font-size: ${settings.typography.h2.fontSize}; font-weight: ${settings.typography.h2.fontWeight}; line-height: ${settings.typography.h2.lineHeight}; letter-spacing: ${settings.typography.h2.letterSpacing}; }
+      h3 { font-family: ${settings.typography.h3.fontFamily}; font-size: ${settings.typography.h3.fontSize}; font-weight: ${settings.typography.h3.fontWeight}; line-height: ${settings.typography.h3.lineHeight}; letter-spacing: ${settings.typography.h3.letterSpacing}; }
+      h4 { font-family: ${settings.typography.h4.fontFamily}; font-size: ${settings.typography.h4.fontSize}; font-weight: ${settings.typography.h4.fontWeight}; line-height: ${settings.typography.h4.lineHeight}; letter-spacing: ${settings.typography.h4.letterSpacing}; }
+      h5 { font-family: ${settings.typography.h5.fontFamily}; font-size: ${settings.typography.h5.fontSize}; font-weight: ${settings.typography.h5.fontWeight}; line-height: ${settings.typography.h5.lineHeight}; letter-spacing: ${settings.typography.h5.letterSpacing}; }
+      h6 { font-family: ${settings.typography.h6.fontFamily}; font-size: ${settings.typography.h6.fontSize}; font-weight: ${settings.typography.h6.fontWeight}; line-height: ${settings.typography.h6.lineHeight}; letter-spacing: ${settings.typography.h6.letterSpacing}; }
+      p { font-family: ${settings.typography.p.fontFamily}; font-size: ${settings.typography.p.fontSize}; font-weight: ${settings.typography.p.fontWeight}; line-height: ${settings.typography.p.lineHeight}; letter-spacing: ${settings.typography.p.letterSpacing}; }
+      span.typo-override { font-family: ${settings.typography.span.fontFamily}; font-size: ${settings.typography.span.fontSize}; font-weight: ${settings.typography.span.fontWeight}; line-height: ${settings.typography.span.lineHeight}; letter-spacing: ${settings.typography.span.letterSpacing}; }
+    `}></style>
+    {settings.visual.customCSS && <style set:html={settings.visual.customCSS}></style>}
+  </head>
+  <body class="bg-cyber-black text-cyber-white">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-cyber-orange focus:text-cyber-black focus:font-mono focus:text-sm">
+      {t.nav.skip_content}
+    </a>
+    <div class="scanline"></div>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import StudioPage from '../../components/StudioPage.astro';
+import '../../styles/global.css';
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Matías Oliver",
+  "jobTitle": "Founder & Strategy Lead",
+  "worksFor": {
+    "@type": "Organization",
+    "name": "CIBAI.Studio",
+    "url": "https://cibai.studio"
+  },
+  "description": "Especialitzat en IA aplicada, automatització i estratègia orientada a negoci. Lidera la visió de CIBAI.Studio.",
+  "url": "https://cibai.studio/ca/studio"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inici",
+      "item": "https://cibai.studio/ca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Studio",
+      "item": "https://cibai.studio/ca/studio"
+    }
+  ]
+};
+---
+
+<Layout
+  title="Studio | Equip d'IA, Automatització i Software — CIBAI"
+  description="Coneix l'equip de CIBAI.Studio: estratègia, IA, automatització, disseny i desenvolupament orientats a resultats reals per a empreses. Parla amb el Studio."
+  locale="ca"
+  canonicalPath="/ca/studio"
+  hreflangEs="https://cibai.studio/studio"
+  hreflangCa="https://cibai.studio/ca/studio"
+  schemaMarkup={[personSchema, breadcrumbSchema]}
+>
+  <StudioPage locale="ca" />
+</Layout>

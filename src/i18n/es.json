@@ -1,0 +1,522 @@
+{
+  "hero": {
+    "badge_studio": "CIBAI_STUDIO",
+    "badge_location": "BERGA, BARCELONA, ESPAÑA",
+    "badge_status": "STATUS: ONLINE",
+    "topbar": "Tecnología que trabaja para tu empresa, no al revés.",
+    "tagline": "IA, automatización y software para empresas",
+    "h1_line1": "LA TECNOLOGÍA NO",
+    "h1_line2": "TRANSFORMA EMPRESAS.",
+    "h1_line3": "LOS SISTEMAS BIEN DISEÑADOS, SÍ.",
+    "h1_full": "La tecnología no transforma empresas. Los sistemas bien diseñados, sí.",
+    "subtitle": "En CIBAI.Studio diseñamos e implementamos soluciones reales de IA, automatización, software y activos digitales para que tu empresa opere mejor, venda más y escale sin multiplicar el caos.",
+    "microcopy": "Sin demos vacías. Sin promesas infladas. Solo soluciones que funcionan donde importa: en el trabajo real de tu empresa.",
+    "terminal_cmd": "cibai",
+    "terminal_flag": "--diagnostico",
+    "typing_line1": "> IA aplicada. Automatización real. Software que encaja.",
+    "typing_line2": "> Del diagnóstico a la implantación, sin atajos.",
+    "typing_line3": "> Sistemas que funcionan donde importa.",
+    "btn_project": "Solicitar diagnóstico",
+    "btn_portfolio": "Ver qué resolvemos",
+    "slide2_badge1": "IA_AUTOMATIZACIÓN",
+    "slide2_badge2": "EFICIENCIA OPERATIVA",
+    "slide2_badge3": "SIGNAL: ACTIVE",
+    "h2_line1": "RECUPERA EL TIEMPO",
+    "h2_line2": "QUE TU EQUIPO",
+    "h2_line3": "PIERDE EN TAREAS REPETITIVAS",
+    "h2_full": "Recupera el tiempo que tu equipo pierde en tareas que ya puede hacer una máquina",
+    "slide2_subtitle": "Diseñamos e implementamos flujos inteligentes, automatizaciones e integraciones que eliminan el trabajo repetitivo, reducen errores y dan a tu equipo tiempo para lo que genera valor real.",
+    "slide2_terminal_cmd": "automatizar",
+    "slide2_terminal_flag": "--impacto=real",
+    "slide2_terminal_line1": "> Flujos inteligentes. Integraciones. Cero trabajo doble.",
+    "slide2_terminal_line2": "> Menos tareas manuales, más tiempo para lo que importa.",
+    "slide2_terminal_line3": "> Eficiencia operativa activada.",
+    "btn_services": "Explorar IA y automatización",
+    "btn_contact": "Solicitar diagnóstico",
+    "slide3_badge1": "AGENTES_IA",
+    "slide3_badge2": "RAG · CHATBOTS · VOZ",
+    "slide3_badge3": "NODE: ACTIVE",
+    "h3_line1": "RESPONDE MÁS RÁPIDO,",
+    "h3_line2": "ATIENDE MEJOR,",
+    "h3_line3": "CONVIERTE MÁS OPORTUNIDADES",
+    "h3_full": "Responde más rápido, atiende mejor y convierte el conocimiento disperso en ventaja operativa",
+    "slide3_subtitle": "Construimos chatbots, agentes IA especializados, sistemas RAG y soluciones de voz inteligente que mejoran la atención, el soporte interno, las ventas y la gestión del conocimiento de tu empresa.",
+    "slide3_terminal_cmd": "agentes-ia",
+    "slide3_terminal_flag": "--modo=produccion",
+    "slide3_terminal_line1": "> Agentes entrenados sobre tu empresa, no plantillas.",
+    "slide3_terminal_line2": "> Atención 24/7 sin aumentar el equipo.",
+    "slide3_terminal_line3": "> Conocimiento accesible al instante.",
+    "btn_slide3_services": "Ver agentes IA y RAG",
+    "btn_slide3_contact": "Solicitar diagnóstico",
+    "slide4_badge1": "SOFTWARE_WEB",
+    "slide4_badge2": "WEB · ECOMMERCE · APPS",
+    "slide4_badge3": "STACK: ACTIVE",
+    "h4_line1": "ACTIVOS DIGITALES",
+    "h4_line2": "QUE POSICIONAN,",
+    "h4_line3": "CONVIERTEN Y ESCALAN",
+    "h4_full": "Activos digitales que no solo se ven bien: posicionan, convierten y escalan con tu negocio",
+    "slide4_subtitle": "Desarrollamos webs corporativas, ecommerce y herramientas a medida que se alinean con tus procesos reales, tu forma de vender y los objetivos concretos de tu empresa.",
+    "slide4_terminal_cmd": "web-ecommerce",
+    "slide4_terminal_flag": "--objetivo=conversion",
+    "slide4_terminal_line1": "> Webs que posicionan y convierten, no solo informan.",
+    "slide4_terminal_line2": "> Ecommerce sólido, escalable y optimizado.",
+    "slide4_terminal_line3": "> Software a medida para tu operativa real.",
+    "btn_slide4_services": "Ver desarrollo a medida",
+    "btn_slide4_contact": "Solicitar diagnóstico",
+    "scroll": "Scroll"
+  },
+  "nav": {
+    "inicio": "Inicio",
+    "soluciones": "Soluciones",
+    "servicios": "Servicios",
+    "servicios_dropdown": {
+      "ia_automatizacion": "IA y Automatización",
+      "agentes_ia": "Agentes IA y RAG",
+      "voz_ia": "Voz IA y Centralitas",
+      "software_medida": "Software a medida",
+      "web_corporativa": "Web corporativa",
+      "ecommerce": "Ecommerce a medida"
+    },
+    "en_tu_idioma": "En tu idioma",
+    "en_tu_idioma_dropdown": {
+      "tecnologia_util": "Tecnología útil",
+      "el_problema": "El Problema",
+      "resultados": "Resultados"
+    },
+    "casos_uso": "Casos de uso",
+    "proceso": "Proceso",
+    "portfolio": "Portfolio",
+    "studio": "Studio",
+    "contacto": "Contacto",
+    "proyecto": "DIAGNÓSTICO",
+    "solicitar_proyecto": "SOLICITAR DIAGNÓSTICO",
+    "abrir_menu": "Abrir menú de navegación",
+    "skip_content": "Saltar al contenido principal"
+  },
+  "hud": {
+    "sys_online": "SYS.ONLINE",
+    "node_active": "NODE_ACTIVE",
+    "ping": "PING:",
+    "uptime": "UPTIME:",
+    "rec": "REC"
+  },
+  "banda_credibilidad": {
+    "title": "Tecnología útil. Ejecución real. Visión de negocio.",
+    "text": "No trabajamos desde la moda tecnológica ni desde demos impresionantes que no escalan. Cada solución que diseñamos está conectada con la operativa real de una empresa y tiene como objetivo impacto medible: en eficiencia, en captación, en atención, en control.",
+    "items": [
+      "IA aplicada al negocio real",
+      "Automatización con impacto medible",
+      "Software que encaja en tu operativa",
+      "Web y ecommerce premium orientados a conversión",
+      "Del diagnóstico a la implantación",
+      "Integración con tus sistemas actuales",
+      "Sin pruebas de concepto sin salida"
+    ]
+  },
+  "dolor": {
+    "section_label": "// PROBLEMA",
+    "title": "Tu empresa no tiene un problema de tecnología. Tiene un problema de sistemas.",
+    "text1": "Muchas empresas tienen herramientas, pero no tienen sistemas. Trabajan con procesos manuales que podrían estar automatizados, equipos saturados con tareas operativas, herramientas que no se hablan entre sí y activos digitales que no convierten.",
+    "text2": "No es falta de presupuesto ni de voluntad. Es que nadie ha analizado con criterio qué conviene cambiar, en qué orden y con qué impacto real.",
+    "text3": "En CIBAI.Studio hacemos eso antes de escribir una sola línea de código.",
+    "list_label": "Los 8 dolores del cliente:",
+    "items": [
+      "Procesos lentos que consumen horas del equipo cada día sin generar valor",
+      "Herramientas desconectadas que generan trabajo doble y errores evitables",
+      "Equipos saturados con tareas administrativas y repetitivas que deberían estar automatizadas",
+      "Información dispersa que nadie sabe dónde encontrar cuando hace falta",
+      "Atención al cliente lenta o inconsistente que daña la imagen y pierde oportunidades",
+      "Una web que informa pero no convierte ni genera leads cualificados",
+      "Falta de software adaptado a cómo funciona realmente la empresa",
+      "Proyectos de IA que quedaron en presentación y nunca llegaron a producción"
+    ]
+  },
+  "beneficios": {
+    "section_label": "// RESULTADOS",
+    "title": "Lo que cambia cuando la tecnología está bien planteada y bien ejecutada",
+    "intro": "No se trata de tener más herramientas. Se trata de que tu empresa funcione mejor donde importa.",
+    "items": [
+      {
+        "num": "01",
+        "title": "Operativa más eficiente",
+        "description": "Menos tareas manuales, menos errores, menos tiempo perdido. Tu equipo dedica su energía a lo que realmente hace crecer el negocio."
+      },
+      {
+        "num": "02",
+        "title": "Control total sobre los procesos",
+        "description": "Centralizamos flujos, conectamos sistemas y mejoramos la trazabilidad para que sepas exactamente qué pasa en cada parte de tu operación."
+      },
+      {
+        "num": "03",
+        "title": "Respuesta más rápida al cliente",
+        "description": "Automatizamos atención, soporte y acciones operativas para que tu empresa responda antes, mejor y sin depender de que alguien esté disponible en ese momento."
+      },
+      {
+        "num": "04",
+        "title": "Más conversión en cada punto de contacto",
+        "description": "Diseñamos activos digitales que no solo representan bien a la empresa: captan, cualifican y convierten oportunidades reales."
+      },
+      {
+        "num": "05",
+        "title": "Escalabilidad sin caos adicional",
+        "description": "Construimos sistemas preparados para crecer contigo. Más volumen, más clientes, más operación — sin que el caos se multiplique."
+      },
+      {
+        "num": "06",
+        "title": "Independencia del conocimiento humano",
+        "description": "Los procesos dejan de vivir en la cabeza de una persona. Quedan documentados, automatizados y sostenidos por sistemas que funcionan aunque el equipo cambie."
+      }
+    ]
+  },
+  "servicios": {
+    "section_label": "// SERVICIOS",
+    "title_line1": "SOLUCIONES DISEÑADAS",
+    "title_line2": "PARA EL NEGOCIO REAL",
+    "subtitle": "Desde IA aplicada y automatización hasta software a medida, web corporativa y ecommerce. Cada solución con un objetivo claro: mejorar cómo funciona tu empresa.",
+    "items": [
+      {
+        "num": "01",
+        "label": "IA_AUTOMATIZACIÓN",
+        "title": "IA y automatización aplicada",
+        "description": "Diseñamos e implementamos automatizaciones, integraciones y flujos inteligentes que eliminan tareas repetitivas, reducen errores y mejoran la eficiencia operativa donde más duele.",
+        "cta": "Descubrir IA y automatización",
+        "tags": ["AUTOMATIZACIÓN", "INTEGRACIONES", "FLUJOS_IA"]
+      },
+      {
+        "num": "02",
+        "label": "AGENTES_IA_RAG",
+        "title": "Agentes IA, chatbots y RAG",
+        "description": "Construimos sistemas conversacionales e inteligentes para atención, soporte, ventas y gestión del conocimiento. La diferencia: están entrenados sobre tu empresa, no sobre una plantilla genérica.",
+        "cta": "Explorar agentes IA y RAG",
+        "tags": ["CHATBOTS", "RAG", "AGENTES_IA"]
+      },
+      {
+        "num": "03",
+        "label": "VOZ_IA",
+        "title": "Voz IA y centralitas inteligentes",
+        "description": "Integramos inteligencia en la atención telefónica para mejorar la experiencia, optimizar el tiempo operativo y construir flujos más escalables sin aumentar el equipo.",
+        "cta": "Ver soluciones de voz IA",
+        "tags": ["VOZ_IA", "CENTRALITAS", "RECEPCIÓN_24/7"]
+      },
+      {
+        "num": "04",
+        "label": "SOFTWARE_MEDIDA",
+        "title": "Software a medida",
+        "description": "Desarrollamos herramientas internas, paneles de control y plataformas personalizadas que se adaptan a cómo funciona realmente tu empresa, no al revés.",
+        "cta": "Explorar software a medida",
+        "tags": ["NEXT.JS", "REACT", "APIs", "POSTGRES"]
+      },
+      {
+        "num": "05",
+        "label": "WEB_CORPORATIVA",
+        "title": "Web corporativa premium",
+        "description": "Diseñamos webs corporativas que van más allá de verse bien: posicionan tu propuesta de valor, transmiten autoridad y convierten visitas en oportunidades de negocio reales.",
+        "cta": "Ver webs corporativas",
+        "tags": ["UI/UX", "CONVERSIÓN", "SEO"]
+      },
+      {
+        "num": "06",
+        "label": "ECOMMERCE",
+        "title": "Ecommerce a medida",
+        "description": "Creamos tiendas online sólidas, escalables y optimizadas para vender mejor, con una experiencia de compra pensada tanto para quien compra como para quien gestiona el negocio.",
+        "cta": "Ver ecommerce a medida",
+        "tags": ["ECOMMERCE", "STRIPE", "CONVERSIÓN"]
+      }
+    ]
+  },
+  "casos_uso": {
+    "section_label": "// CASOS DE USO",
+    "title_line1": "DÓNDE GENERAMOS",
+    "title_line2": "IMPACTO REAL",
+    "intro": "Cada empresa tiene sus propios cuellos de botella. Pero hay áreas donde la IA, la automatización y el software bien aplicados generan un retorno claro y medible de forma consistente.",
+    "items": [
+      {
+        "label": "ATENCIÓN_CLIENTE",
+        "title": "Atención al cliente",
+        "description": "Chatbots, agentes IA y voz inteligente que responden antes, mejor y sin saturar al equipo. Disponibilidad 24/7 sin aumentar plantilla."
+      },
+      {
+        "label": "VENTAS_CAPTACIÓN",
+        "title": "Ventas y captación",
+        "description": "Webs que convierten, automatización del seguimiento comercial y asistentes inteligentes para gestión de leads. Más oportunidades, menos fricción en el proceso."
+      },
+      {
+        "label": "DOCUMENTACIÓN",
+        "title": "Documentación y conocimiento interno",
+        "description": "Sistemas RAG y búsqueda inteligente que permiten acceder a información clave de la empresa en segundos, sin depender de que alguien esté disponible."
+      },
+      {
+        "label": "OPERACIONES",
+        "title": "Operaciones y administración",
+        "description": "Automatización de tareas, validaciones, reporting y flujos que hoy consumen horas de equipo y podrían estar resueltos sin intervención manual."
+      },
+      {
+        "label": "SOPORTE_INTERNO",
+        "title": "Soporte interno y gestión de equipos",
+        "description": "Herramientas personalizadas, asistentes internos y sistemas más ordenados para que el equipo trabaje con más autonomía y menos fricciones."
+      },
+      {
+        "label": "ECOMMERCE_VENTAS",
+        "title": "Ecommerce y canales de venta digital",
+        "description": "Experiencias de compra mejor diseñadas, automatizaciones de operaciones, integraciones y optimización de conversión en cada punto del funnel."
+      }
+    ]
+  },
+  "proceso": {
+    "section_label": "// MÉTODO",
+    "title": "ASÍ TRABAJAMOS",
+    "subtitle": "No vendemos tecnología suelta. Diseñamos soluciones conectadas con la realidad operativa de tu empresa y las llevamos hasta producción.",
+    "closing_quote": "No hacemos proyectos pensados para una demo. Diseñamos sistemas pensados para el trabajo real de tu empresa.",
+    "btn_start": "Solicitar diagnóstico",
+    "steps": [
+      {
+        "num": "01",
+        "title": "DIAGNÓSTICO",
+        "description": "Analizamos tu punto de partida: procesos, fricciones, herramientas actuales y oportunidades de mejora. Sin diagnóstico, no hay propuesta seria."
+      },
+      {
+        "num": "02",
+        "title": "ESTRATEGIA",
+        "description": "Definimos qué tiene sentido hacer primero, qué solución genera más impacto con menos complejidad y qué resultado concreto esperamos conseguir."
+      },
+      {
+        "num": "03",
+        "title": "DISEÑO Y DESARROLLO",
+        "description": "Construimos la solución: automatización, agente IA, software, web o sistema integrado. Sin atajos, sin deuda técnica acumulada."
+      },
+      {
+        "num": "04",
+        "title": "IMPLANTACIÓN",
+        "description": "La llevamos a producción, la conectamos con tu operativa real, formamos a quienes la van a usar y validamos que funcione en condiciones reales."
+      },
+      {
+        "num": "05",
+        "title": "OPTIMIZACIÓN",
+        "description": "Medimos, identificamos mejoras y evolucionamos la solución. Una implantación bien hecha es el inicio, no el final."
+      }
+    ]
+  },
+  "portfolio": {
+    "section_label": "// PORTFOLIO",
+    "title": "PORTFOLIO",
+    "subtitle": "Proyectos que hablan por nosotros. Cada uno es una historia de transformación.",
+    "items": [
+      {
+        "title": "VOLKANIK STUDIO",
+        "category": "Diseño Web + Branding"
+      },
+      {
+        "title": "ANTREX SAAS",
+        "category": "Webapp + Automatización"
+      },
+      {
+        "title": "RAYA EDITORIAL",
+        "category": "E-commerce + SEO"
+      },
+      {
+        "title": "NEROMA LABS",
+        "category": "Desarrollo Full-Stack"
+      }
+    ]
+  },
+  "porque_cibai": {
+    "section_label": "// POR QUÉ CIBAI",
+    "title_line1": "POR QUÉ CIBAI.STUDIO",
+    "title_line2": "Y NO UNA AGENCIA GENÉRICA",
+    "intro": "La diferencia no está en las herramientas que usamos. Está en cómo conectamos tecnología con negocio, procesos y ejecución real.",
+    "items": [
+      {
+        "num": "01",
+        "title": "Visión de negocio primero",
+        "description": "No planteamos soluciones desde la moda tecnológica. Planteamos desde el impacto que pueden generar en eficiencia, ingresos, atención o control."
+      },
+      {
+        "num": "02",
+        "title": "Ejecución, no presentaciones",
+        "description": "Diseñamos, desarrollamos e implantamos. No nos quedamos en el diagnóstico ni en el PowerPoint."
+      },
+      {
+        "num": "03",
+        "title": "A medida, no a plantilla",
+        "description": "No forzamos tu empresa a adaptarse a una solución genérica. Construimos lo que tiene sentido para tu realidad operativa."
+      },
+      {
+        "num": "04",
+        "title": "Capacidad técnica real",
+        "description": "Unimos estrategia, diseño, desarrollo, automatización e IA aplicada en un equipo que entiende tanto el negocio como la ejecución técnica."
+      },
+      {
+        "num": "05",
+        "title": "Integración con tu ecosistema",
+        "description": "Pensamos en cómo la solución convive con lo que ya tienes. Sin fricciones innecesarias, sin romper lo que funciona."
+      }
+    ]
+  },
+  "studio": {
+    "section_label": "// STUDIO",
+    "title": "EL STUDIO DETRÁS DE CADA SOLUCIÓN",
+    "subtitle": "CIBAI.Studio no es una agencia genérica ni un freelance con logo. Es un equipo que combina estrategia de negocio, IA aplicada, automatización, diseño y desarrollo para construir soluciones que funcionan donde importa: en el día a día de una empresa.",
+    "philosophy_label": "// FILOSOFÍA",
+    "blockquote": "El humo no escala. Los sistemas bien diseñados, sí.",
+    "description": "No creemos en la tecnología por la tecnología. Creemos en las soluciones bien planteadas, bien ejecutadas y conectadas con la realidad operativa de la empresa.",
+    "founder_name": "Matías Oliver",
+    "founder_role": "Founder & Strategy Lead",
+    "founder_bio": "Lidera la visión estratégica del Studio, conectando IA aplicada, automatización y activos digitales con objetivos reales de negocio, eficiencia y crecimiento. Es la persona que hace que la tecnología tenga sentido para el negocio antes de que se escriba una línea de código.",
+    "team_text": "Junto a un equipo multidisciplinar de especialistas en IA, automatización, desarrollo, diseño y estrategia, CIBAI.Studio diseña e implanta soluciones que combinan criterio técnico, ejecución real y foco en resultados.",
+    "closing": "No somos una agencia de webs que ahora hace IA. No somos una consultora que entrega informes. Somos un studio que diseña, construye e implanta soluciones con criterio técnico y visión de negocio.",
+    "btn_studio": "Hablar con el Studio",
+    "stat1_value": "47",
+    "stat1_suffix": "Proyectos",
+    "stat1_label": "ENTREGADOS",
+    "stat2_value": "100",
+    "stat2_suffix": "%",
+    "stat2_label": "CÓDIGO FUNCIONAL",
+    "stat3_value": "< 48",
+    "stat3_suffix": "h",
+    "stat3_label": "RESPUESTA INICIAL",
+    "values_label": "// VALORES",
+    "values": [
+      {
+        "num": "01",
+        "title": "BRUTALIDAD",
+        "description": "El diseño que no hace declaraciones no dice nada. Cada decisión visual es una posición."
+      },
+      {
+        "num": "02",
+        "title": "PRECISIÓN",
+        "description": "Un píxel fuera de lugar es un error. No entregamos hasta que el código y el diseño coincidan exactamente."
+      },
+      {
+        "num": "03",
+        "title": "VELOCIDAD",
+        "description": "Los plazos no son sugerencias. Trabajamos rápido sin comprometer ni un milímetro de calidad."
+      }
+    ]
+  },
+  "puente_neuroguias": {
+    "section_label": "// NEUROGUIAS",
+    "title": "¿Prefieres aprender a aplicarlo tú mismo antes de delegar?",
+    "text": "Si buscas formación, guías, playbooks y recursos prácticos para entender y aplicar IA, automatización y neuromarketing con criterio en tu negocio, accede a Neuroguias.",
+    "btn": "Ir a Neuroguias"
+  },
+  "puente_cib": {
+    "section_label": "// CIB",
+    "title": "¿Tu empresa también necesita soporte IT, cloud o infraestructura?",
+    "text": "Si además de soluciones avanzadas necesitas licencias, cloud, redes, soporte técnico o mantenimiento, CIB puede ayudarte a sostener la base tecnológica de tu operación.",
+    "btn": "Ir a CIB"
+  },
+  "cta_final": {
+    "section_label": "// DIAGNÓSTICO",
+    "title": "Si quieres saber exactamente dónde puede impactar la IA y la automatización en tu empresa, es el momento de hablarlo.",
+    "text": "Podemos ayudarte a identificar los procesos con más potencial de mejora, priorizar qué conviene hacer primero y diseñar una solución alineada con tus objetivos y tu operativa real.",
+    "subtext": "Sin compromiso. Sin humo. Solo una conversación honesta sobre lo que puede funcionar en tu caso.",
+    "btn_primary": "Solicitar diagnóstico",
+    "btn_secondary": "Hablar con el Studio"
+  },
+  "faq": {
+    "section_label": "// FAQ",
+    "title": "PREGUNTAS FRECUENTES",
+    "items": [
+      {
+        "question": "¿Con qué tipo de empresas trabajáis?",
+        "answer": "Principalmente con pymes y medianas empresas que quieren mejorar sus procesos, su atención, su captación o su operativa tecnológica. No trabajamos para startups sin modelo, ni para empresas que buscan solo una presentación. Buscamos proyectos donde haya un problema real que resolver."
+      },
+      {
+        "question": "¿Hacéis solo consultoría o también ejecutáis?",
+        "answer": "Ejecutamos. Podemos ayudarte a analizar y definir la mejor solución, pero nuestro foco está en diseñarla, construirla e implantarla. Un diagnóstico sin ejecución no es lo que hacemos."
+      },
+      {
+        "question": "¿Podéis integrar la solución con las herramientas que ya usamos?",
+        "answer": "Sí. Siempre analizamos qué herramientas y sistemas ya tienes antes de proponer nada. El objetivo es que la solución encaje y conviva con tu ecosistema actual, no que genere más complejidad."
+      },
+      {
+        "question": "¿Trabajáis con soluciones estándar o siempre a medida?",
+        "answer": "Depende del caso. Si hay una solución estándar que encaja bien en tu realidad, la usamos. Si no existe o no es suficiente, construimos a medida. El criterio es siempre el impacto, no la tecnología usada."
+      },
+      {
+        "question": "¿Cuánto tarda un proyecto típico?",
+        "answer": "Depende del alcance. Un diagnóstico puede estar listo en días. Una automatización o agente IA, en semanas. Un software o web a medida, en meses. Antes de cualquier propuesta definimos plazos reales, no orientativos."
+      },
+      {
+        "question": "¿Ofrecéis mantenimiento o soporte después de implantar?",
+        "answer": "Sí. Definimos junto con el cliente el nivel de acompañamiento posterior que tiene sentido para cada proyecto: desde soporte técnico hasta optimización continua."
+      },
+      {
+        "question": "¿Y si primero queremos entender mejor cómo aplicar todo esto?",
+        "answer": "En ese caso, Neuroguias es el lugar indicado: formación práctica, guías y recursos para aplicar IA, automatización y neuromarketing con criterio. Muchos clientes pasan por Neuroguias antes de contratar implementación."
+      }
+    ]
+  },
+  "contacto": {
+    "section_label": "// CONTACTO",
+    "title": "Cuéntanos qué quieres resolver o construir. Te ayudamos a definir el siguiente paso.",
+    "subtitle": "Si quieres explorar una automatización, un agente IA, una solución de voz, un desarrollo a medida, una web corporativa o un ecommerce, escríbenos. Puedes venir con una idea muy concreta o simplemente con un problema que quieres resolver.",
+    "support_text": "No necesitas tener todo claro para hablar con nosotros. Muchos proyectos empiezan por una fricción operativa o una oportunidad que alguien detectó pero nadie supo cómo resolver. De eso también hablamos.",
+    "label_nombre": "NOMBRE Y APELLIDO",
+    "placeholder_nombre": "Tu nombre",
+    "label_empresa": "EMPRESA",
+    "placeholder_empresa": "Nombre de tu empresa",
+    "label_cargo": "CARGO",
+    "placeholder_cargo": "Tu rol en la empresa",
+    "label_email": "EMAIL",
+    "placeholder_email": "tu@email.com",
+    "label_telefono": "TELÉFONO (OPCIONAL)",
+    "placeholder_telefono": "+34 000 000 000",
+    "label_proyecto": "¿QUÉ ÁREA QUIERES MEJORAR?",
+    "option_ia_automatizacion": "IA y Automatización",
+    "option_agentes_ia": "Agentes IA y RAG",
+    "option_voz_ia": "Voz IA y Centralitas",
+    "option_software": "Software a medida",
+    "option_web": "Web corporativa",
+    "option_ecommerce": "Ecommerce a medida",
+    "option_otro": "Otro",
+    "label_mensaje": "DESCRÍBENOS TU PROYECTO, RETO O PROBLEMA",
+    "placeholder_mensaje": "Cuanto más contexto nos des, más útil será la primera conversación.",
+    "label_contacto_pref": "¿CÓMO PREFIERES QUE TE CONTACTEMOS?",
+    "option_email": "Email",
+    "option_telefono": "Teléfono",
+    "option_videollamada": "Videollamada",
+    "btn_enviar": "Solicitar diagnóstico",
+    "microcopy_form": "Cuanto más contexto nos des, más útil será la primera conversación.",
+    "terminal_path": "cibai@studio:~/proyectos",
+    "terminal_empresa": "CIBAI Studio",
+    "terminal_ubicacion": "Berga, Barcelona, España",
+    "terminal_email": "hola@cibai.studio",
+    "terminal_horario": "Lun-Vie 9:00-18:00h",
+    "terminal_status": "Disponibles para proyectos",
+    "terminal_uptime": "online 365 days, load avg: 0.02, 0.01, 0.00",
+    "terminal_respuesta1": "Revisaremos tu consulta y responderemos en menos de 48h.",
+    "terminal_respuesta2": "Primera conversación honesta, sin compromiso.",
+    "terminal_respuesta3": "Sin demos vacías. Sin promesas infladas.",
+    "form_success": "Gracias. Revisaremos tu consulta y te responderemos en menos de 48h con una primera valoración o para concretar una reunión."
+  },
+  "footer": {
+    "descripcion": "Diseñamos e implementamos soluciones de IA, automatización, software a medida y activos digitales para empresas que quieren vender más, operar mejor y crecer con más sistema.",
+    "tagline": "Tecnología útil para negocios reales.",
+    "disponibles": "Disponibles para nuevos proyectos",
+    "nav_label": "NAVEGACIÓN",
+    "legal_label": "LEGAL",
+    "link_inicio": "Inicio",
+    "link_soluciones": "Soluciones",
+    "link_servicios": "Servicios",
+    "link_casos_uso": "Casos de uso",
+    "link_studio": "Studio",
+    "link_contacto": "Contacto",
+    "link_privacidad": "Política de privacidad",
+    "link_aviso": "Aviso legal",
+    "link_cookies": "Política de cookies",
+    "copyright": "© 2026 CIBAI Studio. Todos los derechos reservados.",
+    "made_in": "Hecho con intensidad en Barcelona"
+  },
+  "meta": {
+    "title": "CIBAI.Studio | IA, Automatización y Software para Empresas",
+    "description": "Diseñamos e implementamos soluciones de IA, automatización, software a medida y webs para empresas. Resultados reales, no demos. Solicita tu diagnóstico.",
+    "schema_description": "Estudio especializado en IA, automatización, software a medida y activos digitales para empresas.",
+    "ia_title": "IA y Automatización para Empresas | CIBAI.Studio",
+    "ia_description": "Reducimos tareas manuales, conectamos herramientas y diseñamos flujos inteligentes para que tu empresa gane eficiencia real. Solicita diagnóstico gratuito.",
+    "studio_title": "Studio | Equipo de IA, Automatización y Software — CIBAI",
+    "studio_description": "Conoce el equipo de CIBAI.Studio: estrategia, IA, automatización, diseño y desarrollo orientados a resultados reales para empresas. Habla con el Studio.",
+    "contacto_title": "Contacto — CIBAI.Studio | Diagnóstico Gratuito",
+    "contacto_description": "Solicita un diagnóstico inicial gratuito para identificar oportunidades de IA, automatización y software en tu empresa. Respondemos en 48h."
+  }
+}

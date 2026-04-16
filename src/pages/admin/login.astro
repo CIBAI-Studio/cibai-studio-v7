@@ -1,0 +1,83 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import '../../styles/global.css';
+import { login, setSessionCookie, getAuthUser } from '../../lib/auth';
+
+// Redirect if already logged in
+const user = getAuthUser(Astro.cookies);
+if (user) {
+  return Astro.redirect('/admin');
+}
+
+let error = '';
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData();
+  const email = formData.get('email') as string;
+  const password = formData.get('password') as string;
+
+  const sessionId = login(email, password);
+  if (sessionId) {
+    setSessionCookie(Astro.cookies, sessionId);
+    return Astro.redirect('/admin');
+  } else {
+    error = 'Email o contraseña incorrectos';
+  }
+}
+---
+
+<AdminLayout title="Login">
+  <div class="min-h-[80vh] flex items-center justify-center">
+    <div class="w-full max-w-md">
+      <div class="text-center mb-8">
+        <div class="flex items-center justify-center gap-1 mb-4">
+          <span class="text-2xl font-bold text-cyber-white">CIBAI</span>
+          <span class="text-2xl font-bold text-cyber-orange">.</span>
+          <span class="text-2xl font-light text-cyber-orange">ADMIN</span>
+        </div>
+        <p class="font-mono text-[10px] text-cyber-text uppercase tracking-widest">Panel de Administración</p>
+      </div>
+
+      <div class="card-brutal p-8">
+        {error && (
+          <div class="mb-6 p-3 border border-cyber-red/50 bg-cyber-red/10 font-mono text-xs text-cyber-red">
+            {error}
+          </div>
+        )}
+
+        <form method="POST" class="space-y-6">
+          <div>
+            <label for="email" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">EMAIL</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors placeholder:text-cyber-text/30"
+              placeholder="tu@email.com"
+            />
+          </div>
+          <div>
+            <label for="password" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">CONTRASEÑA</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors placeholder:text-cyber-text/30"
+              placeholder="••••••••"
+            />
+          </div>
+          <button type="submit" class="btn-primary w-full justify-center">
+            Acceder
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <div class="text-center mt-6">
+        <a href="/" class="font-mono text-[10px] text-cyber-text hover:text-cyber-white uppercase tracking-widest transition-colors">Volver al sitio</a>
+      </div>
+    </div>
+  </div>
+</AdminLayout>

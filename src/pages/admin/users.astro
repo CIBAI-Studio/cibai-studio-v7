@@ -1,0 +1,180 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import '../../styles/global.css';
+import { getAuthUser } from '../../lib/auth';
+import { getAllUsers, createUser, updateUser, deleteUser } from '../../lib/db';
+
+const user = getAuthUser(Astro.cookies);
+if (!user) return Astro.redirect('/admin/login');
+if (user.role !== 'superadmin') return Astro.redirect('/admin');
+
+let successMessage = '';
+let errorMessage = '';
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData();
+  const action = formData.get('action') as string;
+
+  if (action === 'create') {
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+    const name = formData.get('name') as string;
+    const role = formData.get('role') as string;
+
+    try {
+      createUser(email, password, name, role);
+      successMessage = `Usuario "${name}" creado correctamente.`;
+    } catch (e: any) {
+      errorMessage = e.message?.includes('UNIQUE') ? 'Este email ya está registrado.' : 'Error al crear el usuario.';
+    }
+  }
+
+  if (action === 'update') {
+    const id = formData.get('id') as string;
+    const email = formData.get('email') as string;
+    const name = formData.get('name') as string;
+    const role = formData.get('role') as string;
+    const password = formData.get('password') as string;
+
+    try {
+      updateUser(id, { email, name, role, ...(password ? { password } : {}) });
+      successMessage = `Usuario "${name}" actualizado.`;
+    } catch (e: any) {
+      errorMessage = e.message?.includes('UNIQUE') ? 'Este email ya está registrado.' : 'Error al actualizar el usuario.';
+    }
+  }
+
+  if (action === 'delete') {
+    const id = formData.get('id') as string;
+    if (id === user.user_id) {
+      errorMessage = 'No puedes eliminar tu propio usuario.';
+    } else {
+      deleteUser(id);
+      successMessage = 'Usuario eliminado correctamente.';
+    }
+  }
+}
+
+const users = getAllUsers();
+---
+
+<AdminLayout title="Usuarios" userName={user.name}>
+  <div class="mb-8">
+    <h1 class="text-2xl font-black tracking-tight mb-2">Gestión de Usuarios</h1>
+    <p class="text-sm text-cyber-text">Crear, editar y eliminar usuarios del panel de administración.</p>
+  </div>
+
+  {successMessage && (
+    <div class="mb-6 p-4 border border-cyber-teal/50 bg-cyber-teal/10 font-mono text-xs text-cyber-teal">
+      {successMessage}
+    </div>
+  )}
+  {errorMessage && (
+    <div class="mb-6 p-4 border border-cyber-red/50 bg-cyber-red/10 font-mono text-xs text-cyber-red">
+      {errorMessage}
+    </div>
+  )}
+
+  <div class="grid grid-cols-1 lg:grid-cols-[1fr_350px] gap-6">
+    <!-- User list -->
+    <div class="card-brutal p-6">
+      <h2 class="text-lg font-bold mb-6">Usuarios registrados</h2>
+      <div class="space-y-4">
+        {users.map((u) => (
+          <details class="border border-cyber-border">
+            <summary class="px-4 py-3 cursor-pointer hover:bg-cyber-gray/30 transition-colors flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="w-2 h-2 rounded-full bg-cyber-teal"></span>
+                <span class="font-mono text-sm text-cyber-white">{u.name}</span>
+                <span class="font-mono text-[10px] text-cyber-text">{u.email}</span>
+              </div>
+              <span class:list={[
+                'font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 border',
+                u.role === 'superadmin' ? 'border-cyber-orange text-cyber-orange' : 'border-cyber-border text-cyber-text',
+              ]}>
+                {u.role}
+              </span>
+            </summary>
+            <div class="px-4 py-4 border-t border-cyber-border bg-cyber-dark/50">
+              <form method="POST" class="space-y-3">
+                <input type="hidden" name="action" value="update" />
+                <input type="hidden" name="id" value={u.id} />
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div>
+                    <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">Nombre</label>
+                    <input type="text" name="name" value={u.name} required
+                      class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors" />
+                  </div>
+                  <div>
+                    <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">Email</label>
+                    <input type="email" name="email" value={u.email} required
+                      class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors" />
+                  </div>
+                  <div>
+                    <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">Rol</label>
+                    <select name="role"
+                      class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors">
+                      <option value="editor" selected={u.role === 'editor'}>Editor</option>
+                      <option value="superadmin" selected={u.role === 'superadmin'}>Superadmin</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">Nueva contraseña (dejar vacío para no cambiar)</label>
+                    <input type="password" name="password"
+                      class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors"
+                      placeholder="••••••••" />
+                  </div>
+                </div>
+                <div class="flex gap-3 pt-2">
+                  <button type="submit" class="btn-primary text-[10px] py-1.5 px-4">Guardar</button>
+                  <button type="submit" name="action" value="delete" class="font-mono text-[10px] text-cyber-red hover:text-cyber-red/80 uppercase tracking-widest transition-colors px-4 py-1.5 border border-cyber-red/30 hover:border-cyber-red"
+                    onclick="return confirm('¿Eliminar este usuario?')">
+                    Eliminar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+
+    <!-- Create user form -->
+    <div class="card-brutal p-6 h-fit">
+      <h2 class="text-lg font-bold mb-6">Nuevo usuario</h2>
+      <form method="POST" class="space-y-4">
+        <input type="hidden" name="action" value="create" />
+        <div>
+          <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">Nombre</label>
+          <input type="text" name="name" required
+            class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors"
+            placeholder="Nombre completo" />
+        </div>
+        <div>
+          <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">Email</label>
+          <input type="email" name="email" required
+            class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors"
+            placeholder="email@ejemplo.com" />
+        </div>
+        <div>
+          <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">Contraseña</label>
+          <input type="password" name="password" required minlength="6"
+            class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors"
+            placeholder="Mínimo 6 caracteres" />
+        </div>
+        <div>
+          <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">Rol</label>
+          <select name="role"
+            class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-xs text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors">
+            <option value="editor">Editor</option>
+            <option value="superadmin">Superadmin</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary w-full justify-center text-xs">
+          Crear usuario
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</AdminLayout>

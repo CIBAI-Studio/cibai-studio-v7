@@ -1,0 +1,325 @@
+---
+import type { Locale } from '../i18n';
+import { getTranslations, getLocalizedPath } from '../i18n';
+import LanguageSelector from './LanguageSelector.astro';
+import { loadSettings } from '../lib/settings';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const settings = loadSettings();
+
+const isCA = locale === 'ca';
+const homeUrl = getLocalizedPath('/', locale);
+const contactoUrl = getLocalizedPath('/contacto', locale);
+const iaUrl = getLocalizedPath('/ia-automatizacion-empresas', locale);
+const studioUrl = getLocalizedPath('/studio', locale);
+---
+
+<!-- ═══════════════ TOP BAR (HUD) ═══════════════ -->
+<div class="fixed top-0 left-0 right-0 z-50 bg-cyber-black border-b border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-8">
+    <div class="flex items-center gap-4">
+      <span class="hud-blink inline-block w-1.5 h-1.5 rounded-full bg-cyber-teal"></span>
+      <span class="font-mono text-[9px] text-cyber-text/60 uppercase tracking-widest">{t.hud.sys_online}</span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-teal/70">{t.hud.node_active}</span>
+    </div>
+    <div class="hidden sm:flex items-center gap-4">
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.ping} <span class="text-cyber-teal/70">8ms</span></span>
+      <span class="font-mono text-[9px] text-cyber-border">|</span>
+      <span class="font-mono text-[9px] text-cyber-text/40">{t.hud.uptime} <span class="text-cyber-orange/70">99.9%</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav class="fixed top-8 left-0 right-0 z-50 border-b border-cyber-border bg-cyber-black/90 backdrop-blur-md">
+  <div class="mx-auto max-w-7xl px-6 flex items-center justify-between h-16">
+    <a href={homeUrl} class="flex items-center gap-1">
+      <span class="text-lg font-bold tracking-tight text-cyber-white">CIBAI</span>
+      <span class="text-lg font-bold tracking-tight text-cyber-orange">.</span>
+      <span class="text-lg font-light tracking-tight text-cyber-orange">STUDIO</span>
+    </a>
+    <div class="flex items-center gap-6">
+      <div class="hidden md:flex items-center gap-8">
+        <a href={homeUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.inicio}</a>
+        <a href={iaUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.servicios}</a>
+        <a href={studioUrl} class="font-mono text-xs uppercase tracking-widest text-cyber-text hover:text-cyber-white transition-colors">{t.nav.studio}</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <LanguageSelector currentLocale={locale} />
+        <a href={contactoUrl} class="btn-primary text-xs py-2 px-5 hidden sm:inline-flex bg-cyber-orange text-cyber-black">{t.nav.proyecto}</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section id="main-content" class="relative min-h-[50vh] flex flex-col justify-end pt-32 pb-16 overflow-hidden border-b border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 w-full">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-8">
+      <ol class="flex items-center gap-2 font-mono text-[10px] text-cyber-text/60 uppercase tracking-widest">
+        <li><a href={homeUrl} class="hover:text-cyber-orange transition-colors">{isCA ? 'Inici' : 'Inicio'}</a></li>
+        <li class="text-cyber-border">/</li>
+        <li class="text-cyber-orange">{isCA ? 'Contacte' : 'Contacto'}</li>
+      </ol>
+    </nav>
+
+    <div class="section-number mb-4">// {t.contacto.section_label}</div>
+    <h1 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[1.1] tracking-tight mb-6 max-w-3xl">
+      {t.contacto.title}
+    </h1>
+    <p class="text-cyber-text text-lg font-light max-w-2xl leading-relaxed">
+      {t.contacto.subtitle}
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════ FORMULARIO + INFO ═══════════════ -->
+<section class="py-24 relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Formulario -->
+      <div class="card-brutal p-8">
+        <h2 class="text-xl font-black mb-6 text-cyber-white">
+          {isCA ? 'Sol·licita un diagnòstic gratuït' : 'Solicita un diagnóstico gratuito'}
+        </h2>
+        <form id="contact-form" class="space-y-5" action="mailto:hola@cibai.studio" method="POST" enctype="text/plain">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label for="contact-name" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">{t.contacto.label_nombre}</label>
+              <input type="text" id="contact-name" name="nombre" required
+                class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors placeholder:text-cyber-text/30"
+                placeholder={t.contacto.placeholder_nombre} />
+            </div>
+            <div>
+              <label for="contact-empresa" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">{t.contacto.label_empresa}</label>
+              <input type="text" id="contact-empresa" name="empresa" required
+                class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors placeholder:text-cyber-text/30"
+                placeholder={t.contacto.placeholder_empresa} />
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label for="contact-cargo" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">{t.contacto.label_cargo}</label>
+              <input type="text" id="contact-cargo" name="cargo"
+                class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors placeholder:text-cyber-text/30"
+                placeholder={t.contacto.placeholder_cargo} />
+            </div>
+            <div>
+              <label for="contact-email" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">{t.contacto.label_email}</label>
+              <input type="email" id="contact-email" name="email" required
+                class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors placeholder:text-cyber-text/30"
+                placeholder={t.contacto.placeholder_email} />
+            </div>
+          </div>
+          <div>
+            <label for="contact-telefono" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">{t.contacto.label_telefono}</label>
+            <input type="tel" id="contact-telefono" name="telefono"
+              class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors placeholder:text-cyber-text/30"
+              placeholder={t.contacto.placeholder_telefono} />
+          </div>
+          <div>
+            <label for="contact-project" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">{t.contacto.label_proyecto}</label>
+            <select id="contact-project" name="proyecto"
+              class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors">
+              <option value="ia_automatizacion">{t.contacto.option_ia_automatizacion}</option>
+              <option value="agentes_ia">{t.contacto.option_agentes_ia}</option>
+              <option value="voz_ia">{t.contacto.option_voz_ia}</option>
+              <option value="software">{t.contacto.option_software}</option>
+              <option value="web">{t.contacto.option_web}</option>
+              <option value="ecommerce">{t.contacto.option_ecommerce}</option>
+              <option value="otro">{t.contacto.option_otro}</option>
+            </select>
+          </div>
+          <div>
+            <label for="contact-message" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">{t.contacto.label_mensaje}</label>
+            <textarea id="contact-message" name="mensaje" rows="5" required
+              class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors resize-none placeholder:text-cyber-text/30"
+              placeholder={t.contacto.placeholder_mensaje}></textarea>
+            <p class="font-mono text-[9px] text-cyber-text/40 mt-2">{t.contacto.microcopy_form}</p>
+          </div>
+          <div>
+            <label for="contact-pref" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">{t.contacto.label_contacto_pref}</label>
+            <select id="contact-pref" name="contacto_pref"
+              class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors">
+              <option value="email">{t.contacto.option_email}</option>
+              <option value="telefono">{t.contacto.option_telefono}</option>
+              <option value="videollamada">{t.contacto.option_videollamada}</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-primary w-full justify-center">
+            {t.contacto.btn_enviar}
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Info terminal -->
+      <div class="flex flex-col gap-6">
+        <div class="card-brutal p-0 overflow-hidden flex flex-col">
+          <div class="flex items-center gap-2 px-4 py-3 border-b border-cyber-border bg-cyber-gray/50">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyber-red/80"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-cyber-orange/80"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-cyber-teal/80"></span>
+            <span class="font-mono text-[10px] text-cyber-text/60 ml-2">{t.contacto.terminal_path}</span>
+          </div>
+          <div class="p-6 font-mono text-xs leading-relaxed flex-1 overflow-auto" id="terminal-output">
+            <div class="text-cyber-teal">$ cat info.txt</div>
+            <div class="mt-2 text-cyber-text/80">
+              <div><span class="text-cyber-orange">EMPRESA:</span> {t.contacto.terminal_empresa}</div>
+              <div><span class="text-cyber-orange">UBICACIÓN:</span> {t.contacto.terminal_ubicacion}</div>
+              <div><span class="text-cyber-orange">EMAIL:</span> {t.contacto.terminal_email}</div>
+              <div><span class="text-cyber-orange">HORARIO:</span> {t.contacto.terminal_horario}</div>
+              <div><span class="text-cyber-orange">STATUS:</span> <span class="text-cyber-teal">{t.contacto.terminal_status}</span></div>
+            </div>
+            <div class="mt-4 text-cyber-teal">$ cat respuesta.md</div>
+            <div class="mt-1 text-cyber-text/80">
+              <div>{t.contacto.terminal_respuesta1}</div>
+              <div>{t.contacto.terminal_respuesta2}</div>
+              <div>{t.contacto.terminal_respuesta3}</div>
+            </div>
+            <div class="mt-4 text-cyber-teal">$ <span class="typing-cursor text-cyber-orange">█</span></div>
+          </div>
+        </div>
+
+        <!-- Garantías -->
+        <div class="space-y-3">
+          {[
+            {
+              icon: '✓',
+              text: isCA ? 'Diagnòstic inicial gratuït, sense compromís' : 'Diagnóstico inicial gratuito, sin compromisos'
+            },
+            {
+              icon: '✓',
+              text: isCA ? 'Resposta en menys de 48h' : 'Respuesta en menos de 48h'
+            },
+            {
+              icon: '✓',
+              text: isCA ? 'Parles directament amb qui farà el projecte' : 'Hablas directamente con quien hará el proyecto'
+            },
+            {
+              icon: '✓',
+              text: isCA ? 'Proposta clara i sense lletra petita' : 'Propuesta clara y sin letra pequeña'
+            }
+          ].map((item) => (
+            <div class="flex items-center gap-3 p-4 border border-cyber-border">
+              <span class="text-cyber-teal font-bold text-lg">{item.icon}</span>
+              <span class="text-sm text-cyber-text">{item.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ QUÉ ESPERAR ═══════════════ -->
+<section class="py-24 border-t border-cyber-border relative">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-16">
+      <div class="section-number mb-4">// {isCA ? 'PROCÉS' : 'PROCESO'}</div>
+      <h2 class="text-[clamp(2rem,4vw,3.5rem)] font-black leading-[0.95] tracking-tight">
+        {isCA
+          ? <><span>QUÈ PASSA</span><br/><span class="text-cyber-teal glow-teal">QUAN ENS ESCRIUS</span></>
+          : <><span>QUÉ PASA</span><br/><span class="text-cyber-teal glow-teal">CUANDO NOS ESCRIBES</span></>
+        }
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      {[
+        {
+          num: '01',
+          title: isCA ? 'Rep el teu missatge' : 'Recibimos tu mensaje',
+          desc: isCA
+            ? 'Llegim tots els missatges. Cap filtre, cap automatisme. Resposta en menys de 48h.'
+            : 'Leemos todos los mensajes. Sin filtros, sin automatismos. Respuesta en menos de 48h.'
+        },
+        {
+          num: '02',
+          title: isCA ? 'Primera trucada o reunió' : 'Primera llamada o reunión',
+          desc: isCA
+            ? '30 minuts per entendre el teu repte, el teu context i el que realment necessites.'
+            : '30 minutos para entender tu reto, tu contexto y lo que realmente necesitas.'
+        },
+        {
+          num: '03',
+          title: isCA ? 'Diagnòstic i proposta' : 'Diagnóstico y propuesta',
+          desc: isCA
+            ? 'T\'enviem una proposta clara: abast, terminis i preu. Sense sorpreses.'
+            : 'Te enviamos una propuesta clara: alcance, plazos y precio. Sin sorpresas.'
+        },
+        {
+          num: '04',
+          title: isCA ? 'Comencem' : 'Empezamos',
+          desc: isCA
+            ? 'Si tot encaixa, posem en marxa el projecte. Del concepte al deploy.'
+            : 'Si todo encaja, ponemos en marcha el proyecto. Del concepto al deploy.'
+        }
+      ].map((step) => (
+        <div class="card-brutal p-6 group">
+          <span class="text-4xl font-black text-cyber-orange/80 block mb-4">{step.num}</span>
+          <h3 class="font-mono text-sm font-bold tracking-wider mb-3 text-cyber-white">{step.title}</h3>
+          <p class="text-xs text-cyber-text leading-relaxed">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="border-t border-cyber-border">
+  <div class="mx-auto max-w-7xl px-6 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div class="md:col-span-1">
+        <div class="flex items-center gap-1 mb-4">
+          <span class="text-lg font-bold text-cyber-white">CIBAI</span>
+          <span class="text-lg font-bold text-cyber-orange">.</span>
+          <span class="text-lg font-light text-cyber-orange">STUDIO</span>
+        </div>
+        <p class="text-sm text-cyber-text max-w-sm leading-relaxed mb-4">
+          {t.footer.descripcion}
+        </p>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-4">{t.footer.nav_label}</div>
+        <div class="space-y-3">
+          <a href={homeUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_inicio}</a>
+          <a href={iaUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.nav.servicios}</a>
+          <a href={studioUrl} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">Studio</a>
+          <a href={contactoUrl} class="block text-sm text-cyber-orange">{isCA ? 'Contacte' : 'Contacto'}</a>
+        </div>
+      </div>
+      <div>
+        <div class="font-mono text-[10px] text-cyber-text uppercase tracking-widest mb-4">{t.footer.legal_label}</div>
+        <div class="space-y-3">
+          <a href={getLocalizedPath('/privacidad', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_privacidad}</a>
+          <a href={getLocalizedPath('/aviso-legal', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_aviso}</a>
+          <a href={getLocalizedPath('/cookies', locale)} class="block text-sm text-cyber-text hover:text-cyber-white transition-colors">{t.footer.link_cookies}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-cyber-border">
+    <div class="mx-auto max-w-7xl px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-2">
+      <span class="font-mono text-[10px] text-cyber-text">{t.footer.copyright}</span>
+      <span class="font-mono text-[10px] text-cyber-text">{t.footer.made_in}</span>
+    </div>
+  </div>
+</footer>
+
+<script define:vars={{ formSuccess: t.contacto.form_success }}>
+  const form = document.getElementById('contact-form');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      const btn = form.querySelector('button[type="submit"]');
+      if (btn) btn.textContent = formSuccess;
+    });
+  }
+</script>

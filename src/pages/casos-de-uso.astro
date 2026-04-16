@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CasosDeUsoPage from '../components/CasosDeUsoPage.astro';
+import '../styles/global.css';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Casos de Uso IA y Automatización en Empresas",
+  "description": "Descubre cómo la IA, la automatización y el software a medida impactan en atención, ventas, operaciones y ecommerce. Casos reales para empresas como la tuya.",
+  "provider": {
+    "@type": "Organization",
+    "name": "CIBAI.Studio",
+    "url": "https://cibai.studio"
+  },
+  "url": "https://cibai.studio/casos-de-uso"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://cibai.studio/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Casos de Uso",
+      "item": "https://cibai.studio/casos-de-uso"
+    }
+  ]
+};
+---
+
+<Layout
+  title="Casos de Uso IA y Automatización en Empresas | CIBAI"
+  description="Descubre cómo la IA, la automatización y el software a medida impactan en atención, ventas, operaciones y ecommerce. Casos reales para empresas como la tuya."
+  locale="es"
+  canonicalPath="/casos-de-uso"
+  hreflangEs="https://cibai.studio/casos-de-uso"
+  hreflangCa="https://cibai.studio/ca/casos-de-uso"
+  schemaMarkup={[serviceSchema, breadcrumbSchema]}
+>
+  <CasosDeUsoPage locale="es" />
+</Layout>
