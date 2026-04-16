@@ -13,12 +13,12 @@ const t = getTranslations(locale);
 const settings = loadSettings();
 const heroSlideDurationMs = settings.parameters.heroSlideDuration * 1000;
 const serviceDropdownLinks = [
-  { label: t.nav.servicios_dropdown.ia_automatizacion, href: getLocalizedPath('/ia-automatizacion-empresas', locale) },
-  { label: t.nav.servicios_dropdown.agentes_ia, href: getLocalizedPath('/agentes-ia-rag', locale) },
-  { label: t.nav.servicios_dropdown.voz_ia, href: getLocalizedPath('/voz-ia-centralitas', locale) },
-  { label: t.nav.servicios_dropdown.software_medida, href: getLocalizedPath('/software-a-medida', locale) },
-  { label: t.nav.servicios_dropdown.web_corporativa, href: getLocalizedPath('/web-corporativa', locale) },
-  { label: t.nav.servicios_dropdown.ecommerce, href: getLocalizedPath('/ecommerce-a-medida', locale) },
+  { label: t.nav.servicios_dropdown.inteligencia_artificial, href: getLocalizedPath('/soluciones-ia-empresas', locale) },
+  { label: t.nav.servicios_dropdown.diseno_web, href: getLocalizedPath('/web-corporativa', locale) },
+  { label: t.nav.servicios_dropdown.programacion_medida, href: getLocalizedPath('/software-a-medida', locale) },
+  { label: t.nav.servicios_dropdown.automatizacion, href: getLocalizedPath('/ia-automatizacion-empresas', locale) },
+  { label: t.nav.servicios_dropdown.neuromarketing_copy, href: `${getLocalizedPath('/', locale)}#servicios` },
+  { label: t.nav.servicios_dropdown.digital_business_growth, href: `${getLocalizedPath('/', locale)}#servicios` },
 ];
 const enTuIdiomaLinks = [
   { label: t.nav.en_tu_idioma_dropdown.tecnologia_util, href: '#tecnologia-util' },
@@ -738,12 +738,12 @@ const tickerItems = ['IA APLICADA', 'AUTOMATIZACIÓN', 'AGENTES IA', 'RAG', 'VOZ
             <label for="contact-project" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">{t.contacto.label_proyecto}</label>
             <select id="contact-project" name="proyecto"
               class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors">
-              <option value="ia_automatizacion">{t.contacto.option_ia_automatizacion}</option>
-              <option value="agentes_ia">{t.contacto.option_agentes_ia}</option>
-              <option value="voz_ia">{t.contacto.option_voz_ia}</option>
-              <option value="software">{t.contacto.option_software}</option>
-              <option value="web">{t.contacto.option_web}</option>
-              <option value="ecommerce">{t.contacto.option_ecommerce}</option>
+              <option value="inteligencia_artificial">{t.contacto.option_inteligencia_artificial}</option>
+              <option value="diseno_web">{t.contacto.option_diseno_web}</option>
+              <option value="programacion_medida">{t.contacto.option_programacion_medida}</option>
+              <option value="automatizacion">{t.contacto.option_automatizacion}</option>
+              <option value="neuromarketing_copy">{t.contacto.option_neuromarketing_copy}</option>
+              <option value="digital_business_growth">{t.contacto.option_digital_business_growth}</option>
               <option value="otro">{t.contacto.option_otro}</option>
             </select>
           </div>
