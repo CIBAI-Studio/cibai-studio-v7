@@ -70,12 +70,12 @@
     "soluciones": "Soluciones",
     "servicios": "Servicios",
     "servicios_dropdown": {
-      "ia_automatizacion": "IA y Automatización",
-      "agentes_ia": "Agentes IA y RAG",
-      "voz_ia": "Voz IA y Centralitas",
-      "software_medida": "Software a medida",
-      "web_corporativa": "Web corporativa",
-      "ecommerce": "Ecommerce a medida"
+      "inteligencia_artificial": "Inteligencia Artificial",
+      "diseno_web": "Diseño Web",
+      "programacion_medida": "Programación a medida",
+      "automatizacion": "Automatización de procesos",
+      "neuromarketing_copy": "Neuromarketing y Copy",
+      "digital_business_growth": "Digital Business Growth"
     },
     "en_tu_idioma": "En tu idioma",
     "en_tu_idioma_dropdown": {
@@ -170,57 +170,57 @@
   },
   "servicios": {
     "section_label": "// SERVICIOS",
-    "title_line1": "SOLUCIONES DISEÑADAS",
-    "title_line2": "PARA EL NEGOCIO REAL",
-    "subtitle": "Desde IA aplicada y automatización hasta software a medida, web corporativa y ecommerce. Cada solución con un objetivo claro: mejorar cómo funciona tu empresa.",
+    "title_line1": "SEIS CATEGORÍAS.",
+    "title_line2": "UN SOLO OBJETIVO: HACERTE CRECER.",
+    "subtitle": "Inteligencia artificial, diseño web, software a medida, automatización, neuromarketing y crecimiento digital. Cada servicio, pensado para mover tu negocio hacia adelante.",
     "items": [
       {
         "num": "01",
-        "label": "IA_AUTOMATIZACIÓN",
-        "title": "IA y automatización aplicada",
-        "description": "Diseñamos e implementamos automatizaciones, integraciones y flujos inteligentes que eliminan tareas repetitivas, reducen errores y mejoran la eficiencia operativa donde más duele.",
-        "cta": "Descubrir IA y automatización",
-        "tags": ["AUTOMATIZACIÓN", "INTEGRACIONES", "FLUJOS_IA"]
+        "label": "INTELIGENCIA_ARTIFICIAL",
+        "title": "IA que trabaja para tu negocio",
+        "description": "Agentes IA personalizados, chatbots inteligentes y análisis predictivo. No plantillas genéricas: inteligencia artificial diseñada específicamente para tu empresa.",
+        "cta": "Activar mi IA",
+        "tags": ["AGENTES_IA", "CHATBOTS", "PREDICTIVO"]
       },
       {
         "num": "02",
-        "label": "AGENTES_IA_RAG",
-        "title": "Agentes IA, chatbots y RAG",
-        "description": "Construimos sistemas conversacionales e inteligentes para atención, soporte, ventas y gestión del conocimiento. La diferencia: están entrenados sobre tu empresa, no sobre una plantilla genérica.",
-        "cta": "Explorar agentes IA y RAG",
-        "tags": ["CHATBOTS", "RAG", "AGENTES_IA"]
+        "label": "DISEÑO_WEB",
+        "title": "Webs que venden mientras duermes",
+        "description": "Webs corporativas, ecommerce y plataformas e-learning diseñadas para convertir. Cada decisión responde a un objetivo de negocio concreto.",
+        "cta": "Quiero una web que venda",
+        "tags": ["CORPORATIVA", "ECOMMERCE", "E-LEARNING"]
       },
       {
         "num": "03",
-        "label": "VOZ_IA",
-        "title": "Voz IA y centralitas inteligentes",
-        "description": "Integramos inteligencia en la atención telefónica para mejorar la experiencia, optimizar el tiempo operativo y construir flujos más escalables sin aumentar el equipo.",
-        "cta": "Ver soluciones de voz IA",
-        "tags": ["VOZ_IA", "CENTRALITAS", "RECEPCIÓN_24/7"]
+        "label": "PROGRAMACIÓN_A_MEDIDA",
+        "title": "Software hecho para ti",
+        "description": "SaaS, apps, plataformas de gestión y cuadros de mando. Cuando las herramientas del mercado no encajan, construimos la tuya. Sin licencias eternas.",
+        "cta": "Construir mi herramienta",
+        "tags": ["SAAS", "APPS", "DASHBOARDS"]
       },
       {
         "num": "04",
-        "label": "SOFTWARE_MEDIDA",
-        "title": "Software a medida",
-        "description": "Desarrollamos herramientas internas, paneles de control y plataformas personalizadas que se adaptan a cómo funciona realmente tu empresa, no al revés.",
-        "cta": "Explorar software a medida",
-        "tags": ["NEXT.JS", "REACT", "APIs", "POSTGRES"]
+        "label": "AUTOMATIZACIÓN",
+        "title": "Automatiza. Escala. Libérate.",
+        "description": "Conectamos tus herramientas y automatizamos tus procesos con N8N e IA. Liberamos a tu equipo para lo que de verdad importa: crecer.",
+        "cta": "Liberarme de lo repetitivo",
+        "tags": ["N8N", "IA", "INTEGRACIONES"]
       },
       {
         "num": "05",
-        "label": "WEB_CORPORATIVA",
-        "title": "Web corporativa premium",
-        "description": "Diseñamos webs corporativas que van más allá de verse bien: posicionan tu propuesta de valor, transmiten autoridad y convierten visitas en oportunidades de negocio reales.",
-        "cta": "Ver webs corporativas",
-        "tags": ["UI/UX", "CONVERSIÓN", "SEO"]
+        "label": "NEUROMARKETING_COPY",
+        "title": "Palabras que venden",
+        "description": "Copy estratégico con neurociencia aplicada. Webs, landing pages y campañas con mensajes que conectan y convierten. Tu cliente decide en segundos.",
+        "cta": "Duplicar mis conversiones",
+        "tags": ["COPY", "NEUROCIENCIA", "CONVERSIÓN"]
       },
       {
         "num": "06",
-        "label": "ECOMMERCE",
-        "title": "Ecommerce a medida",
-        "description": "Creamos tiendas online sólidas, escalables y optimizadas para vender mejor, con una experiencia de compra pensada tanto para quien compra como para quien gestiona el negocio.",
-        "cta": "Ver ecommerce a medida",
-        "tags": ["ECOMMERCE", "STRIPE", "CONVERSIÓN"]
+        "label": "DIGITAL_BUSINESS_GROWTH",
+        "title": "De marca a negocio digital",
+        "description": "Estrategia de crecimiento digital para empresas y marcas personales. Posicionamiento real, embudo de ventas y diferenciación sostenible.",
+        "cta": "Construir mi estrategia",
+        "tags": ["ESTRATEGIA", "GROWTH", "EMBUDO_VENTAS"]
       }
     ]
   },
@@ -463,12 +463,12 @@
     "label_telefono": "TELÉFONO (OPCIONAL)",
     "placeholder_telefono": "+34 000 000 000",
     "label_proyecto": "¿QUÉ ÁREA QUIERES MEJORAR?",
-    "option_ia_automatizacion": "IA y Automatización",
-    "option_agentes_ia": "Agentes IA y RAG",
-    "option_voz_ia": "Voz IA y Centralitas",
-    "option_software": "Software a medida",
-    "option_web": "Web corporativa",
-    "option_ecommerce": "Ecommerce a medida",
+    "option_inteligencia_artificial": "Inteligencia Artificial",
+    "option_diseno_web": "Diseño Web",
+    "option_programacion_medida": "Programación a medida",
+    "option_automatizacion": "Automatización de procesos",
+    "option_neuromarketing_copy": "Neuromarketing y Copy",
+    "option_digital_business_growth": "Digital Business Growth",
     "option_otro": "Otro",
     "label_mensaje": "DESCRÍBENOS TU PROYECTO, RETO O PROBLEMA",
     "placeholder_mensaje": "Cuanto más contexto nos des, más útil será la primera conversación.",
@@ -509,14 +509,26 @@
     "made_in": "Hecho con intensidad en Barcelona"
   },
   "meta": {
-    "title": "CIBAI.Studio | IA, Automatización y Software para Empresas",
-    "description": "Diseñamos e implementamos soluciones de IA, automatización, software a medida y webs para empresas. Resultados reales, no demos. Solicita tu diagnóstico.",
-    "schema_description": "Estudio especializado en IA, automatización, software a medida y activos digitales para empresas.",
-    "ia_title": "IA y Automatización para Empresas | CIBAI.Studio",
+    "title": "CIBAI Studio | Agencia Digital, IA y Automatización",
+    "description": "Diseño web, inteligencia artificial, automatización de procesos y neuromarketing para empresas. Transformamos negocios con tecnología y estrategia. Contáctanos.",
+    "schema_description": "Agencia digital especializada en inteligencia artificial, diseño web, automatización de procesos y neuromarketing para empresas.",
+    "inteligencia_artificial_title": "Inteligencia Artificial para Empresas | CIBAI Studio",
+    "inteligencia_artificial_description": "Agentes IA personalizados, chatbots inteligentes y automatización con IA. Soluciones de inteligencia artificial diseñadas para tu negocio. Sin plantillas genéricas.",
+    "diseno_web_title": "Diseño Web Profesional y Tiendas Online | CIBAI Studio",
+    "diseno_web_description": "Webs corporativas, ecommerce y plataformas e-learning que convierten. Diseño web a medida que trabaja mientras tú duermes. Presupuesto sin compromiso.",
+    "programacion_medida_title": "Desarrollo de Software a Medida | Apps y SaaS | CIBAI Studio",
+    "programacion_medida_description": "Software personalizado para empresas: apps a medida, plataformas de gestión, SaaS y dashboards. Cuando el mercado no tiene lo que necesitas, lo construimos.",
+    "automatizacion_title": "Automatización de Procesos Empresariales con IA | CIBAI Studio",
+    "automatizacion_description": "Automatizamos tus procesos con N8N e inteligencia artificial. Libera a tu equipo de tareas repetitivas y elimina los cuellos de botella. Análisis gratuito.",
+    "neuromarketing_copy_title": "Neuromarketing y Copywriting para Empresas | CIBAI Studio",
+    "neuromarketing_copy_description": "Copy que vende basado en neurociencia y psicología del consumidor. Webs, landing pages y campañas con mensajes que conectan y convierten. Auditoría gratuita.",
+    "digital_business_growth_title": "Estrategia de Crecimiento Digital | CIBAI Studio",
+    "digital_business_growth_description": "Transforma tu empresa o marca personal en un negocio digital que crece. Estrategia, posicionamiento, embudos de venta y crecimiento predecible. Hablemos.",
+    "ia_title": "IA y Automatización para Empresas | CIBAI Studio",
     "ia_description": "Reducimos tareas manuales, conectamos herramientas y diseñamos flujos inteligentes para que tu empresa gane eficiencia real. Solicita diagnóstico gratuito.",
-    "studio_title": "Studio | Equipo de IA, Automatización y Software — CIBAI",
-    "studio_description": "Conoce el equipo de CIBAI.Studio: estrategia, IA, automatización, diseño y desarrollo orientados a resultados reales para empresas. Habla con el Studio.",
-    "contacto_title": "Contacto — CIBAI.Studio | Diagnóstico Gratuito",
-    "contacto_description": "Solicita un diagnóstico inicial gratuito para identificar oportunidades de IA, automatización y software en tu empresa. Respondemos en 48h."
+    "studio_title": "Studio | Equipo de IA, Diseño y Automatización — CIBAI",
+    "studio_description": "Conoce el equipo de CIBAI Studio: estrategia, IA, diseño web, automatización y neuromarketing orientados a resultados reales para empresas.",
+    "contacto_title": "Contacto — CIBAI Studio | Diagnóstico Gratuito",
+    "contacto_description": "Solicita un diagnóstico inicial gratuito para identificar oportunidades de IA, diseño web, automatización y growth en tu empresa. Respondemos en 48h."
   }
 }

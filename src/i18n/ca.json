@@ -70,12 +70,12 @@
     "soluciones": "Solucions",
     "servicios": "Serveis",
     "servicios_dropdown": {
-      "ia_automatizacion": "IA i Automatització",
-      "agentes_ia": "Agents IA i RAG",
-      "voz_ia": "Veu IA i Centraletes",
-      "software_medida": "Software a mida",
-      "web_corporativa": "Web corporativa",
-      "ecommerce": "Ecommerce a mida"
+      "inteligencia_artificial": "Intel·ligència Artificial",
+      "diseno_web": "Disseny Web",
+      "programacion_medida": "Programació a mida",
+      "automatizacion": "Automatització de processos",
+      "neuromarketing_copy": "Neuromarketing i Copy",
+      "digital_business_growth": "Digital Business Growth"
     },
     "en_tu_idioma": "En el teu idioma",
     "en_tu_idioma_dropdown": {
@@ -170,57 +170,57 @@
   },
   "servicios": {
     "section_label": "// SERVEIS",
-    "title_line1": "SOLUCIONS DISSENYADES",
-    "title_line2": "PER AL NEGOCI REAL",
-    "subtitle": "Des d'IA aplicada i automatització fins a software a mida, web corporativa i ecommerce. Cada solució amb un objectiu clar: millorar com funciona la teva empresa.",
+    "title_line1": "SIS CATEGORIES.",
+    "title_line2": "UN SOL OBJECTIU: FER-TE CRÉIXER.",
+    "subtitle": "Intel·ligència artificial, disseny web, software a mida, automatització, neuromarketing i creixement digital. Cada servei, pensat per moure el teu negoci endavant.",
     "items": [
       {
         "num": "01",
-        "label": "IA_AUTOMATITZACIÓ",
-        "title": "IA i automatització aplicada",
-        "description": "Dissenyem i implementem automatitzacions, integracions i fluxos intel·ligents que eliminen tasques repetitives, redueixen errors i milloren l'eficiència operativa on més fa mal.",
-        "cta": "Descobrir IA i automatització",
-        "tags": ["AUTOMATITZACIÓ", "INTEGRACIONS", "FLUXOS_IA"]
+        "label": "INTELLIGENCIA_ARTIFICIAL",
+        "title": "IA que treballa per al teu negoci",
+        "description": "Agents IA personalitzats, chatbots intel·ligents i anàlisi predictiva. Res de plantilles genèriques: intel·ligència artificial dissenyada específicament per a la teva empresa.",
+        "cta": "Activar la meva IA",
+        "tags": ["AGENTS_IA", "CHATBOTS", "PREDICTIU"]
       },
       {
         "num": "02",
-        "label": "AGENTS_IA_RAG",
-        "title": "Agents IA, chatbots i RAG",
-        "description": "Construïm sistemes conversacionals i intel·ligents per a atenció, suport, vendes i gestió del coneixement. La diferència: estan entrenats sobre la teva empresa, no sobre una plantilla genèrica.",
-        "cta": "Explorar agents IA i RAG",
-        "tags": ["CHATBOTS", "RAG", "AGENTS_IA"]
+        "label": "DISSENY_WEB",
+        "title": "Webs que venen mentre dorms",
+        "description": "Webs corporatives, ecommerce i plataformes e-learning dissenyades per convertir. Cada decisió respon a un objectiu de negoci concret.",
+        "cta": "Vull una web que vengui",
+        "tags": ["CORPORATIVA", "ECOMMERCE", "E-LEARNING"]
       },
       {
         "num": "03",
-        "label": "VEU_IA",
-        "title": "Veu IA i centraletes intel·ligents",
-        "description": "Integrem intel·ligència en l'atenció telefònica per millorar l'experiència, optimitzar el temps operatiu i construir fluxos més escalables sense augmentar l'equip.",
-        "cta": "Veure solucions de veu IA",
-        "tags": ["VEU_IA", "CENTRALETES", "RECEPCIÓ_24/7"]
+        "label": "PROGRAMACIÓ_A_MIDA",
+        "title": "Software fet per a tu",
+        "description": "SaaS, apps, plataformes de gestió i quadres de comandament. Quan les eines del mercat no encaixen, construïm la teva. Sense llicències eternes.",
+        "cta": "Construir la meva eina",
+        "tags": ["SAAS", "APPS", "DASHBOARDS"]
       },
       {
         "num": "04",
-        "label": "SOFTWARE_MIDA",
-        "title": "Software a mida",
-        "description": "Desenvolupem eines internes, panells de control i plataformes personalitzades que s'adapten a com funciona realment la teva empresa, no al revés.",
-        "cta": "Explorar software a mida",
-        "tags": ["NEXT.JS", "REACT", "APIs", "POSTGRES"]
+        "label": "AUTOMATITZACIÓ",
+        "title": "Automatitza. Escala. Allibera't.",
+        "description": "Connectem les teves eines i automatitzem els teus processos amb N8N i IA. Alliberem el teu equip per al que de veritat importa: créixer.",
+        "cta": "Alliberar-me del que es repeteix",
+        "tags": ["N8N", "IA", "INTEGRACIONS"]
       },
       {
         "num": "05",
-        "label": "WEB_CORPORATIVA",
-        "title": "Web corporativa premium",
-        "description": "Dissenyem webs corporatives que van més enllà de semblar bé: posicionen la teva proposta de valor, transmeten autoritat i converteixen visites en oportunitats de negoci reals.",
-        "cta": "Veure webs corporatives",
-        "tags": ["UI/UX", "CONVERSIÓ", "SEO"]
+        "label": "NEUROMARKETING_COPY",
+        "title": "Paraules que venen",
+        "description": "Copy estratègic amb neurociència aplicada. Webs, landings i campanyes amb missatges que connecten i converteixen. El teu client decideix en segons.",
+        "cta": "Duplicar les meves conversions",
+        "tags": ["COPY", "NEUROCIÈNCIA", "CONVERSIÓ"]
       },
       {
         "num": "06",
-        "label": "ECOMMERCE",
-        "title": "Ecommerce a mida",
-        "description": "Creem botigues online sòlides, escalables i optimitzades per vendre millor, amb una experiència de compra pensada tant per a qui compra com per a qui gestiona el negoci.",
-        "cta": "Veure ecommerce a mida",
-        "tags": ["ECOMMERCE", "STRIPE", "CONVERSIÓ"]
+        "label": "DIGITAL_BUSINESS_GROWTH",
+        "title": "De marca a negoci digital",
+        "description": "Estratègia de creixement digital per a empreses i marques personals. Posicionament real, embut de vendes i diferenciació sostenible.",
+        "cta": "Construir la meva estratègia",
+        "tags": ["ESTRATÈGIA", "GROWTH", "EMBUT_VENDES"]
       }
     ]
   },
@@ -463,12 +463,12 @@
     "label_telefono": "TELÈFON (OPCIONAL)",
     "placeholder_telefono": "+34 000 000 000",
     "label_proyecto": "QUINA ÀREA VOLS MILLORAR?",
-    "option_ia_automatizacion": "IA i Automatització",
-    "option_agentes_ia": "Agents IA i RAG",
-    "option_voz_ia": "Veu IA i Centraletes",
-    "option_software": "Software a mida",
-    "option_web": "Web corporativa",
-    "option_ecommerce": "Ecommerce a mida",
+    "option_inteligencia_artificial": "Intel·ligència Artificial",
+    "option_diseno_web": "Disseny Web",
+    "option_programacion_medida": "Programació a mida",
+    "option_automatizacion": "Automatització de processos",
+    "option_neuromarketing_copy": "Neuromarketing i Copy",
+    "option_digital_business_growth": "Digital Business Growth",
     "option_otro": "Altre",
     "label_mensaje": "DESCRIU-NOS EL TEU PROJECTE, REPTE O PROBLEMA",
     "placeholder_mensaje": "Com més context ens donis, més útil serà la primera conversa.",
@@ -509,14 +509,26 @@
     "made_in": "Fet amb intensitat a Barcelona"
   },
   "meta": {
-    "title": "CIBAI.Studio | IA, Automatització i Software per a Empreses",
-    "description": "Dissenyem i implementem solucions d'IA, automatització, software a mida i webs per a empreses. Resultats reals, no demos. Sol·licita el teu diagnòstic.",
-    "schema_description": "Estudi especialitzat en IA, automatització, software a mida i actius digitals per a empreses.",
-    "ia_title": "IA i Automatització per a Empreses | CIBAI.Studio",
+    "title": "CIBAI Studio | Agència Digital, IA i Automatització",
+    "description": "Disseny web, intel·ligència artificial, automatització de processos i neuromarketing per a empreses. Transformem negocis amb tecnologia i estratègia.",
+    "schema_description": "Agència digital especialitzada en intel·ligència artificial, disseny web, automatització de processos i neuromarketing per a empreses.",
+    "inteligencia_artificial_title": "Intel·ligència Artificial per a Empreses | CIBAI Studio",
+    "inteligencia_artificial_description": "Agents IA personalitzats, chatbots intel·ligents i automatització amb IA. Solucions d'intel·ligència artificial dissenyades per al teu negoci.",
+    "diseno_web_title": "Disseny Web Professional i Botigues Online | CIBAI Studio",
+    "diseno_web_description": "Webs corporatives, ecommerce i plataformes e-learning que converteixen. Disseny web a mida que treballa mentre dorms. Pressupost sense compromís.",
+    "programacion_medida_title": "Desenvolupament de Software a Mida | Apps i SaaS | CIBAI",
+    "programacion_medida_description": "Software personalitzat per a empreses: apps a mida, plataformes de gestió, SaaS i dashboards. Quan el mercat no té el que necessites, ho construïm.",
+    "automatizacion_title": "Automatització de Processos Empresarials amb IA | CIBAI Studio",
+    "automatizacion_description": "Automatitzem els teus processos amb N8N i intel·ligència artificial. Allibera el teu equip de tasques repetitives. Anàlisi gratuïta.",
+    "neuromarketing_copy_title": "Neuromarketing i Copywriting per a Empreses | CIBAI Studio",
+    "neuromarketing_copy_description": "Copy que ven basat en neurociència i psicologia del consumidor. Webs, landings i campanyes amb missatges que connecten i converteixen.",
+    "digital_business_growth_title": "Estratègia de Creixement Digital | CIBAI Studio",
+    "digital_business_growth_description": "Transforma la teva empresa o marca personal en un negoci digital que creix. Estratègia, posicionament, embuts de vendes i creixement predictible.",
+    "ia_title": "IA i Automatització per a Empreses | CIBAI Studio",
     "ia_description": "Reduïm tasques manuals, connectem eines i dissenyem fluxos intel·ligents perquè la teva empresa guanyi eficiència real. Sol·licita diagnòstic gratuït.",
-    "studio_title": "Studio | Equip d'IA, Automatització i Software — CIBAI",
-    "studio_description": "Coneix l'equip de CIBAI.Studio: estratègia, IA, automatització, disseny i desenvolupament orientats a resultats reals per a empreses. Parla amb el Studio.",
-    "contacto_title": "Contacte — CIBAI.Studio | Diagnòstic Gratuït",
-    "contacto_description": "Sol·licita un diagnòstic inicial gratuït per identificar oportunitats d'IA, automatització i software a la teva empresa. Responem en 48h."
+    "studio_title": "Studio | Equip d'IA, Disseny i Automatització — CIBAI",
+    "studio_description": "Coneix l'equip de CIBAI Studio: estratègia, IA, disseny web, automatització i neuromarketing orientats a resultats reals per a empreses.",
+    "contacto_title": "Contacte — CIBAI Studio | Diagnòstic Gratuït",
+    "contacto_description": "Sol·licita un diagnòstic inicial gratuït per identificar oportunitats d'IA, disseny web, automatització i growth a la teva empresa. Responem en 48h."
   }
 }
