@@ -38,11 +38,16 @@ if (Astro.request.method === 'POST') {
       const order = orderVal !== null ? parseInt(orderVal as string, 10) : existing.order;
       const active = formData.has(`active_${id}`);
 
+      const imageUrl = (formData.get(`image_${id}`) as string || '').trim();
+      const detailUrlVal = (formData.get(`detail_url_${id}`) as string || '').trim();
+
       const svc: ServiceItem = {
         id,
         num: (formData.get(`num_${id}`) as string) || existing.num,
         active,
         order,
+        ...(detailUrlVal ? { detailUrl: detailUrlVal } : (existing.detailUrl ? { detailUrl: existing.detailUrl } : {})),
+        ...(imageUrl ? { image: imageUrl } : {}),
         label: {} as Record<string, string>,
         title: {} as Record<string, string>,
         description: {} as Record<string, string>,
@@ -182,6 +187,29 @@ const services = [...settings.services].sort((a, b) => a.order - b.order);
               <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">Número</label>
               <input type="text" name={`num_${svc.id}`} value={svc.num} class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors" />
             </div>
+            <div class="md:col-span-2">
+              <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">URL página detalle</label>
+              <input type="text" name={`detail_url_${svc.id}`} value={svc.detailUrl || ''} placeholder="/servicios/mi-servicio/" class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-sm text-cyber-white placeholder:text-cyber-text/30 focus:border-cyber-orange focus:outline-none transition-colors" />
+            </div>
+          </div>
+
+          {/* Service Image */}
+          <div class="mb-6 p-4 border border-cyber-border/50 bg-cyber-black/50">
+            <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">Imagen cabecera</label>
+            <div class="flex items-end gap-4">
+              <div class="flex-1">
+                <input type="text" name={`image_${svc.id}`} value={svc.image || ''} id={`image-input-${svc.id}`} placeholder="URL de imagen o genera con IA" class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-sm text-cyber-white placeholder:text-cyber-text/30 focus:border-cyber-orange focus:outline-none transition-colors" />
+              </div>
+              <button type="button" class="generate-image-btn btn-secondary text-[10px] py-2 px-4 whitespace-nowrap" data-target={`image-input-${svc.id}`} data-prompt={`${svc.title.es}, professional business technology`}>
+                Generar con IA
+              </button>
+            </div>
+            {svc.image && (
+              <div class="mt-3">
+                <img src={svc.image} alt="Preview" class="max-h-28 border border-cyber-border" />
+              </div>
+            )}
+            <div id={`image-status-${svc.id}`} class="mt-2 font-mono text-[10px] text-cyber-text/50 hidden"></div>
           </div>
 
           {/* Translations per locale */}
@@ -454,6 +482,52 @@ const services = [...settings.services].sort((a, b) => a.order - b.order);
         updateOrderInputs();
       });
     }
+
+    // ── Generate image with fal.ai ─────────────────────────────────────────────
+    document.querySelectorAll('.generate-image-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const el = btn as HTMLElement;
+        const targetId = el.dataset.target;
+        const prompt = el.dataset.prompt || 'futuristic technology';
+        const input = document.getElementById(targetId || '') as HTMLInputElement;
+        if (!input) return;
+
+        el.textContent = 'Generando...';
+        el.setAttribute('disabled', 'true');
+        el.classList.add('opacity-50');
+
+        try {
+          const res = await fetch('/api/generate-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt, width: 768, height: 512 }),
+          });
+          const data = await res.json();
+          if (data.url) {
+            input.value = data.url;
+            // Show preview
+            const container = input.closest('.p-4');
+            let preview = container?.querySelector('img');
+            if (preview) {
+              preview.src = data.url;
+            } else if (container) {
+              const div = document.createElement('div');
+              div.className = 'mt-3';
+              div.innerHTML = `<img src="${data.url}" alt="Preview" class="max-h-28 border border-cyber-border" />`;
+              container.appendChild(div);
+            }
+          } else {
+            alert('Error generando imagen: ' + (data.error || 'Unknown error'));
+          }
+        } catch (err: any) {
+          alert('Error: ' + err.message);
+        } finally {
+          el.textContent = 'Generar con IA';
+          el.removeAttribute('disabled');
+          el.classList.remove('opacity-50');
+        }
+      });
+    });
   </script>
 
   <style>

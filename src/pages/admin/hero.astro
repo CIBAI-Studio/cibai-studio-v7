@@ -99,12 +99,15 @@ if (Astro.request.method === 'POST') {
         if (v) { microcopy[loc] = v; hasMicrocopy = true; }
       }
 
+      const bgImage = (formData.get(`background_image_${id}`) as string || '').trim();
+
       updatedSlides.push({
         id,
         active:      formData.has(`active_${id}`),
         order:       i,
         duration:    Math.min(60, Math.max(1, parseInt((formData.get(`duration_${id}`) as string) || '6', 10))),
         accentColor: (formData.get(`accent_${id}`) as string) === 'teal' ? 'teal' : 'orange',
+        ...(bgImage ? { backgroundImage: bgImage } : {}),
         badges,
         heading,
         subtitle,
@@ -267,6 +270,25 @@ const slides = [...settings.heroSlides].sort((a, b) => a.order - b.order);
                   <option value="teal"   selected={slide.accentColor === 'teal'}>Teal</option>
                 </select>
               </div>
+            </div>
+
+            {/* ── Background image ── */}
+            <div class="p-4 border border-cyber-border/50 bg-cyber-black/50">
+              <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">
+                Imagen de fondo (URL)
+              </label>
+              <input
+                type="text"
+                name={`background_image_${slide.id}`}
+                value={slide.backgroundImage || ''}
+                placeholder="https://... (dejar vacío para sin imagen)"
+                class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-sm text-cyber-white placeholder:text-cyber-text/30 focus:border-cyber-orange focus:outline-none transition-colors"
+              />
+              {slide.backgroundImage && (
+                <div class="mt-2">
+                  <img src={slide.backgroundImage} alt="Preview" class="max-h-24 border border-cyber-border opacity-60" />
+                </div>
+              )}
             </div>
 
             {/* ── Badges per locale ── */}

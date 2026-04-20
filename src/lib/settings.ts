@@ -17,6 +17,8 @@ export interface ServiceItem {
   num: string;
   active: boolean;
   order: number;
+  detailUrl?: string;                   // e.g. "/servicios/inteligencia-artificial-para-empresas/"
+  image?: string;                       // URL of header image
   label: Record<string, string>;       // { es: "...", ca: "..." }
   title: Record<string, string>;
   description: Record<string, string>;
@@ -55,12 +57,23 @@ export interface HeroSlide {
   order: number;
   duration: number;
   accentColor: 'orange' | 'teal';
+  backgroundImage?: string;
   badges: Record<string, string[]>;
   heading: Record<string, HeroSlideHeading>;
   subtitle: Record<string, string>;
   terminal: Record<string, HeroSlideTerminal>;
   buttons: HeroSlideButton[];
   microcopy?: Record<string, string>;
+}
+
+export interface ProcessStep {
+  id: string;
+  num: string;
+  active: boolean;
+  order: number;
+  image?: string;
+  title: Record<string, string>;
+  description: Record<string, string>;
 }
 
 export interface TypographyConfig {
@@ -84,6 +97,7 @@ export interface SiteSettings {
   };
   heroSlides: HeroSlide[];
   services: ServiceItem[];
+  processSteps: ProcessStep[];
   typography: Record<TypoElement, TypographyConfig>;
 }
 
@@ -355,6 +369,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     num: '01',
     active: true,
     order: 0,
+    detailUrl: '/servicios/inteligencia-artificial-para-empresas/',
     label: { es: 'INTELIGENCIA_ARTIFICIAL', ca: 'INTELLIGENCIA_ARTIFICIAL' },
     title: { es: 'IA que trabaja para tu negocio', ca: 'IA que treballa per al teu negoci' },
     description: {
@@ -379,6 +394,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     num: '02',
     active: true,
     order: 1,
+    detailUrl: '/servicios/diseno-web-profesional/',
     label: { es: 'DISEÑO_WEB', ca: 'DISSENY_WEB' },
     title: { es: 'Webs que venden mientras duermes', ca: 'Webs que venen mentre dorms' },
     description: {
@@ -403,6 +419,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     num: '03',
     active: true,
     order: 2,
+    detailUrl: '/servicios/desarrollo-software-medida/',
     label: { es: 'PROGRAMACIÓN_A_MEDIDA', ca: 'PROGRAMACIÓ_A_MIDA' },
     title: { es: 'Software hecho para ti', ca: 'Software fet per a tu' },
     description: {
@@ -427,6 +444,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     num: '04',
     active: true,
     order: 3,
+    detailUrl: '/servicios/automatizacion-procesos-empresariales/',
     label: { es: 'AUTOMATIZACIÓN', ca: 'AUTOMATITZACIÓ' },
     title: { es: 'Automatiza. Escala. Libérate.', ca: 'Automatitza. Escala. Allibera\'t.' },
     description: {
@@ -451,6 +469,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     num: '05',
     active: true,
     order: 4,
+    detailUrl: '/servicios/copywriting-persuasivo/',
     label: { es: 'NEUROMARKETING_COPY', ca: 'NEUROMARKETING_COPY' },
     title: { es: 'Palabras que venden', ca: 'Paraules que venen' },
     description: {
@@ -475,6 +494,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     num: '06',
     active: true,
     order: 5,
+    detailUrl: '/servicios/estrategia-crecimiento-digital/',
     label: { es: 'DIGITAL_BUSINESS_GROWTH', ca: 'DIGITAL_BUSINESS_GROWTH' },
     title: { es: 'De marca a negocio digital', ca: 'De marca a negoci digital' },
     description: {
@@ -496,6 +516,64 @@ const DEFAULT_SERVICES: ServiceItem[] = [
   },
 ];
 
+const DEFAULT_PROCESS_STEPS: ProcessStep[] = [
+  {
+    id: 'step-diagnostico',
+    num: '01',
+    active: true,
+    order: 0,
+    title: { es: 'DIAGNÓSTICO', ca: 'DIAGNÒSTIC' },
+    description: {
+      es: 'Analizamos tu punto de partida: procesos, fricciones, herramientas actuales y oportunidades de mejora. Sin diagnóstico, no hay propuesta seria.',
+      ca: 'Analitzem el teu punt de partida: processos, friccions, eines actuals i oportunitats de millora. Sense diagnòstic, no hi ha proposta seriosa.',
+    },
+  },
+  {
+    id: 'step-estrategia',
+    num: '02',
+    active: true,
+    order: 1,
+    title: { es: 'ESTRATEGIA', ca: 'ESTRATÈGIA' },
+    description: {
+      es: 'Definimos qué tiene sentido hacer primero, qué solución genera más impacto con menos complejidad y qué resultado concreto esperamos conseguir.',
+      ca: 'Definim què té sentit fer primer, quina solució genera més impacte amb menys complexitat i quin resultat concret esperem aconseguir.',
+    },
+  },
+  {
+    id: 'step-desarrollo',
+    num: '03',
+    active: true,
+    order: 2,
+    title: { es: 'DISEÑO Y DESARROLLO', ca: 'DISSENY I DESENVOLUPAMENT' },
+    description: {
+      es: 'Construimos la solución: automatización, agente IA, software, web o sistema integrado. Sin atajos, sin deuda técnica acumulada.',
+      ca: 'Construïm la solució: automatització, agent IA, software, web o sistema integrat. Sense dreceres, sense deute tècnic acumulat.',
+    },
+  },
+  {
+    id: 'step-implantacion',
+    num: '04',
+    active: true,
+    order: 3,
+    title: { es: 'IMPLANTACIÓN', ca: 'IMPLANTACIÓ' },
+    description: {
+      es: 'La llevamos a producción, la conectamos con tu operativa real, formamos a quienes la van a usar y validamos que funcione en condiciones reales.',
+      ca: 'La portem a producció, la connectem amb la teva operativa real, formem a qui la farà servir i validem que funcioni en condicions reals.',
+    },
+  },
+  {
+    id: 'step-optimizacion',
+    num: '05',
+    active: true,
+    order: 4,
+    title: { es: 'OPTIMIZACIÓN', ca: 'OPTIMITZACIÓ' },
+    description: {
+      es: 'Medimos, identificamos mejoras y evolucionamos la solución. Una implantación bien hecha es el inicio, no el final.',
+      ca: 'Mesurem, identifiquem millores i evolucionem la solució. Una implantació ben feta és l\'inici, no el final.',
+    },
+  },
+];
+
 const DEFAULT_SETTINGS: SiteSettings = {
   parameters: {
     heroSlideDuration: 6,
@@ -507,6 +585,7 @@ const DEFAULT_SETTINGS: SiteSettings = {
   },
   heroSlides: DEFAULT_HERO_SLIDES,
   services: DEFAULT_SERVICES,
+  processSteps: DEFAULT_PROCESS_STEPS,
   typography: DEFAULT_TYPOGRAPHY,
 };
 
@@ -531,22 +610,39 @@ export function loadSettings(): SiteSettings {
 
   // Migrate services: add active/order if missing
   const services: ServiceItem[] = Array.isArray(raw.services) && raw.services.length > 0
-    ? raw.services.map((s: any, idx: number) => ({
+    ? raw.services.map((s: any, idx: number) => {
+        // Find default for detailUrl migration
+        const defaultSvc = DEFAULT_SERVICES.find(d => d.id === s.id);
+        return {
+          ...s,
+          active: s.active !== undefined ? s.active : true,
+          order: s.order !== undefined ? s.order : idx,
+          detailUrl: s.detailUrl || (defaultSvc ? defaultSvc.detailUrl : undefined),
+          image: s.image || undefined,
+          // Migrate old string[] tags to ServiceTag[] format
+          tags: Array.isArray(s.tags)
+            ? s.tags.map((t: any) => typeof t === 'string' ? { text: t, borderColor: '#2a2a2a' } : t)
+            : [],
+        };
+      })
+    : DEFAULT_SERVICES;
+
+  // Migrate processSteps
+  const processSteps: ProcessStep[] = Array.isArray(raw.processSteps) && raw.processSteps.length > 0
+    ? raw.processSteps.map((s: any, idx: number) => ({
         ...s,
         active: s.active !== undefined ? s.active : true,
         order: s.order !== undefined ? s.order : idx,
-        // Migrate old string[] tags to ServiceTag[] format
-        tags: Array.isArray(s.tags)
-          ? s.tags.map((t: any) => typeof t === 'string' ? { text: t, borderColor: '#2a2a2a' } : t)
-          : [],
+        image: s.image || undefined,
       }))
-    : DEFAULT_SERVICES;
+    : DEFAULT_PROCESS_STEPS;
 
   return {
     parameters: { ...DEFAULT_SETTINGS.parameters, ...raw.parameters },
     visual: { ...DEFAULT_SETTINGS.visual, ...raw.visual },
     heroSlides,
     services,
+    processSteps,
     typography: { ...DEFAULT_SETTINGS.typography, ...raw.typography },
   };
 }
@@ -570,4 +666,8 @@ export function generateId(): string {
 
 export function generateSlideId(): string {
   return 'slide-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+}
+
+export function generateStepId(): string {
+  return 'step-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
 }
