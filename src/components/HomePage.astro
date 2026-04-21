@@ -51,9 +51,27 @@ const tickerItems = ['IA APLICADA', 'AUTOMATIZACIÓN', 'AGENTES IA', 'RAG', 'VOZ
 
 <!-- ═══════════════ HERO ═══════════════ -->
 <section id="main-content" class="relative min-h-[90vh] flex flex-col justify-start pt-32 pb-8 overflow-hidden hero-section">
-  <div class="absolute inset-0 opacity-[0.03] hero-bg-grid" style={`background-image: linear-gradient(color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px); background-size: 60px 60px;`}></div>
+  {/* Per-slide background images — positioned relative to hero section */}
+  {processedHeroSlides.map((slide) => (
+    slide.backgroundImage && (
+      <div
+        class={`hero-slide-bg-layer absolute inset-0 w-full h-full overflow-hidden pointer-events-none transition-opacity duration-800 ease-in-out${slide.isFirst ? '' : ' opacity-0'}`}
+        id={`hero-bg-layer-${slide.idx}`}
+        style="z-index:0;"
+      >
+        <img
+          src={slide.backgroundImage}
+          alt=""
+          class="absolute inset-0 w-full h-full object-cover"
+          style={`opacity:${(slide.backgroundOpacity ?? 100) / 100};`}
+          loading="lazy"
+        />
+      </div>
+    )
+  ))}
+  <div class="absolute inset-0 opacity-[0.03] hero-bg-grid" style={`background-image: linear-gradient(color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, ${primaryColor} 30%, transparent) 1px, transparent 1px); background-size: 60px 60px; z-index:1;`}></div>
 
-  <div class="mx-auto max-w-7xl px-6 w-full">
+  <div class="mx-auto max-w-7xl px-6 w-full relative z-[2]">
     <div class="relative" style="min-height: 480px;" id="hero-slider">
       <div class="absolute top-0 right-0 flex items-center gap-4 z-10 animate-fade-in-up animate-delay-500">
         <div class="hero-slider-dots" id="hero-dots">
@@ -72,15 +90,8 @@ const tickerItems = ['IA APLICADA', 'AUTOMATIZACIÓN', 'AGENTES IA', 'RAG', 'VOZ
         {processedHeroSlides.map((slide) => (
         <div class={`hero-slide${slide.isFirst ? ' active' : ''}`} id={`hero-slide-${slide.idx}`} data-duration={slide.durationMs} data-bg-image={slide.backgroundImage || ''}>
 
-          {/* Background image (per-slide, full hero section coverage) */}
-          {slide.backgroundImage && (
-            <div class="hero-slide-bg pointer-events-none overflow-hidden" style={`position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100vw;z-index:0;`}>
-              <img src={slide.backgroundImage} alt="" class="w-full h-full object-cover" style={`opacity:${(slide.backgroundOpacity ?? 100) / 100};`} loading="lazy" />
-            </div>
-          )}
-
           {/* Slide content (above background image) */}
-          <div class="relative z-[1]">
+          <div class="relative z-[2]">
           {/* Badges */}
           <div class={`font-mono text-xs text-cyber-text mb-6${slide.isFirst ? ' animate-fade-in-up' : ''}`}>
             <span class={slide.accentClass}>{slide.bdg[0]}</span>
@@ -148,7 +159,7 @@ const tickerItems = ['IA APLICADA', 'AUTOMATIZACIÓN', 'AGENTES IA', 'RAG', 'VOZ
               {slide.microcopyText}
             </p>
           )}
-          </div>{/* end relative z-[1] content wrapper */}
+          </div>{/* end content wrapper */}
         </div>
         ))}
 
@@ -156,7 +167,7 @@ const tickerItems = ['IA APLICADA', 'AUTOMATIZACIÓN', 'AGENTES IA', 'RAG', 'VOZ
     </div>
   </div>
 
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-[2]">
     <div class="w-px h-12 bg-gradient-to-b from-transparent to-cyber-orange/50"></div>
     <span class="font-mono text-[9px] text-cyber-text uppercase tracking-widest">{t.hero.scroll}</span>
   </div>
@@ -837,9 +848,14 @@ const tickerItems = ['IA APLICADA', 'AUTOMATIZACIÓN', 'AGENTES IA', 'RAG', 'VOZ
   function goToSlide(idx) {
     const slides = document.querySelectorAll('.hero-slide');
     const dots = document.querySelectorAll('.hero-dot');
+    const bgLayers = document.querySelectorAll('.hero-slide-bg-layer');
     const counter = document.getElementById('hero-slide-counter');
     slides.forEach((s, i) => s.classList.toggle('active', i === idx));
     dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    bgLayers.forEach((bg, i) => {
+      if (i === idx) { bg.classList.remove('opacity-0'); }
+      else { bg.classList.add('opacity-0'); }
+    });
     if (counter) counter.textContent = `${String(idx + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
     currentSlide = idx;
     scheduleNext();
