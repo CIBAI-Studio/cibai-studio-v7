@@ -4,8 +4,9 @@ import { dirname, join } from 'node:path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const DATA_DIR = join(__dirname, '..', '..', 'data');
+export const DATA_DIR = join(__dirname, '..', '..', 'data');
 const SETTINGS_FILE = join(DATA_DIR, 'settings.json');
+export const UPLOADS_DIR = join(DATA_DIR, 'uploads');
 
 export interface ServiceTag {
   text: string;
@@ -89,6 +90,10 @@ export type TypoElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span'
 export interface SiteSettings {
   parameters: {
     heroSlideDuration: number;
+    siteDomain: string;
+    storageBasePath: string;
+    headerJs: string;
+    footerJs: string;
   };
   visual: {
     primaryColor: string;
@@ -577,6 +582,10 @@ const DEFAULT_PROCESS_STEPS: ProcessStep[] = [
 const DEFAULT_SETTINGS: SiteSettings = {
   parameters: {
     heroSlideDuration: 6,
+    siteDomain: '',
+    storageBasePath: '/uploads',
+    headerJs: '',
+    footerJs: '',
   },
   visual: {
     primaryColor: '#FF4D00',
@@ -670,4 +679,16 @@ export function generateSlideId(): string {
 
 export function generateStepId(): string {
   return 'step-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+}
+
+export function buildImageUrl(relativePath: string, settings: SiteSettings): string {
+  if (!relativePath) return '';
+  // If it's already an absolute URL (http/https), return as-is
+  if (relativePath.startsWith('http://') || relativePath.startsWith('https://')) return relativePath;
+  const domain = settings.parameters.siteDomain.replace(/\/+$/, '');
+  const storagePath = settings.parameters.storageBasePath.replace(/\/+$/, '');
+  if (domain) {
+    return `${domain}${storagePath}/${relativePath}`;
+  }
+  return `${storagePath}/${relativePath}`;
 }

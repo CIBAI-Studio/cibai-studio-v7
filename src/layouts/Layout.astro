@@ -76,6 +76,7 @@ const secondaryColor = settings.visual.secondaryColor;
       span.typo-override { font-family: ${settings.typography.span.fontFamily}; font-size: ${settings.typography.span.fontSize}; font-weight: ${settings.typography.span.fontWeight}; line-height: ${settings.typography.span.lineHeight}; letter-spacing: ${settings.typography.span.letterSpacing}; }
     `}></style>
     {settings.visual.customCSS && <style set:html={settings.visual.customCSS}></style>}
+    {settings.parameters.headerJs && <Fragment set:html={settings.parameters.headerJs} />}
   </head>
   <body class="bg-cyber-black text-cyber-white">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-cyber-orange focus:text-cyber-black focus:font-mono focus:text-sm">
@@ -83,5 +84,6 @@ const secondaryColor = settings.visual.secondaryColor;
     </a>
     <div class="scanline"></div>
     <slot />
+    {settings.parameters.footerJs && <Fragment set:html={settings.parameters.footerJs} />}
   </body>
 </html>

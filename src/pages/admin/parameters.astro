@@ -12,12 +12,26 @@ let successMessage = '';
 
 if (Astro.request.method === 'POST') {
   const formData = await Astro.request.formData();
+
   const heroSlideDuration = parseFloat(formData.get('heroSlideDuration') as string);
   if (!isNaN(heroSlideDuration) && heroSlideDuration >= 1 && heroSlideDuration <= 60) {
     settings.parameters.heroSlideDuration = heroSlideDuration;
-    saveSettings(settings);
-    successMessage = 'Parámetros guardados correctamente.';
   }
+
+  const siteDomain = (formData.get('siteDomain') as string || '').trim();
+  settings.parameters.siteDomain = siteDomain;
+
+  const storageBasePath = (formData.get('storageBasePath') as string || '/uploads').trim();
+  settings.parameters.storageBasePath = storageBasePath || '/uploads';
+
+  const headerJs = (formData.get('headerJs') as string || '').trim();
+  settings.parameters.headerJs = headerJs;
+
+  const footerJs = (formData.get('footerJs') as string || '').trim();
+  settings.parameters.footerJs = footerJs;
+
+  saveSettings(settings);
+  successMessage = 'Parámetros guardados correctamente.';
 }
 ---
 
@@ -33,7 +47,8 @@ if (Astro.request.method === 'POST') {
     </div>
   )}
 
-  <form method="POST" class="max-w-xl">
+  <form method="POST" class="max-w-2xl">
+    <!-- Hero / Slider -->
     <div class="card-brutal p-6 mb-6">
       <h2 class="font-mono text-xs text-cyber-orange uppercase tracking-widest mb-6">Hero / Slider</h2>
 
@@ -52,6 +67,81 @@ if (Astro.request.method === 'POST') {
           class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white focus:border-cyber-orange focus:outline-none transition-colors"
         />
         <span class="font-mono text-[9px] text-cyber-text/50 mt-1 block">Mínimo 1s, máximo 60s. Valor actual: {settings.parameters.heroSlideDuration}s</span>
+      </div>
+    </div>
+
+    <!-- Dominio y Storage -->
+    <div class="card-brutal p-6 mb-6">
+      <h2 class="font-mono text-xs text-cyber-orange uppercase tracking-widest mb-6">Dominio y almacenamiento</h2>
+
+      <div class="mb-4">
+        <label for="siteDomain" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">
+          Dominio del sitio web
+        </label>
+        <input
+          type="text"
+          id="siteDomain"
+          name="siteDomain"
+          value={settings.parameters.siteDomain}
+          placeholder="https://ejemplo.com"
+          class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white placeholder:text-cyber-text/30 focus:border-cyber-orange focus:outline-none transition-colors"
+        />
+        <span class="font-mono text-[9px] text-cyber-text/50 mt-1 block">Dominio completo con protocolo (ej: https://cibai.studio). Si está vacío, las rutas de imágenes serán relativas.</span>
+      </div>
+
+      <div class="mb-4">
+        <label for="storageBasePath" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">
+          Ruta base del storage
+        </label>
+        <input
+          type="text"
+          id="storageBasePath"
+          name="storageBasePath"
+          value={settings.parameters.storageBasePath}
+          placeholder="/uploads"
+          class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-sm text-cyber-white placeholder:text-cyber-text/30 focus:border-cyber-orange focus:outline-none transition-colors"
+        />
+        <span class="font-mono text-[9px] text-cyber-text/50 mt-1 block">Ruta donde se sirven las imágenes y documentos subidos (ej: /uploads). Se combina con el dominio para construir URLs absolutas.</span>
+      </div>
+
+      {settings.parameters.siteDomain && (
+        <div class="px-3 py-2 border border-cyber-border/30 bg-cyber-dark/50 font-mono text-[10px] text-cyber-teal">
+          Ejemplo de URL de imagen: {settings.parameters.siteDomain.replace(/\/+$/, '')}{settings.parameters.storageBasePath}/mi-imagen.jpg
+        </div>
+      )}
+    </div>
+
+    <!-- Código JS personalizado -->
+    <div class="card-brutal p-6 mb-6">
+      <h2 class="font-mono text-xs text-cyber-orange uppercase tracking-widest mb-6">Código JS personalizado</h2>
+      <p class="font-mono text-[10px] text-cyber-text/60 mb-4">Inyecta código JavaScript en el header o footer del sitio. Útil para Google Analytics, Tag Manager, píxeles de conversión u otros scripts de seguimiento.</p>
+
+      <div class="mb-4">
+        <label for="headerJs" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">
+          Código JS en el &lt;head&gt;
+        </label>
+        <textarea
+          id="headerJs"
+          name="headerJs"
+          rows="6"
+          placeholder="<!-- Google Tag Manager -->&#10;<script>...</script>"
+          class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-xs text-cyber-white placeholder:text-cyber-text/30 focus:border-cyber-orange focus:outline-none transition-colors resize-y"
+        >{settings.parameters.headerJs}</textarea>
+        <span class="font-mono text-[9px] text-cyber-text/50 mt-1 block">Se inyecta antes del cierre de &lt;/head&gt;. Incluye las etiquetas &lt;script&gt; completas.</span>
+      </div>
+
+      <div class="mb-4">
+        <label for="footerJs" class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">
+          Código JS en el footer (antes de &lt;/body&gt;)
+        </label>
+        <textarea
+          id="footerJs"
+          name="footerJs"
+          rows="6"
+          placeholder="<!-- Google Analytics -->&#10;<script>...</script>"
+          class="w-full bg-cyber-black border border-cyber-border px-4 py-3 font-mono text-xs text-cyber-white placeholder:text-cyber-text/30 focus:border-cyber-orange focus:outline-none transition-colors resize-y"
+        >{settings.parameters.footerJs}</textarea>
+        <span class="font-mono text-[9px] text-cyber-text/50 mt-1 block">Se inyecta antes del cierre de &lt;/body&gt;. Incluye las etiquetas &lt;script&gt; completas.</span>
       </div>
     </div>
 

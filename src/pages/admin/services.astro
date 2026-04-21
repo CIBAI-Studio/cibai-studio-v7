@@ -196,20 +196,21 @@ const services = [...settings.services].sort((a, b) => a.order - b.order);
           {/* Service Image */}
           <div class="mb-6 p-4 border border-cyber-border/50 bg-cyber-black/50">
             <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">Imagen cabecera</label>
+            <input type="hidden" name={`image_${svc.id}`} value={svc.image || ''} id={`image-input-${svc.id}`} />
             <div class="flex items-end gap-4">
               <div class="flex-1">
-                <input type="text" name={`image_${svc.id}`} value={svc.image || ''} id={`image-input-${svc.id}`} placeholder="URL de imagen o genera con IA" class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-sm text-cyber-white placeholder:text-cyber-text/30 focus:border-cyber-orange focus:outline-none transition-colors" />
+                <input type="file" accept="image/*" class="upload-image-input w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-sm text-cyber-white file:mr-4 file:py-1 file:px-3 file:border file:border-cyber-border file:bg-cyber-dark file:text-cyber-text file:font-mono file:text-[10px] file:uppercase file:tracking-widest file:cursor-pointer hover:file:text-cyber-white hover:file:border-cyber-orange transition-colors" data-target={`image-input-${svc.id}`} data-preview={`image-preview-${svc.id}`} data-status={`image-status-${svc.id}`} />
               </div>
-              <button type="button" class="generate-image-btn btn-secondary text-[10px] py-2 px-4 whitespace-nowrap" data-target={`image-input-${svc.id}`} data-prompt={`${svc.title.es}, professional business technology`}>
-                Generar con IA
-              </button>
             </div>
-            {svc.image && (
-              <div class="mt-3">
+            <div id={`image-preview-${svc.id}`} class="mt-3">
+              {svc.image && (
                 <img src={svc.image} alt="Preview" class="max-h-28 border border-cyber-border" />
-              </div>
-            )}
+              )}
+            </div>
             <div id={`image-status-${svc.id}`} class="mt-2 font-mono text-[10px] text-cyber-text/50 hidden"></div>
+            {svc.image && (
+              <div class="mt-1 font-mono text-[9px] text-cyber-text/50 break-all">Actual: {svc.image}</div>
+            )}
           </div>
 
           {/* Translations per locale */}
@@ -483,48 +484,47 @@ const services = [...settings.services].sort((a, b) => a.order - b.order);
       });
     }
 
-    // ── Generate image with fal.ai ─────────────────────────────────────────────
-    document.querySelectorAll('.generate-image-btn').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const el = btn as HTMLElement;
-        const targetId = el.dataset.target;
-        const prompt = el.dataset.prompt || 'futuristic technology';
-        const input = document.getElementById(targetId || '') as HTMLInputElement;
-        if (!input) return;
+    // ── Upload image ──────────────────────────────────────────────────────────
+    document.querySelectorAll('.upload-image-input').forEach(input => {
+      input.addEventListener('change', async () => {
+        const el = input as HTMLInputElement;
+        const file = el.files?.[0];
+        if (!file) return;
 
-        el.textContent = 'Generando...';
-        el.setAttribute('disabled', 'true');
-        el.classList.add('opacity-50');
+        const targetId = el.dataset.target;
+        const previewId = el.dataset.preview;
+        const statusId = el.dataset.status;
+        const hiddenInput = document.getElementById(targetId || '') as HTMLInputElement;
+        const previewContainer = document.getElementById(previewId || '');
+        const statusEl = document.getElementById(statusId || '');
+
+        if (statusEl) {
+          statusEl.textContent = 'Subiendo imagen...';
+          statusEl.classList.remove('hidden');
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
 
         try {
-          const res = await fetch('/api/generate-image', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt, width: 768, height: 512 }),
-          });
+          const res = await fetch('/api/upload-image', { method: 'POST', body: formData });
           const data = await res.json();
           if (data.url) {
-            input.value = data.url;
-            // Show preview
-            const container = input.closest('.p-4');
-            let preview = container?.querySelector('img');
-            if (preview) {
-              preview.src = data.url;
-            } else if (container) {
-              const div = document.createElement('div');
-              div.className = 'mt-3';
-              div.innerHTML = `<img src="${data.url}" alt="Preview" class="max-h-28 border border-cyber-border" />`;
-              container.appendChild(div);
+            if (hiddenInput) hiddenInput.value = data.url;
+            if (previewContainer) {
+              previewContainer.innerHTML = `<img src="/uploads/${data.filename}" alt="Preview" class="max-h-28 border border-cyber-border" />`;
+            }
+            if (statusEl) {
+              statusEl.textContent = 'Imagen subida correctamente.';
+              statusEl.classList.remove('hidden');
             }
           } else {
-            alert('Error generando imagen: ' + (data.error || 'Unknown error'));
+            alert('Error subiendo imagen: ' + (data.error || 'Unknown error'));
+            if (statusEl) statusEl.classList.add('hidden');
           }
         } catch (err: any) {
           alert('Error: ' + err.message);
-        } finally {
-          el.textContent = 'Generar con IA';
-          el.removeAttribute('disabled');
-          el.classList.remove('opacity-50');
+          if (statusEl) statusEl.classList.add('hidden');
         }
       });
     });
