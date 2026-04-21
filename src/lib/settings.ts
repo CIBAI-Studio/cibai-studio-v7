@@ -59,6 +59,7 @@ export interface HeroSlide {
   duration: number;
   accentColor: 'orange' | 'teal';
   backgroundImage?: string;
+  backgroundOpacity?: number;
   badges: Record<string, string[]>;
   heading: Record<string, HeroSlideHeading>;
   subtitle: Record<string, string>;

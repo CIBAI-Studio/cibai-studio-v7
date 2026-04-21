@@ -100,6 +100,7 @@ if (Astro.request.method === 'POST') {
       }
 
       const bgImage = (formData.get(`background_image_${id}`) as string || '').trim();
+      const bgOpacity = Math.min(100, Math.max(0, parseInt((formData.get(`background_opacity_${id}`) as string) || '100', 10)));
 
       updatedSlides.push({
         id,
@@ -107,7 +108,7 @@ if (Astro.request.method === 'POST') {
         order:       i,
         duration:    Math.min(60, Math.max(1, parseInt((formData.get(`duration_${id}`) as string) || '6', 10))),
         accentColor: (formData.get(`accent_${id}`) as string) === 'teal' ? 'teal' : 'orange',
-        ...(bgImage ? { backgroundImage: bgImage } : {}),
+        ...(bgImage ? { backgroundImage: bgImage, backgroundOpacity: bgOpacity } : {}),
         badges,
         heading,
         subtitle,
@@ -292,6 +293,28 @@ const slides = [...settings.heroSlides].sort((a, b) => a.order - b.order);
               {slide.backgroundImage && (
                 <div class="mt-1 font-mono text-[9px] text-cyber-text/50 break-all">Actual: {slide.backgroundImage}</div>
               )}
+
+              {/* Opacity slider */}
+              <div class="mt-4">
+                <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">
+                  Opacidad de la imagen: <span id={`opacity-val-${slide.id}`}>{slide.backgroundOpacity ?? 100}%</span>
+                </label>
+                <input
+                  type="range"
+                  name={`background_opacity_${slide.id}`}
+                  min="0"
+                  max="100"
+                  step="5"
+                  value={slide.backgroundOpacity ?? 100}
+                  class="w-full accent-cyber-orange bg-opacity-slider"
+                  oninput={`document.getElementById('opacity-val-${slide.id}').textContent=this.value+'%'`}
+                />
+                <div class="flex justify-between font-mono text-[9px] text-cyber-text/40 mt-1">
+                  <span>0% (invisible)</span>
+                  <span>50%</span>
+                  <span>100% (visible)</span>
+                </div>
+              </div>
             </div>
 
             {/* ── Badges per locale ── */}

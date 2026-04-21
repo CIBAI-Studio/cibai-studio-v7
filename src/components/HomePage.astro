@@ -72,14 +72,15 @@ const tickerItems = ['IA APLICADA', 'AUTOMATIZACIÓN', 'AGENTES IA', 'RAG', 'VOZ
         {processedHeroSlides.map((slide) => (
         <div class={`hero-slide${slide.isFirst ? ' active' : ''}`} id={`hero-slide-${slide.idx}`} data-duration={slide.durationMs} data-bg-image={slide.backgroundImage || ''}>
 
-          {/* Background image (per-slide, behind content) */}
+          {/* Background image (per-slide, full hero section coverage) */}
           {slide.backgroundImage && (
-            <div class="hero-slide-bg absolute inset-0 -mx-6 -mt-32 -mb-8 overflow-hidden pointer-events-none" style="z-index: -1;">
-              <img src={slide.backgroundImage} alt="" class="w-full h-full object-cover opacity-25" loading="lazy" />
-              <div class="absolute inset-0 bg-gradient-to-t from-cyber-black via-cyber-black/70 to-transparent"></div>
+            <div class="hero-slide-bg pointer-events-none overflow-hidden" style={`position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100vw;z-index:0;`}>
+              <img src={slide.backgroundImage} alt="" class="w-full h-full object-cover" style={`opacity:${(slide.backgroundOpacity ?? 100) / 100};`} loading="lazy" />
             </div>
           )}
 
+          {/* Slide content (above background image) */}
+          <div class="relative z-[1]">
           {/* Badges */}
           <div class={`font-mono text-xs text-cyber-text mb-6${slide.isFirst ? ' animate-fade-in-up' : ''}`}>
             <span class={slide.accentClass}>{slide.bdg[0]}</span>
@@ -147,6 +148,7 @@ const tickerItems = ['IA APLICADA', 'AUTOMATIZACIÓN', 'AGENTES IA', 'RAG', 'VOZ
               {slide.microcopyText}
             </p>
           )}
+          </div>{/* end relative z-[1] content wrapper */}
         </div>
         ))}
 
