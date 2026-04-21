@@ -274,20 +274,23 @@ const slides = [...settings.heroSlides].sort((a, b) => a.order - b.order);
 
             {/* ── Background image ── */}
             <div class="p-4 border border-cyber-border/50 bg-cyber-black/50">
-              <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-1">
-                Imagen de fondo (URL)
+              <label class="font-mono text-[10px] text-cyber-text uppercase tracking-widest block mb-2">
+                Imagen de fondo
               </label>
-              <input
-                type="text"
-                name={`background_image_${slide.id}`}
-                value={slide.backgroundImage || ''}
-                placeholder="https://... (dejar vacío para sin imagen)"
-                class="w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-sm text-cyber-white placeholder:text-cyber-text/30 focus:border-cyber-orange focus:outline-none transition-colors"
-              />
-              {slide.backgroundImage && (
-                <div class="mt-2">
-                  <img src={slide.backgroundImage} alt="Preview" class="max-h-24 border border-cyber-border opacity-60" />
+              <input type="hidden" name={`background_image_${slide.id}`} value={slide.backgroundImage || ''} id={`bg-input-${slide.id}`} />
+              <div class="flex items-end gap-4">
+                <div class="flex-1">
+                  <input type="file" accept="image/*" class="upload-image-input w-full bg-cyber-black border border-cyber-border px-3 py-2 font-mono text-sm text-cyber-white file:mr-4 file:py-1 file:px-3 file:border file:border-cyber-border file:bg-cyber-dark file:text-cyber-text file:font-mono file:text-[10px] file:uppercase file:tracking-widest file:cursor-pointer hover:file:text-cyber-white hover:file:border-cyber-orange transition-colors" data-target={`bg-input-${slide.id}`} data-preview={`bg-preview-${slide.id}`} data-status={`bg-status-${slide.id}`} />
                 </div>
+              </div>
+              <div id={`bg-preview-${slide.id}`} class="mt-2">
+                {slide.backgroundImage && (
+                  <img src={slide.backgroundImage} alt="Preview" class="max-h-24 border border-cyber-border opacity-60" />
+                )}
+              </div>
+              <div id={`bg-status-${slide.id}`} class="mt-2 font-mono text-[10px] text-cyber-text/50 hidden"></div>
+              {slide.backgroundImage && (
+                <div class="mt-1 font-mono text-[9px] text-cyber-text/50 break-all">Actual: {slide.backgroundImage}</div>
               )}
             </div>
 
@@ -800,6 +803,51 @@ const slides = [...settings.heroSlides].sort((a, b) => a.order - b.order);
       `;
       cont.appendChild(row);
       btn.dataset.nextIdx = String(idx + 1);
+    });
+
+    // ── Upload image ──────────────────────────────────────────────────────────
+    document.querySelectorAll('.upload-image-input').forEach(input => {
+      input.addEventListener('change', async () => {
+        const el = input as HTMLInputElement;
+        const file = el.files?.[0];
+        if (!file) return;
+
+        const targetId = el.dataset.target;
+        const previewId = el.dataset.preview;
+        const statusId = el.dataset.status;
+        const hiddenInput = document.getElementById(targetId || '') as HTMLInputElement;
+        const previewContainer = document.getElementById(previewId || '');
+        const statusEl = document.getElementById(statusId || '');
+
+        if (statusEl) {
+          statusEl.textContent = 'Subiendo imagen...';
+          statusEl.classList.remove('hidden');
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+          const res = await fetch('/api/upload-image', { method: 'POST', body: formData });
+          const data = await res.json();
+          if (data.url) {
+            if (hiddenInput) hiddenInput.value = data.url;
+            if (previewContainer) {
+              previewContainer.innerHTML = `<img src="/uploads/${data.filename}" alt="Preview" class="max-h-24 border border-cyber-border opacity-60" />`;
+            }
+            if (statusEl) {
+              statusEl.textContent = 'Imagen subida correctamente.';
+              statusEl.classList.remove('hidden');
+            }
+          } else {
+            alert('Error subiendo imagen: ' + (data.error || 'Unknown error'));
+            if (statusEl) statusEl.classList.add('hidden');
+          }
+        } catch (err: any) {
+          alert('Error: ' + err.message);
+          if (statusEl) statusEl.classList.add('hidden');
+        }
+      });
     });
 
     function reindexButtons(cont: HTMLElement) {
